@@ -48,14 +48,14 @@ export default [
     plugins: {
       "@next/next": nextPlugin,
       "@typescript-eslint": tsPlugin,
-      "react": reactPlugin,
+      react: reactPlugin,
       "react-hooks": reactHooksPlugin,
-      "import": importPlugin,
-      "tailwindcss": tailwindPlugin,
+      import: importPlugin,
+      tailwindcss: tailwindPlugin,
     },
 
     settings: {
-      "react": { version: "detect" },
+      react: { version: "detect" },
       "import/parsers": {
         "@typescript-eslint/parser": [".ts", ".tsx"],
       },
@@ -82,15 +82,15 @@ export default [
       "import/order": [
         "warn",
         {
-          "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "type"],
-          "pathGroups": [
+          groups: ["builtin", "external", "internal", "parent", "sibling", "index", "type"],
+          pathGroups: [
             { pattern: "react", group: "external", position: "before" },
             { pattern: "next/**", group: "external", position: "before" },
             { pattern: "@/**", group: "internal" },
           ],
-          "pathGroupsExcludedImportTypes": ["react"],
+          pathGroupsExcludedImportTypes: ["react"],
           "newlines-between": "always",
-          "alphabetize": { order: "asc", caseInsensitive: true },
+          alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],
 
