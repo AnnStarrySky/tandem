@@ -25,6 +25,7 @@ export default [
       "coverage/**",
       "out/**",
       "**/*.min.*",
+      "next-env.d.ts",
     ],
   },
 
@@ -94,8 +95,8 @@ export default [
         },
       ],
 
-      "tailwindcss/classnames-order": "warn",
-      "tailwindcss/no-custom-classname": "off",
+      //"tailwindcss/classnames-order": "warn",
+      //"tailwindcss/no-custom-classname": "off",
     },
   },
 
