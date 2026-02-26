@@ -1,8 +1,7 @@
 import Image from "next/image";
 
-import { useTranslations } from "next-intl";
-
 import { Button } from "antd";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
   const translation = useTranslations("HomePage");

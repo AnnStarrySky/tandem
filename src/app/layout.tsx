@@ -2,12 +2,12 @@ import React from "react";
 
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { ConfigProvider } from "antd";
 import { NextIntlClientProvider } from "next-intl";
 
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { ConfigProvider } from "antd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
