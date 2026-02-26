@@ -1,7 +1,6 @@
 import React from "react";
-import { BaseButtonProps } from "../types/BaseButton_types";
 
-const BaseButton = function ({ text = "Continue", width = "w-50", onClick }: BaseButtonProps) {
+const BaseButton = function ({ text = "Continue", width = "w-50", onClick }) {
   return (
     <button
       onClick={onClick}
