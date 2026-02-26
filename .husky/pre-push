@@ -1,0 +1,17 @@
+# .husky/pre-push
+
+npx eslint .
+
+BRANCH_NAME=$(git branch --show-current)
+if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "master" ]; then
+  echo "Pushing to $BRANCH_NAME is blocked. Please use a feature/bugfix branch."
+  exit 1
+fi
+
+ALLOWED_PATTERN='^(feat|fix|chore|refactor|style|docs)\/[a-zA-Z,0-9,_,-]+$'
+if ! echo "$BRANCH_NAME" | grep -E "$ALLOWED_PATTERN" > /dev/null; then
+  echo "Branch name '$BRANCH_NAME' does not match required format: $ALLOWED_PATTERN"
+  exit 1
+fi
+
+echo "Branch and ESLint checks passed. Proceeding with push."
