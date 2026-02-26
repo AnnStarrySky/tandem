@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import { useTranslations } from "next-intl";
 
+import { Button } from "antd";
+
 export default function Home() {
   const translation = useTranslations("HomePage");
 
@@ -63,8 +65,12 @@ export default function Home() {
             Documentation
           </a>
         </div>
+
         {/*example next-intl */}
         <h1>{translation("example")}</h1>
+
+        {/*example next-intl */}
+        <Button type="primary">Ant primary</Button>
       </main>
     </div>
   );

@@ -5,7 +5,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 
 import type { Metadata } from "next";
+
 import "./globals.css";
+import { ConfigProvider } from "antd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +32,9 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ConfigProvider>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ConfigProvider>
       </body>
     </html>
   );
