@@ -1,6 +1,8 @@
-import React from 'react';
+import React from "react";
 
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { NextIntlClientProvider } from "next-intl";
 
 import type { Metadata } from "next";
 import "./globals.css";
@@ -26,8 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }
