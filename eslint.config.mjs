@@ -12,6 +12,7 @@ import importPlugin from "eslint-plugin-import";
 import tailwindPlugin from "eslint-plugin-tailwindcss";
 
 import fsdFlat from "@uvarovag/eslint-config-feature-sliced-flat";
+// import path from "path";
 
 export default [
   ...fsdFlat,
@@ -42,6 +43,7 @@ export default [
 
         // ESLint 9 + TS без возни с project:
         projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
       globals: { ...globals.browser, ...globals.node },
     },
@@ -64,6 +66,9 @@ export default [
         typescript: true,
         node: true,
       },
+      // tailwindcss: {
+      //   config: path.join(import.meta.dirname, "./tailwind.config.js"),
+      // },
     },
 
     rules: {
@@ -95,8 +100,8 @@ export default [
         },
       ],
 
-      //"tailwindcss/classnames-order": "warn",
-      //"tailwindcss/no-custom-classname": "off",
+      // "tailwindcss/classnames-order": "warn",
+      // "tailwindcss/no-custom-classname": "off",
     },
   },
 
