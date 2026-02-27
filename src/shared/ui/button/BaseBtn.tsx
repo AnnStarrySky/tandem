@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, PropsWithChildren } from "react";
-import { cn } from "../../lib/utils/class-names";
+import { classNames, cn } from "../../lib/utils/class-names";
 
 type BaseBtnProps = {
   variant?: "primary" | "secondary" | "outline";
