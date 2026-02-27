@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "antd";
 import { useTranslations } from "next-intl";
 import { BaseBtn } from "../shared/ui/button";
-import { Icon } from "../shared/ui/button/Icon";
+import { Icon } from "../shared/ui/button";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
