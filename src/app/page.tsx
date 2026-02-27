@@ -2,7 +2,8 @@ import Image from "next/image";
 
 import { Button } from "antd";
 import { useTranslations } from "next-intl";
-import { BaseBtn } from "../shared/ui/button/BaseBtn";
+import { BaseBtn } from "../shared/ui/button";
+import { Icon } from "../shared/ui/button/Icon";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
@@ -20,6 +21,10 @@ export default function Home() {
         <BaseBtn variant="outline" disabled>
           Disabled About
         </BaseBtn>
+        <Icon name="settings" size={24} color="gray" />
+        <Icon name="home" size={24} color="gray" />
+        <Icon name="practice" size={24} color="gray" />
+        <Icon name="profile" size={24} color="gray" />
         <Image
           className="dark:invert"
           src="/next.svg"
