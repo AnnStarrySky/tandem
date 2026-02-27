@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Button } from "antd";
 import { useTranslations } from "next-intl";
-import BaseBtn from "../shared/ui/BaseBtn";
+import { BaseBtn } from "../shared/ui/button/BaseBtn";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
@@ -10,7 +10,16 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
-        <BaseBtn />
+        <BaseBtn variant="primary">Continue</BaseBtn>
+        <BaseBtn variant="secondary">Next</BaseBtn>
+        <BaseBtn variant="outline">About</BaseBtn>
+        <BaseBtn disabled>Disabled Continue</BaseBtn>
+        <BaseBtn variant="secondary" disabled>
+          Disabled Next
+        </BaseBtn>
+        <BaseBtn variant="outline" disabled>
+          Disabled About
+        </BaseBtn>
         <Image
           className="dark:invert"
           src="/next.svg"
