@@ -5,6 +5,6 @@ It offers levels from easy to advanced, a glossary of terms, gamified practice, 
 
 ## Participants:
 
-- **Angelina** (angelinavakkasova)  
-- **Anna** (annstarrysky)  
-- **Yuriy** (yuriyli)  
+- **Angelina** (angelinavakkasova)
+- **Anna** (annstarrysky)
+- **Yuriy** (yuriyli)
