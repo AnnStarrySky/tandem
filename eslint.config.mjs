@@ -41,7 +41,6 @@ export default [
         sourceType: "module",
         ecmaFeatures: { jsx: true },
 
-        // ESLint 9 + TS без возни с project:
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
