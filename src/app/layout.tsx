@@ -9,6 +9,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 
+import Header from "../shared/ui/header/Header";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,9 +34,17 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ConfigProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
-        </ConfigProvider>
+        <div className="mx-auto max-w-[1440px] p-4">
+          <div className="flex w-full justify-center rounded-lg shadow-lg">
+            <Header />
+
+            <main className="w-full px-15 py-4">
+              <ConfigProvider>
+                <NextIntlClientProvider>{children}</NextIntlClientProvider>
+              </ConfigProvider>
+            </main>
+          </div>
+        </div>
       </body>
     </html>
   );
