@@ -1,11 +1,20 @@
 import Link from "next/link";
 import { Icon } from "../icon";
-import Image from "next/image";
-import { IconLogo } from "../icon/IconLogo";
+import { IconLogo } from "../icon";
+import { cn } from "../../lib";
 
-export default function Header() {
+type HeaderProps = {
+  className?: string;
+};
+
+export const Header = ({ className }: HeaderProps) => {
   return (
-    <header className="flex h-screen w-[20%] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-4">
+    <header
+      className={cn(
+        "flex h-screen w-[20%] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-4",
+        className,
+      )}
+    >
       <div className="flex items-center self-center">
         <IconLogo />
         <span className="text-[24px] font-bold">CodeCat</span>
@@ -42,4 +51,4 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+};

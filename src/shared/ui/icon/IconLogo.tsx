@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-export function IconLogo({ size = 40, color = "rgb(30,37,46)", className }: Props) {
+export function IconLogo({ size = 50, color = "rgb(30,37,46)", className }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

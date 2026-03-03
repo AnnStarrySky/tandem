@@ -8,8 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import type { Metadata } from "next";
 
 import "./globals.css";
-
-import Header from "../shared/ui/header/Header";
+import { Header } from "../shared/ui/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +37,7 @@ export default function RootLayout({
           <div className="flex w-full justify-center rounded-lg shadow-lg">
             <Header />
 
-            <main className="w-full px-15 py-4">
+            <main className="w-full px-15 py-6">
               <ConfigProvider>
                 <NextIntlClientProvider>{children}</NextIntlClientProvider>
               </ConfigProvider>
