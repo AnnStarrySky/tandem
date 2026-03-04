@@ -21,10 +21,10 @@ export const BaseBtn: React.FC<PropsWithChildren<BaseBtnProps>> = ({
     <button
       {...rest}
       className={cn(
-        "cursor-pointer rounded-lg text-[12px] shadow-lg transition-all duration-300",
+        "cursor-pointer rounded-lg text-[12px] shadow-xl transition-all duration-300",
         variantStyles[variant],
         {
-          "cursor-pointer hover:shadow-xl active:scale-95": !rest.disabled,
+          "cursor-pointer hover:shadow-2xl active:scale-95": !rest.disabled,
           "cursor-not-allowed opacity-50": rest.disabled,
         },
         rest.className,

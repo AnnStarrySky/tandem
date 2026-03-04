@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon } from "../icon";
-import { IconLogo } from "../icon";
+import { IconLogoMain } from "../icon";
 import { cn } from "../../lib";
 
 type HeaderProps = {
@@ -15,9 +15,7 @@ export const Header = ({ className }: HeaderProps) => {
         className,
       )}
     >
-      <div className="flex items-center self-center">
-        <IconLogo />
-      </div>
+      <IconLogoMain />
       <nav className="flex w-full flex-col items-center justify-start">
         <Link
           href="/"
