@@ -1,16 +1,22 @@
 import React from "react";
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 type Props = {
-  src: string | StaticImport;
+  typeCat: string;
   alt?: string;
 };
 
-export const MainImage = ({ src, alt = "Image" }: Props) => {
+export const MainImage = ({ typeCat, alt = "Image" }: Props) => {
+  const src = `/${typeCat}.png`;
   return (
-    <div className="w-full">
-      <Image src={src} alt={alt} style={{ width: "100%", height: "auto" }} />
+    <div className="relative w-full">
+      <Image
+        src={src}
+        alt={alt}
+        width={500}
+        height={500}
+        style={{ width: "100%", height: "auto" }}
+      />
     </div>
   );
 };

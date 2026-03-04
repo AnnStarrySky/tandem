@@ -2,9 +2,9 @@ import { useTranslations } from "next-intl";
 import { SectionTitle } from "../shared/ui/sectiontitle";
 import { LessonWrapper } from "../shared/ui/paragraph";
 import { BaseBtn } from "../shared/ui/button";
-import programmer from "../../public/programmer.png";
 import { MainImage } from "../shared/ui/mainImage";
 import { ProgressBar } from "../shared/ui/progress";
+
 export default function Home() {
   const translation = useTranslations("HomePage");
 
@@ -20,7 +20,7 @@ export default function Home() {
           </BaseBtn>
         </div>
       </div>
-      <MainImage src={programmer} alt="Cat" />
+      <MainImage typeCat="programmer" alt="programmer" />
     </div>
   );
 }
