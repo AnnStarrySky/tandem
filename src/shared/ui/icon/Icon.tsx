@@ -20,7 +20,7 @@ export const iconMap = {
   profile: UserOutlined,
 } satisfies Record<string, React.ComponentType>;
 
-export function Icon({ name, size = 16, color, className }: Props) {
+export const Icon = ({ name, size = 16, color, className }: Props) => {
   const Svg = iconMap[name];
 
   return (
@@ -33,4 +33,4 @@ export function Icon({ name, size = 16, color, className }: Props) {
       }}
     />
   );
-}
+};
