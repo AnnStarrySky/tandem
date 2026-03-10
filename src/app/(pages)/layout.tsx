@@ -7,8 +7,8 @@ import { NextIntlClientProvider } from "next-intl";
 
 import type { Metadata } from "next";
 
-import "./globals.css";
-import { Header } from "../widgets/header";
+import "../globals.css";
+import { Header } from "@/src/widgets/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,14 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <main className="flex h-screen items-center justify-center">
+    <div className="mx-auto max-w-[1440px] p-4">
+      <div className="flex w-full justify-center rounded-lg shadow-2xl">
+        <Header />
+        <main className="w-full px-15 py-6">
           <ConfigProvider>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </ConfigProvider>
         </main>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

@@ -1,26 +1,44 @@
+"use client";
 import { useTranslations } from "next-intl";
-import { SectionTitle } from "../shared/ui/sectiontitle";
-import { LessonWrapper } from "../shared/ui/paragraph";
+import { IconLogoMain } from "../shared/ui/icon";
 import { BaseBtn } from "../shared/ui/button";
-import { MainImage } from "../shared/ui/mainImage";
-import { ProgressBar } from "../shared/ui/progress";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
-
+  const router = useRouter();
   return (
-    <div className="flex justify-between">
-      <div className="flex w-full flex-col gap-3">
-        <SectionTitle>Dashboard</SectionTitle>
-        <LessonWrapper lessonNumber={1} topic="Cycle" />
-        <ProgressBar progress={70} />
-        <div className="flex flex-1">
-          <BaseBtn variant="primary" className="w-[400px] self-center text-[24px]">
-            Start training
-          </BaseBtn>
-        </div>
+    <div className="flex max-w-[850px] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-2xl">
+      <IconLogoMain />
+      <p className="text-center">
+        Is a platform for beginner programmers. <br></br>It offers levels from easy to advanced, a
+        glossary of terms, gamified practice, and skills for real-world work.
+      </p>
+      <div className="flex items-center gap-5">
+        Created by:
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/angelinavakkasova"
+        >
+          angelinavakkasova
+        </Link>
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/annstarrysky"
+        >
+          annstarrysky
+        </Link>
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/yuriyli"
+        >
+          yuriyli
+        </Link>
       </div>
-      <MainImage typeCat="programmer" alt="programmer" />
+      <BaseBtn variant="primary" className="w-[200]" onClick={() => router.push("/dashboard")}>
+        Start
+      </BaseBtn>
     </div>
   );
 }

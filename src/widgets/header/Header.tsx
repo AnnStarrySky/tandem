@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Icon } from "../icon";
-import { IconLogoMain } from "../icon";
-import { cn } from "../../lib";
+import { Icon } from "@/src/shared/ui/icon";
+import { IconLogoMain } from "@/src/shared/ui/icon";
+import { cn } from "@/src/shared/lib";
 
 type HeaderProps = {
   className?: string;
