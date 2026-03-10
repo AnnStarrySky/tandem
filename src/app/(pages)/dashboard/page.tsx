@@ -2,11 +2,12 @@
 import { useTranslations } from "next-intl";
 import { LessonWrapper } from "@/src/shared/ui/paragraph";
 import { BaseBtn } from "@/src/shared/ui/button";
-import { MainImage } from "@/src/shared/ui/mainImage";
+
 import { ProgressBar } from "@/src/widgets/progress";
 import { useRouter } from "next/navigation";
 import { Typography } from "antd";
 import { ResultBar } from "@/src/widgets/result";
+import { MainImage } from "@/src/shared/ui/mainImage";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
