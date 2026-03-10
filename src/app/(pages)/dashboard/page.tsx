@@ -2,12 +2,11 @@
 import { useTranslations } from "next-intl";
 import { LessonWrapper } from "@/src/shared/ui/paragraph";
 import { BaseBtn } from "@/src/shared/ui/button";
-
 import { ProgressBar } from "@/src/widgets/progress";
 import { useRouter } from "next/navigation";
 import { Typography } from "antd";
 import { ResultBar } from "@/src/widgets/result";
-import { MainImage } from "@/src/shared/ui/mainImage";
+import { LevelImage } from "@/src/shared/ui/mainImage";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
@@ -21,7 +20,7 @@ export default function Home() {
           <ProgressBar progress={70} />
           <BaseBtn variant="primary">Start training</BaseBtn>
         </div>
-        <MainImage typeCat="programmer" alt="programmer" />
+        <LevelImage typeCat="programmer" alt="programmer" />
       </div>
       <ResultBar />
       <div>

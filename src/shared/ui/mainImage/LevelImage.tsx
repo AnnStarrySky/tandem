@@ -7,7 +7,7 @@ type Props = {
   alt?: string;
 };
 
-export const MainImage = ({ typeCat, alt = "Image" }: Props) => {
+export const LevelImage = ({ typeCat, alt = "Image" }: Props) => {
   const src = `/${typeCat}.png`;
   return (
     <div className="relative w-full">
