@@ -1,5 +1,6 @@
 import React from "react";
-import { cn } from "../../lib";
+import { cn } from "../../shared/lib";
+import { Typography } from "antd";
 
 type Props = {
   progress: number;
@@ -15,7 +16,7 @@ export const ProgressBar = ({ progress, className }: Props) => {
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <span>{progress} % completed</span>
+      <Typography.Text style={{ fontSize: "16px" }}>{progress} % completed</Typography.Text>
     </div>
   );
 };

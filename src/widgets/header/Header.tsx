@@ -11,7 +11,7 @@ export const Header = ({ className }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "flex h-screen w-[20%] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-4",
+        "flex h-screen w-[30%] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-4",
         className,
       )}
     >

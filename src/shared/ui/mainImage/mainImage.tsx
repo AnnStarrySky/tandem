@@ -14,8 +14,8 @@ export const MainImage = ({ typeCat, alt = "Image" }: Props) => {
       <Image
         src={src}
         alt={alt}
-        width={500}
-        height={500}
+        width={380}
+        height={380}
         style={{ width: "100%", height: "auto" }}
       />
       <LevelDisplay levelNumber={5} />

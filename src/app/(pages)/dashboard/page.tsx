@@ -1,32 +1,30 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { SectionTitle } from "@/src/shared/ui/sectiontitle";
 import { LessonWrapper } from "@/src/shared/ui/paragraph";
 import { BaseBtn } from "@/src/shared/ui/button";
 import { MainImage } from "@/src/shared/ui/mainImage";
-import { ProgressBar } from "@/src/shared/ui/progress";
+import { ProgressBar } from "@/src/widgets/progress";
 import { useRouter } from "next/navigation";
+import { Typography } from "antd";
+import { ResultBar } from "@/src/widgets/result";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
   const router = useRouter();
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <div className="flex justify-between">
-        <div className="flex w-full flex-col gap-3">
-          <SectionTitle>Dashboard</SectionTitle>
+        <div className="flex w-full flex-col gap-4">
+          <Typography.Title level={2}>Dashboard</Typography.Title>
           <LessonWrapper lessonNumber={1} topic="Cycle" />
           <ProgressBar progress={70} />
-          <div className="flex flex-1">
-            <BaseBtn variant="primary" className="self-center">
-              Start training
-            </BaseBtn>
-          </div>
+          <BaseBtn variant="primary">Start training</BaseBtn>
         </div>
         <MainImage typeCat="programmer" alt="programmer" />
       </div>
+      <ResultBar />
       <div>
-        <BaseBtn variant="outline" onClick={() => router.push("/")}>
+        <BaseBtn variant="outline" className="mt-3" onClick={() => router.push("/")}>
           Back
         </BaseBtn>
       </div>

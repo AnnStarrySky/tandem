@@ -1,10 +1,17 @@
 "use client";
 import React from "react";
 import AntdIcon from "@ant-design/icons";
-import { SettingOutlined, HomeOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  SettingOutlined,
+  HomeOutlined,
+  FormOutlined,
+  UserOutlined,
+  CrownOutlined,
+  CheckOutlined,
+} from "@ant-design/icons";
 import { cn } from "../../lib";
 
-type IconType = "settings" | "home" | "practice" | "profile";
+type IconType = "settings" | "home" | "practice" | "profile" | "rating" | "check";
 
 type Props = {
   name: IconType;
@@ -18,6 +25,8 @@ export const iconMap = {
   home: HomeOutlined,
   practice: FormOutlined,
   profile: UserOutlined,
+  rating: CrownOutlined,
+  check: CheckOutlined,
 } satisfies Record<string, React.ComponentType>;
 
 export const Icon = ({ name, size = 16, color, className }: Props) => {

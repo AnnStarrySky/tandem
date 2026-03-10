@@ -11,9 +11,8 @@ type Props = {
 export const LessonWrapper = ({ lessonNumber, topic, className }: Props) => {
   return (
     <div className={cn("flex gap-1", className)}>
-      <Typography></Typography>
-      <p className="">Lesson {lessonNumber}.</p>
-      <p className="">{topic}</p>
+      <Typography.Text style={{ fontSize: "20px" }}>Lesson {lessonNumber}.</Typography.Text>
+      <Typography.Text style={{ fontSize: "20px" }}>{topic}</Typography.Text>
     </div>
   );
 };

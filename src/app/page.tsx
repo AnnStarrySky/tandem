@@ -9,7 +9,7 @@ export default function Home() {
   const translation = useTranslations("HomePage");
   const router = useRouter();
   return (
-    <div className="flex max-w-[850px] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-2xl">
+    <div className="flex max-w-[850px] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-lg">
       <IconLogoMain />
       <p className="text-center">
         Is a platform for beginner programmers. <br></br>It offers levels from easy to advanced, a
