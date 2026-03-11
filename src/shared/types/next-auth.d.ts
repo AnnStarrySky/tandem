@@ -1,4 +1,4 @@
-import { BackendUser, BackendAuthResponse } from "./auth";
+import { BackendAuthResponse, BackendUser } from "./auth";
 
 import type { DefaultSession, DefaultUser } from "next-auth";
 import type { DefaultJWT } from "next-auth/jwt";
@@ -8,7 +8,6 @@ declare module "next-auth" {
     id: number;
     email?: string | null;
     name?: string | null;
-
     __backend?: BackendAuthResponse;
   }
 
@@ -16,7 +15,7 @@ declare module "next-auth" {
     user: BackendUser;
     accessToken?: string;
     refreshToken?: string;
-    provider?: "credentials" | "github" | "gitlab";
+    provider?: "credentials" | "github" | "google";
   }
 }
 
@@ -25,6 +24,6 @@ declare module "next-auth/jwt" {
     user?: BackendUser;
     accessToken?: string;
     refreshToken?: string;
-    provider?: "credentials" | "github" | "gitlab";
+    provider?: "credentials" | "github" | "google";
   }
 }

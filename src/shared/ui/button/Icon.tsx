@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
-import AntdIcon from "@ant-design/icons";
-import { SettingOutlined, HomeOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
+
+import AntdIcon, {
+  SettingOutlined,
+  HomeOutlined,
+  FormOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+
 import { cn } from "../../lib";
 
 type IconType = "settings" | "home" | "practice" | "profile";

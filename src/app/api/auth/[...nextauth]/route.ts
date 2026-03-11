@@ -1,6 +1,7 @@
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
-import GitLabProvider from "next-auth/providers/gitlab";
+import GoogleProvider from "next-auth/providers/google";
 
 import { backendPost } from "@shared/api/auth";
 
@@ -10,6 +11,10 @@ import type { NextAuthOptions } from "next-auth";
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
 
+  pages: {
+    signIn: "/auth/login",
+  },
+
   providers: [
     CredentialsProvider({
       name: "Email & Password",
@@ -18,10 +23,12 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
         const data = await backendPost<BackendAuthResponse>("/auth/login", {
-          email: credentials.email,
+          email: credentials.email.trim(),
           password: credentials.password,
         });
 
@@ -35,14 +42,13 @@ export const authOptions: NextAuthOptions = {
     }),
 
     GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.GITHUB_ID ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
 
-    GitLabProvider({
-      clientId: process.env.GITLAB_ID!,
-      clientSecret: process.env.GITLAB_SECRET!,
-      issuer: process.env.GITLAB_ISSUER ?? "https://gitlab.com",
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
 
@@ -50,14 +56,20 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, account, profile }) {
       if (user?.__backend) {
         const data = user.__backend;
+
         token.user = data.user;
         token.accessToken = data.accessToken;
         token.refreshToken = data.refreshToken;
         token.provider = "credentials";
+
         return token;
       }
 
-      if (account && (account.provider === "github" || account.provider === "gitlab")) {
+      if (account && (account.provider === "github" || account.provider === "google")) {
+        if (!account.access_token) {
+          return token;
+        }
+
         const data = await backendPost<BackendAuthResponse>("/auth/oauth", {
           provider: account.provider,
           accessToken: account.access_token,
@@ -75,12 +87,24 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      if (token.user) session.user = token.user;
+      if (token.user) {
+        session.user = token.user;
+      }
 
       session.accessToken = token.accessToken;
+      session.refreshToken = token.refreshToken;
       session.provider = token.provider;
 
       return session;
     },
   },
+
+  secret: process.env.NEXTAUTH_SECRET,
 };
+
+const handler = NextAuth(authOptions);
+
+const GET = handler;
+const POST = handler;
+
+export { GET, POST };
