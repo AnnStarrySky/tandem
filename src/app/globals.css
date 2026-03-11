@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-main: #070b12;
+  --bg-secondary: #0c1220;
+  --bg-accent: rgba(14, 165, 233, 0.16);
+  --bg-accent-2: rgba(217, 70, 239, 0.14);
+  --bg-accent-3: rgba(16, 185, 129, 0.12);
+
+  --card-bg: rgba(17, 18, 24, 0.78);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 20px 80px rgba(0, 0, 0, 0.28);
+
+  --text-main: #f8fafc;
+  --text-muted: rgba(255, 255, 255, 0.68);
+
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --input-placeholder: rgba(255, 255, 255, 0.34);
+
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.22);
+  --danger-text: #fca5a5;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html[data-theme="light"] {
+  --bg-main: #eef4fb;
+  --bg-secondary: #f9fbff;
+  --bg-accent: rgba(14, 165, 233, 0.14);
+  --bg-accent-2: rgba(217, 70, 239, 0.1);
+  --bg-accent-3: rgba(16, 185, 129, 0.08);
+
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 20px 80px rgba(15, 23, 42, 0.1);
+
+  --text-main: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.62);
+
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-border: rgba(15, 23, 42, 0.08);
+  --input-placeholder: rgba(15, 23, 42, 0.34);
+
+  --danger-bg: rgba(239, 68, 68, 0.08);
+  --danger-border: rgba(239, 68, 68, 0.18);
+  --danger-text: #b91c1c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html[data-theme="dark"] {
+  --bg-main: #070b12;
+  --bg-secondary: #0c1220;
+  --bg-accent: rgba(14, 165, 233, 0.16);
+  --bg-accent-2: rgba(217, 70, 239, 0.14);
+  --bg-accent-3: rgba(16, 185, 129, 0.12);
+
+  --card-bg: rgba(17, 18, 24, 0.78);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 20px 80px rgba(0, 0, 0, 0.28);
+
+  --text-main: #f8fafc;
+  --text-muted: rgba(255, 255, 255, 0.68);
+
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --input-placeholder: rgba(255, 255, 255, 0.34);
+
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.22);
+  --danger-text: #fca5a5;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  color: var(--text-main);
   font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%, var(--bg-accent), transparent 28%),
+    radial-gradient(circle at 0% 100%, var(--bg-accent-2), transparent 26%),
+    radial-gradient(circle at 100% 35%, var(--bg-accent-3), transparent 24%),
+    linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-main) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-y: auto;
+  transition:
+    background 0.35s ease,
+    color 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+input::placeholder {
+  color: var(--input-placeholder);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-main);
+  -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset;
+  transition: background-color 9999s ease-in-out 0s;
 }
