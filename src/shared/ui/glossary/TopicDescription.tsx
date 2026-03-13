@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import { cn } from "../../lib";
-import { Topic } from "../../types/TopicType";
+import { Topic } from "../../types";
 
 type Props = {
   topic: Topic;

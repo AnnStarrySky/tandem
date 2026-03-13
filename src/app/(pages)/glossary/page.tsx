@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Typography } from "antd";
 import { TopicList, TopicDescription } from "@/src/shared/ui/glossary";
-import { Topic } from "@/src/shared/types/TopicType";
+import { Topic } from "@/src/shared/types";
 import { BaseBtn } from "@/src/shared/ui/button";
 
 export default function GlossaryPage() {
