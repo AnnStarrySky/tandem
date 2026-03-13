@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="mx-auto max-w-[1440px] p-4">
+    <div className="mx-auto w-[1440px] max-w-[1440px] p-4">
       <div className="flex w-full justify-center rounded-lg shadow-2xl">
         <Header />
         <main className="w-full px-15 py-6">

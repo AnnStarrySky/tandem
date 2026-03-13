@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "../../shared/lib";
 import { Typography } from "antd";
 

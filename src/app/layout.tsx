@@ -8,7 +8,6 @@ import { NextIntlClientProvider } from "next-intl";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { Header } from "../widgets/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,11 +32,11 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <main className="flex h-screen items-center justify-center">
+        <div className="flex h-screen items-center justify-center">
           <ConfigProvider>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </ConfigProvider>
-        </main>
+        </div>
       </body>
     </html>
   );

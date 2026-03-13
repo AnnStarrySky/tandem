@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "@/src/shared/lib";
 import { Typography } from "antd";
 import { Icon } from "@/src/shared/ui/icon";

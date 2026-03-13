@@ -5,13 +5,13 @@ import {
   SettingOutlined,
   HomeOutlined,
   FormOutlined,
-  UserOutlined,
+  ReadOutlined,
   CrownOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
 import { cn } from "../../lib";
 
-type IconType = "settings" | "home" | "practice" | "profile" | "rating" | "check";
+type IconType = "settings" | "home" | "practice" | "glossary" | "rating" | "check";
 
 type Props = {
   name: IconType;
@@ -24,7 +24,7 @@ export const iconMap = {
   settings: SettingOutlined,
   home: HomeOutlined,
   practice: FormOutlined,
-  profile: UserOutlined,
+  glossary: ReadOutlined,
   rating: CrownOutlined,
   check: CheckOutlined,
 } satisfies Record<string, React.ComponentType>;

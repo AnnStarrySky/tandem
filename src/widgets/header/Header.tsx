@@ -11,7 +11,7 @@ export const Header = ({ className }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "flex h-screen w-[30%] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-4",
+        "flex h-screen w-[300px] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-5",
         className,
       )}
     >
@@ -25,11 +25,11 @@ export const Header = ({ className }: HeaderProps) => {
           <span className="mr-2 text-[#6a7285]">Home</span>
         </Link>
         <Link
-          href="/profile"
+          href="/glossary"
           className="flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
         >
-          <Icon name="profile" size={18} color="#6a7285" className="mr-2" />
-          <span className="mr-2 text-[#6a7285]">Profile</span>
+          <Icon name="glossary" size={18} color="#6a7285" className="mr-2" />
+          <span className="mr-2 text-[#6a7285]">Glossary</span>
         </Link>
         <Link
           href="/practice"

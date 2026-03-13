@@ -18,20 +18,23 @@ export default function Home() {
       <div className="flex items-center gap-5">
         Created by:
         <Link
-          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
           href="https://github.com/angelinavakkasova"
+          target="_blank"
         >
           angelinavakkasova
         </Link>
         <Link
-          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
           href="https://github.com/annstarrysky"
+          target="_blank"
         >
           annstarrysky
         </Link>
         <Link
-          className="creators-link rounded-lg shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
           href="https://github.com/yuriyli"
+          target="_blank"
         >
           yuriyli
         </Link>

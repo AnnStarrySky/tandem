@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { LevelDisplay } from "./LevelDisplay";
 
@@ -14,9 +13,9 @@ export const LevelImage = ({ typeCat, alt = "Image" }: Props) => {
       <Image
         src={src}
         alt={alt}
-        width={380}
-        height={380}
-        style={{ width: "100%", height: "auto" }}
+        width={300}
+        height={300}
+        style={{ width: "80%", height: "auto", marginLeft: "auto" }}
       />
       <LevelDisplay levelNumber={5} />
     </div>
