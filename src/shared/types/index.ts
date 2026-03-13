@@ -1,1 +1,1 @@
-export type { Topic } from "./TopicType";
+export * from "./Topic";
