@@ -1,84 +1,47 @@
-import Image from "next/image";
-
-import { Button } from "antd";
+"use client";
 import { useTranslations } from "next-intl";
+import { IconLogoMain } from "../shared/ui/icon";
 import { BaseBtn } from "../shared/ui/button";
-import { Icon } from "../shared/ui/button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
-
+  const router = useRouter();
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
-        <BaseBtn variant="primary">Continue</BaseBtn>
-        <BaseBtn variant="secondary">Next</BaseBtn>
-        <BaseBtn disabled>Disabled Continue</BaseBtn>
-        <BaseBtn variant="secondary" disabled>
-          Disabled Next
-        </BaseBtn>
-        <BaseBtn variant="outline" disabled>
-          Disabled About
-        </BaseBtn>
-        <Icon name="settings" size={24} color="gray" />
-        <Icon name="home" size={24} color="gray" />
-        <Icon name="practice" size={24} color="gray" />
-        <Icon name="profile" size={24} color="gray" />
-
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="bg-foreground text-background flex h-12 w-full items-center justify-center gap-2 rounded-full px-5 transition-colors hover:bg-[#383838] md:w-[158px] dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-
-        {/*example next-intl */}
-        <h1>{translation("example")}</h1>
-
-        {/*example next-intl */}
-        <Button type="primary">Ant primary</Button>
-      </main>
+    <div className="flex max-w-[850px] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-lg">
+      <IconLogoMain />
+      <p className="text-center">
+        Is a platform for beginner programmers. <br></br>It offers levels from easy to advanced, a
+        glossary of terms, gamified practice, and skills for real-world work.
+      </p>
+      <div className="flex items-center gap-5">
+        Created by:
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/angelinavakkasova"
+          target="_blank"
+        >
+          angelinavakkasova
+        </Link>
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/annstarrysky"
+          target="_blank"
+        >
+          annstarrysky
+        </Link>
+        <Link
+          className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+          href="https://github.com/yuriyli"
+          target="_blank"
+        >
+          yuriyli
+        </Link>
+      </div>
+      <BaseBtn variant="primary" className="w-[200]" onClick={() => router.push("/dashboard")}>
+        Start
+      </BaseBtn>
     </div>
   );
 }
