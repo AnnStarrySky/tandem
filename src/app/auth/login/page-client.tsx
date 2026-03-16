@@ -16,6 +16,9 @@ type LoginFormState = {
   password: string;
 };
 
+const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
+const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+
 export function LoginPageClient(): React.JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,10 +33,13 @@ export function LoginPageClient(): React.JSX.Element {
   });
 
   const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState<null | "github" | "google">(null);
   const [errorText, setErrorText] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (loading || oauthLoading) return;
 
     setLoading(true);
     setErrorText(null);
@@ -66,13 +72,29 @@ export function LoginPageClient(): React.JSX.Element {
   }
 
   async function handleGitHubSignIn() {
+    if (!githubEnabled || loading || oauthLoading) return;
+
     setErrorText(null);
-    await signIn("github", { callbackUrl });
+    setOauthLoading("github");
+
+    try {
+      await signIn("github", { callbackUrl });
+    } finally {
+      setOauthLoading(null);
+    }
   }
 
   async function handleGoogleSignIn() {
+    if (!googleEnabled || loading || oauthLoading) return;
+
     setErrorText(null);
-    await signIn("google", { callbackUrl });
+    setOauthLoading("google");
+
+    try {
+      await signIn("google", { callbackUrl });
+    } finally {
+      setOauthLoading(null);
+    }
   }
 
   return (
@@ -156,7 +178,7 @@ export function LoginPageClient(): React.JSX.Element {
                 </div>
               </div>
 
-              <h2 className="text-3xl leading-tight font-semibold">Приветствую !</h2>
+              <h2 className="text-3xl leading-tight font-semibold">Приветствую!</h2>
               <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
                 Введи email и пароль, чтобы перейти в профиль
               </p>
@@ -168,12 +190,7 @@ export function LoginPageClient(): React.JSX.Element {
                     type="email"
                     autoComplete="email"
                     value={form.email}
-                    onChange={(e) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }))
-                    }
+                    onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
                     placeholder="you@example.com"
                     required
                     className={cn(
@@ -195,14 +212,10 @@ export function LoginPageClient(): React.JSX.Element {
                     type="password"
                     autoComplete="current-password"
                     value={form.password}
-                    onChange={(e) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        password: e.target.value,
-                      }))
-                    }
+                    onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
                     placeholder="••••••••"
                     required
+                    minLength={6}
                     className={cn(
                       "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-cyan-400/15",
@@ -231,7 +244,7 @@ export function LoginPageClient(): React.JSX.Element {
 
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || oauthLoading !== null}
                   className={cn(
                     "h-12 w-full rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
                     "hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60",
@@ -257,27 +270,29 @@ export function LoginPageClient(): React.JSX.Element {
                   <button
                     type="button"
                     onClick={handleGitHubSignIn}
-                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition"
+                    disabled={!githubEnabled || loading || oauthLoading !== null}
+                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
                     style={{
                       borderColor: "var(--card-border)",
                       background: "var(--input-bg)",
                       color: "var(--text-main)",
                     }}
                   >
-                    Войти через GitHub
+                    {oauthLoading === "github" ? "Подключаем GitHub..." : "Войти через GitHub"}
                   </button>
 
                   <button
                     type="button"
                     onClick={handleGoogleSignIn}
-                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition"
+                    disabled={!googleEnabled || loading || oauthLoading !== null}
+                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
                     style={{
                       borderColor: "var(--card-border)",
                       background: "var(--input-bg)",
                       color: "var(--text-main)",
                     }}
                   >
-                    Войти через Gmail
+                    {oauthLoading === "google" ? "Подключаем Google..." : "Войти через Google"}
                   </button>
                 </div>
               </div>

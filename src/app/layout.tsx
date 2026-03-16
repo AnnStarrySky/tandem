@@ -24,26 +24,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CodeCat",
-  description: "Interview trainer platform",
+  description: "Interactive interview trainer platform",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.JSX.Element {
   return (
-    <html>
+    <html lang="ru" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="flex h-screen items-center justify-center">
-          <ConfigProvider>
-            <ThemeProvider>
-              <AuthProvider>
-                <NextIntlClientProvider>{children}</NextIntlClientProvider>
-              </AuthProvider>
-            </ThemeProvider>
-          </ConfigProvider>
-        </div>
+        <ConfigProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            </AuthProvider>
+          </ThemeProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

@@ -1,12 +1,40 @@
 import { NextResponse } from "next/server";
 
-import { backendPost } from "@shared/api/auth";
-
 type RegisterBody = {
   email: string;
   password: string;
   name?: string;
 };
+
+const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function mockRegister(input: RegisterBody): Promise<{ success: true }> {
+  await wait(500);
+
+  const email = input.email.trim().toLowerCase();
+  const password = input.password;
+  const name = input.name?.trim();
+
+  if (!email) {
+    throw new Error("Email обязателен");
+  }
+
+  if (!password || password.length < 6) {
+    throw new Error("Пароль должен содержать минимум 6 символов");
+  }
+
+  if (email === "taken@codecat.dev") {
+    throw new Error("Пользователь с таким email уже существует");
+  }
+
+  void name;
+
+  return { success: true };
+}
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -16,15 +44,27 @@ function getErrorMessage(error: unknown): string {
   return "Registration failed";
 }
 
+function getStatusCode(error: unknown): number {
+  if (error instanceof Error && error.message.includes("уже существует")) {
+    return 409;
+  }
+
+  return 400;
+}
+
 export async function POST(req: Request): Promise<Response> {
   try {
     const body = (await req.json()) as RegisterBody;
 
-    await backendPost("/auth/register", {
-      email: body.email.trim(),
-      password: body.password,
-      name: body.name?.trim() || undefined,
-    });
+    if (USE_MOCK) {
+      await mockRegister({
+        email: body.email.trim(),
+        password: body.password,
+        name: body.name?.trim() || undefined,
+      });
+    } else {
+      throw new Error("Backend register is not connected yet");
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -33,7 +73,7 @@ export async function POST(req: Request): Promise<Response> {
         success: false,
         message: getErrorMessage(error),
       },
-      { status: 400 },
+      { status: getStatusCode(error) },
     );
   }
 }
