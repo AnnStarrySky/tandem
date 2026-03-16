@@ -2,7 +2,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import type { BackendAuthResponse, BackendUser } from "@shared/types";
+import { mockLogin, mockOAuth } from "./auth-mocks";
+
+import type { BackendAuthResponse } from "@shared/types";
 import type { NextAuthOptions } from "next-auth";
 
 export const AUTH_ROUTES = {
@@ -16,68 +18,6 @@ export const AUTH_ENV = {
   githubEnabled: Boolean(process.env.GITHUB_ID && process.env.GITHUB_SECRET),
   googleEnabled: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET),
 } as const;
-
-type MockLoginInput = {
-  email: string;
-  password: string;
-};
-
-type MockOAuthInput = {
-  provider: "github" | "google";
-};
-
-const MOCK_USER: BackendUser = {
-  id: 1,
-  email: "demo@codecat.dev",
-  name: "Demo User",
-};
-
-function wait(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function buildAuthResponse(user: BackendUser): BackendAuthResponse {
-  return {
-    user,
-    accessToken: "mock-access-token",
-    refreshToken: "mock-refresh-token",
-  };
-}
-
-async function mockLogin(input: MockLoginInput): Promise<BackendAuthResponse> {
-  await wait(400);
-
-  const email = input.email.trim().toLowerCase();
-  const password = input.password;
-
-  if (!email || !password) {
-    throw new Error("Email и пароль обязательны");
-  }
-
-  if (password.length < 6) {
-    throw new Error("Пароль должен содержать минимум 6 символов");
-  }
-
-  if (email === "fail@codecat.dev") {
-    throw new Error("Неверный email или пароль");
-  }
-
-  return buildAuthResponse({
-    ...MOCK_USER,
-    email,
-    name: email === "demo@codecat.dev" ? "Demo User" : "CodeCat User",
-  });
-}
-
-async function mockOAuth(input: MockOAuthInput): Promise<BackendAuthResponse> {
-  await wait(400);
-
-  return buildAuthResponse({
-    id: input.provider === "github" ? 2 : 3,
-    email: input.provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev",
-    name: input.provider === "github" ? "GitHub User" : "Google User",
-  });
-}
 
 const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
