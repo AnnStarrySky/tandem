@@ -8,3 +8,7 @@ It offers levels from easy to advanced, a glossary of terms, gamified practice, 
 - **Angelina** (angelinavakkasova)
 - **Anna** (annstarrysky)
 - **Yuriy** (yuriyli)
+
+## Deploy:
+
+- https://tandem-pi.vercel.app/

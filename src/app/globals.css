@@ -119,3 +119,9 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset;
   transition: background-color 9999s ease-in-out 0s;
 }
+
+.creators-link {
+  padding: 4px 16px;
+  width: 200px;
+  text-align: center;
+}
