@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useTheme } from "../../providers/theme-provider";
+import { useTheme } from "@app/providers/theme-provider";
 
 function SunIcon(): React.JSX.Element {
   return (

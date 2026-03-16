@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { IconLogoMain } from "../shared/ui/icon";
-import { BaseBtn } from "../shared/ui/button";
+import { IconLogoMain } from "@shared/ui/icon";
+import { BaseBtn } from "@shared/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
