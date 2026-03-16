@@ -5,14 +5,14 @@ import { getServerSession } from "next-auth";
 
 import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 
-import { DashboardClient } from "./dashboard-client";
+import { RegisterPageClient } from "./page-client";
 
-export default async function DashboardPage(): Promise<React.JSX.Element> {
+export default async function RegisterPage(): Promise<React.JSX.Element> {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user) {
-    redirect(AUTH_ROUTES.signIn);
+  if (session?.user) {
+    redirect(AUTH_ROUTES.dashboard);
   }
 
-  return <DashboardClient />;
+  return <RegisterPageClient />;
 }
