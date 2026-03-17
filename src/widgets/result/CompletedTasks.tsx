@@ -1,7 +1,8 @@
-import { cn } from "@/src/shared/lib";
 import { Typography } from "antd";
-import { Icon } from "@/src/shared/ui/icon";
 import { useTranslations } from "next-intl";
+
+import { cn } from "@/src/shared/lib";
+import { Icon } from "@/src/shared/ui/icon";
 
 type Props = {
   tasks: number;

@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+
 import { Typography } from "antd";
-import { TopicList, TopicDescription } from "@/src/shared/ui/glossary";
-import { Topic } from "@/src/shared/ui/glossary";
 import { useTranslations, useLocale } from "next-intl";
+
+import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
 
 export default function GlossaryPage() {
   const translation = useTranslations("Glossary");

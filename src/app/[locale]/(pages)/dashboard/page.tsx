@@ -1,12 +1,14 @@
 "use client";
-import { useTranslations } from "next-intl";
-import { LessonWrapper } from "@/src/shared/ui/paragraph";
-import { BaseBtn } from "@/src/shared/ui/button";
-import { ProgressBar } from "@/src/widgets/progress";
 import { useRouter } from "next/navigation";
+
 import { Typography } from "antd";
-import { ResultBar } from "@/src/widgets/result";
+import { useTranslations } from "next-intl";
+
+import { BaseBtn } from "@/src/shared/ui/button";
 import { LevelImage } from "@/src/shared/ui/mainImage";
+import { LessonWrapper } from "@/src/shared/ui/paragraph";
+import { ProgressBar } from "@/src/widgets/progress";
+import { ResultBar } from "@/src/widgets/result";
 
 export default function Dashboard() {
   const translation = useTranslations("Dashboard");

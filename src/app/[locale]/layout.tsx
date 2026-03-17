@@ -1,9 +1,14 @@
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "@/src/i18n/routing";
-import { getMessages } from "next-intl/server";
+import React from "react";
+
 import { Geist, Geist_Mono } from "next/font/google";
+import { notFound } from "next/navigation";
+
 import { ConfigProvider } from "antd";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getMessages } from "next-intl/server";
+
+import { routing } from "../../i18n";
+
 import type { Metadata } from "next";
 import "./globals.css";
 

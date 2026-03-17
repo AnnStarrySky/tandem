@@ -1,6 +1,7 @@
+import { useTranslations } from "next-intl";
+
 import { cn } from "../../lib";
 import { IconLogo } from "../icon";
-import { useTranslations } from "next-intl";
 
 type Props = {
   levelNumber: number;

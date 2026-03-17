@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import AntdIcon from "@ant-design/icons";
-import {
+
+import AntdIcon, {
   SettingOutlined,
   HomeOutlined,
   FormOutlined,
@@ -9,6 +9,7 @@ import {
   CrownOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
+
 import { cn } from "../../lib";
 
 type IconType = "settings" | "home" | "practice" | "glossary" | "rating" | "check";

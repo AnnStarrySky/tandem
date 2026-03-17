@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Header } from "@/src/widgets/header";
 
 export default function MainLayout({

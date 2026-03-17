@@ -1,6 +1,7 @@
-import { useTranslations } from "next-intl";
-import { cn } from "../../shared/lib";
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
+
+import { cn } from "../../shared/lib";
 
 type Props = {
   progress: number;

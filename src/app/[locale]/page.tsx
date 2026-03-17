@@ -1,11 +1,12 @@
 "use client";
-import { useTranslations } from "next-intl";
-import { IconLogoMain } from "@/src/shared/ui/icon";
-import { BaseBtn } from "@/src/shared/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ChangeLanguage from "@/src/shared/ui/СhangeLanguage";
-import { useLocale } from "next-intl";
+
+import { useTranslations, useLocale } from "next-intl";
+
+import { ChangeLanguage } from "@/src/shared/ui";
+import { BaseBtn } from "@/src/shared/ui/button";
+import { IconLogoMain } from "@/src/shared/ui/icon";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
