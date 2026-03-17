@@ -3,10 +3,12 @@ import { useState } from "react";
 import { Typography } from "antd";
 import { TopicList, TopicDescription } from "@/src/shared/ui/glossary";
 import { Topic } from "@/src/shared/ui/glossary";
-import { BaseBtn } from "@/src/shared/ui/button";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function GlossaryPage() {
-  const [lang, setLang] = useState<"en" | "ru">("en");
+  const translation = useTranslations("Glossary");
+  const locale = useLocale();
+  const lang: "en" | "ru" = locale === "ru" ? "ru" : "en";
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const topics: Topic[] = [
     {
@@ -50,18 +52,10 @@ export default function GlossaryPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Typography.Title level={2}>Glossary</Typography.Title>
+        <Typography.Title level={2}>{translation("title")}</Typography.Title>
       </div>
 
       <TopicList topics={topics} lang={lang} onSelect={setSelectedTopic} className="mt-6" />
-
-      <BaseBtn
-        variant="outline"
-        className="mt-4"
-        onClick={() => setLang(lang === "en" ? "ru" : "en")}
-      >
-        {lang === "en" ? "RU" : "EN"}
-      </BaseBtn>
 
       {selectedTopic && <TopicDescription topic={selectedTopic} lang={lang} />}
     </div>

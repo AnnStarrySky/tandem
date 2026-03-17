@@ -2,12 +2,15 @@ import Link from "next/link";
 import { Icon } from "@/src/shared/ui/icon";
 import { IconLogoMain } from "@/src/shared/ui/icon";
 import { cn } from "@/src/shared/lib";
+import { useTranslations, useLocale } from "next-intl";
 
 type HeaderProps = {
   className?: string;
 };
 
 export const Header = ({ className }: HeaderProps) => {
+  const translation = useTranslations("Header");
+  const locale = useLocale();
   return (
     <header
       className={cn(
@@ -18,32 +21,32 @@ export const Header = ({ className }: HeaderProps) => {
       <IconLogoMain />
       <nav className="flex w-full flex-col items-center justify-start">
         <Link
-          href="/"
+          href={`/${locale}/dashboard`}
           className="flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
         >
           <Icon name="home" size={18} color="#6a7285" className="mr-2" />
-          <span className="mr-2 text-[#6a7285]">Home</span>
+          <span className="mr-2 text-[#6a7285]">{translation("home")}</span>
         </Link>
         <Link
-          href="/glossary"
+          href={`/${locale}/glossary`}
           className="flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
         >
           <Icon name="glossary" size={18} color="#6a7285" className="mr-2" />
-          <span className="mr-2 text-[#6a7285]">Glossary</span>
+          <span className="mr-2 text-[#6a7285]">{translation("glossary")}</span>
         </Link>
         <Link
-          href="/practice"
+          href={`/${locale}/practice`}
           className="flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
         >
           <Icon name="practice" size={18} color="#6a7285" className="mr-2" />
-          <span className="mr-2 text-[#6a7285]">Practice</span>
+          <span className="mr-2 text-[#6a7285]">{translation("practice")}</span>
         </Link>
         <Link
-          href="/settings"
+          href={`/${locale}/settings`}
           className="flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
         >
           <Icon name="settings" size={18} color="#6a7285" className="mr-2" />
-          <span className="mr-2 text-[#6a7285]">Settings</span>
+          <span className="mr-2 text-[#6a7285]">{translation("settings")}</span>
         </Link>
       </nav>
     </header>

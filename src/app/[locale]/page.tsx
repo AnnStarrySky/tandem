@@ -1,22 +1,29 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { IconLogoMain } from "../shared/ui/icon";
-import { BaseBtn } from "../shared/ui/button";
+import { IconLogoMain } from "@/src/shared/ui/icon";
+import { BaseBtn } from "@/src/shared/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ChangeLanguage from "@/src/shared/ui/СhangeLanguage";
+import { useLocale } from "next-intl";
 
 export default function Home() {
   const translation = useTranslations("HomePage");
   const router = useRouter();
+  const locale = useLocale();
+  const handleStart = () => {
+    router.push(`/${locale}/dashboard`);
+  };
   return (
-    <div className="flex max-w-[850px] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-lg">
+    <div className="flex h-[50vh] w-[50vw] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-lg">
       <IconLogoMain />
       <p className="text-center">
-        Is a platform for beginner programmers. <br></br>It offers levels from easy to advanced, a
-        glossary of terms, gamified practice, and skills for real-world work.
+        {translation("descriptionLine1")}
+        <br></br>
+        {translation("descriptionLine2")}
       </p>
-      <div className="flex items-center gap-5">
-        Created by:
+      <div className="flex w-full items-center justify-center gap-5">
+        <div className="w-[5vw]">{translation("createdBy")}</div>
         <Link
           className="creators-link rounded-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
           href="https://github.com/angelinavakkasova"
@@ -39,9 +46,10 @@ export default function Home() {
           yuriyli
         </Link>
       </div>
-      <BaseBtn variant="primary" className="w-[200]" onClick={() => router.push("/dashboard")}>
-        Start
+      <BaseBtn variant="primary" className="w-[200px]" onClick={handleStart}>
+        {translation("start")}
       </BaseBtn>
+      <ChangeLanguage />
     </div>
   );
 }

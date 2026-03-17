@@ -16,12 +16,12 @@ export default function Dashboard() {
       <div className="flex w-full justify-between">
         <div className="flex w-full flex-col gap-3">
           <Typography.Title level={2} style={{ margin: 0 }}>
-            Dashboard
+            {translation("dashboardTitle")}
           </Typography.Title>
-          <LessonWrapper lessonNumber={1} topic="Cycle" />
+          <LessonWrapper lessonNumber={1} topicKey="cycles" />
           <ProgressBar progress={70} />
           <BaseBtn variant="primary" className="my-auto">
-            Start training
+            {translation("startTraining")}
           </BaseBtn>
         </div>
         <LevelImage typeCat="legend" alt="legend" />

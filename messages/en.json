@@ -1,5 +1,32 @@
 {
   "HomePage": {
-    "example": "Translation Example!"
+    "descriptionLine1": "Is a platform for beginner programmers.",
+    "descriptionLine2": "It offers levels from easy to advanced, a glossary of terms, gamified practice, and skills for real-world work.",
+    "createdBy": "Created by:",
+    "start": "Start"
+  },
+  "Header": {
+    "home": "Home",
+    "glossary": "Glossary",
+    "practice": "Practice",
+    "settings": "Settings"
+  },
+  "Dashboard": {
+    "dashboardTitle": "Dashboard",
+    "lesson": "Lesson",
+    "completed": "completed",
+    "startTraining": "Start training",
+    "rating": "Rating",
+    "completedtasks": "Completed tasks",
+    "levelcat": "lv.",
+    "back": "Back",
+    "topics": {
+      "cycles": "Cycle",
+      "arrays": "Array",
+      "functions": "Functions"
+    }
+  },
+  "Glossary": {
+    "title": "Glossary"
   }
 }
