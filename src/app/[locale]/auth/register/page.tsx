@@ -1,6 +1,7 @@
 import React from "react";
 
 import { redirect } from "next/navigation";
+
 import { getServerSession } from "next-auth";
 
 import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
