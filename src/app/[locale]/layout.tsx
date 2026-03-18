@@ -10,7 +10,7 @@ import { getMessages } from "next-intl/server";
 import { routing } from "../../i18n";
 
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

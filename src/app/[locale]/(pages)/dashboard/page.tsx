@@ -20,7 +20,7 @@ export default function Dashboard() {
           <Typography.Title level={2} style={{ margin: 0 }}>
             {translation("dashboardTitle")}
           </Typography.Title>
-          <LessonWrapper lessonNumber={1} topicKey="cycles" />
+          <LessonWrapper lessonNumber={1} topicKey="arrays" />
           <ProgressBar progress={70} />
           <BaseBtn variant="primary" className="my-auto">
             {translation("startTraining")}
