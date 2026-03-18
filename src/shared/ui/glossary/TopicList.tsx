@@ -1,5 +1,4 @@
 import { cn } from "../../lib";
-
 import { Topic } from "./Topic";
 
 type Props = {
