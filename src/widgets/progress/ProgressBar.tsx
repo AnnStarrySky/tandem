@@ -1,5 +1,7 @@
-import { cn } from "@shared/lib";
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
+
+import { cn } from "../../shared/lib";
 
 type Props = {
   progress: number;
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export const ProgressBar = ({ progress, className }: Props) => {
+  const translation = useTranslations("Dashboard");
   return (
     <div className={cn("w-full", className)}>
       <div className="mb-2 h-3 w-full rounded-full bg-[#f4f3f8] shadow-lg">
@@ -15,7 +18,9 @@ export const ProgressBar = ({ progress, className }: Props) => {
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <Typography.Text style={{ fontSize: "16px" }}>{progress} % completed</Typography.Text>
+      <Typography.Text style={{ fontSize: "16px" }}>
+        {progress} % {translation("completed")}
+      </Typography.Text>
     </div>
   );
 };

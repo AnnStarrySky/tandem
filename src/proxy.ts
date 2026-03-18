@@ -1,11 +1,12 @@
-import { withAuth } from "next-auth/middleware";
+import createMiddleware from "next-intl/middleware";
 
-export default withAuth({
-  pages: {
-    signIn: "/auth/login",
-  },
-});
+import { routing } from "./i18n/";
+
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  // Match all pathnames except for
+  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+  // - … the ones containing a dot (e.g. `favicon.ico`)
+  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

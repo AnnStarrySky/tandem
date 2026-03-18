@@ -1,7 +1,8 @@
 import { cn } from "@/src/shared/lib";
+
+import { CompletedTasks } from "./CompletedTasks";
 import { RatingScore } from "./RatingScore";
 import { TotalScore } from "./TotalScore";
-import { CompletedTasks } from "./CompletedTasks";
 
 type Props = {
   className?: string;

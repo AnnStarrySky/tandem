@@ -1,5 +1,7 @@
-import { cn } from "@/src/shared/lib";
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
+
+import { cn } from "@/src/shared/lib";
 import { Icon } from "@/src/shared/ui/icon";
 
 type Props = {
@@ -8,10 +10,13 @@ type Props = {
 };
 
 export const CompletedTasks = ({ tasks, className }: Props) => {
+  const translation = useTranslations("Dashboard");
   return (
     <div className={cn("flex flex-1 justify-center gap-2", className)}>
       <Icon name="check" color="green" />
-      <Typography.Text style={{ fontSize: "18px" }}>Completed {tasks} tasks</Typography.Text>
+      <Typography.Text style={{ fontSize: "18px" }}>
+        {translation("completedtasks")}: {tasks}{" "}
+      </Typography.Text>
     </div>
   );
 };

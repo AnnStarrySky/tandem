@@ -125,3 +125,9 @@ input:-webkit-autofill:focus {
   width: 200px;
   text-align: center;
 }
+
+.creators-link {
+  padding: 4px 16px;
+  width: 200px;
+  text-align: center;
+}

@@ -1,5 +1,6 @@
-import { cn } from "@/src/shared/lib";
 import { Typography } from "antd";
+
+import { cn } from "@/src/shared/lib";
 
 type Props = {
   score: number;

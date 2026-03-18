@@ -1,5 +1,7 @@
-import { cn } from "@/src/shared/lib";
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
+
+import { cn } from "@/src/shared/lib";
 import { Icon } from "@/src/shared/ui/icon";
 
 type Props = {
@@ -8,6 +10,7 @@ type Props = {
 };
 
 export const RatingScore = ({ rating, className }: Props) => {
+  const translation = useTranslations("Dashboard");
   return (
     <div
       className={cn(
@@ -16,7 +19,9 @@ export const RatingScore = ({ rating, className }: Props) => {
       )}
     >
       <Icon name="rating" size={18} color="#6a7285" className="mr-2" />
-      <Typography.Text style={{ fontSize: "18px" }}>Rating #{rating}</Typography.Text>
+      <Typography.Text style={{ fontSize: "18px" }}>
+        {translation("rating")} #{rating}
+      </Typography.Text>
     </div>
   );
 };

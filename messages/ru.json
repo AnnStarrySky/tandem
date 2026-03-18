@@ -1,5 +1,31 @@
 {
   "HomePage": {
-    "example": "Translation Пример!"
+    "descriptionLine1": "Это платформа для начинающих программистов.",
+    "descriptionLine2": "Она предлагает уровни от простого к сложному, словарь терминов, игровую практику и навыки для реальной работы.",
+    "createdBy": "Создано:",
+    "start": "Начать"
+  },
+  "Header": {
+    "home": "Главная",
+    "glossary": "Глоссарий",
+    "practice": "Практика",
+    "settings": "Настройки"
+  },
+  "Dashboard": {
+    "dashboardTitle": "Моя домашняя страница",
+    "lesson": "Урок",
+    "completed": "Завершено",
+    "startTraining": "Начать тренировку",
+    "rating": "Рейтинг",
+    "completedtasks": "Завершено заданий",
+    "levelcat": "ур.",
+    "topics": {
+      "cycles": "Циклы",
+      "arrays": "Массивы",
+      "functions": "Функции"
+    }
+  },
+  "Glossary": {
+    "title": "Словарь"
   }
 }

@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { cn } from "../../lib";
 import { IconLogo } from "../icon";
 
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export const LevelDisplay = ({ levelNumber, className }: Props) => {
+  const translation = useTranslations("Dashboard");
   return (
     <div
       className={cn(
@@ -15,7 +18,10 @@ export const LevelDisplay = ({ levelNumber, className }: Props) => {
       )}
     >
       <IconLogo size={23} />
-      <span>lv.{levelNumber}</span>
+      <span>
+        {translation("levelcat")}
+        {levelNumber}
+      </span>
     </div>
   );
 };
