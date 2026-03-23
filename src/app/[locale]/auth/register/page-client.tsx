@@ -1,16 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { signIn } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { cn } from "@shared/lib";
+import { ThemeToggle } from "@shared/ui";
 
-import { ThemeToggle } from "../ui";
+import { Link, useRouter } from "../../../../i18n";
+import { LanguageToggle } from "../ui";
 
 type RegisterFormState = {
   name: string;
@@ -21,6 +22,9 @@ type RegisterFormState = {
 
 export function RegisterPageClient(): React.JSX.Element {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("AuthRegister");
+  const tCommon = useTranslations("AuthCommon");
 
   const [form, setForm] = useState<RegisterFormState>({
     name: "",
@@ -32,28 +36,17 @@ export function RegisterPageClient(): React.JSX.Element {
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
 
+  const callbackUrl = useMemo(() => {
+    return `/${locale}/dashboard`;
+  }, [locale]);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (loading) return;
-
     setErrorText(null);
 
-    const trimmedEmail = form.email.trim();
-    const trimmedName = form.name.trim();
-
-    if (!trimmedEmail) {
-      setErrorText("Email обязателен");
-      return;
-    }
-
-    if (form.password.length < 6) {
-      setErrorText("Пароль должен содержать минимум 6 символов");
-      return;
-    }
-
     if (form.password !== form.confirmPassword) {
-      setErrorText("Пароли не совпадают");
+      setErrorText(t("errors.passwordMismatch"));
       return;
     }
 
@@ -66,9 +59,9 @@ export function RegisterPageClient(): React.JSX.Element {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          email: trimmedEmail,
+          email: form.email.trim(),
           password: form.password,
-          name: trimmedName || undefined,
+          name: form.name.trim() || undefined,
         }),
       });
 
@@ -78,15 +71,15 @@ export function RegisterPageClient(): React.JSX.Element {
       } | null;
 
       if (!response.ok) {
-        setErrorText(data?.message ?? "Не удалось зарегистрироваться");
+        setErrorText(data?.message ?? t("errors.registerFailed"));
         return;
       }
 
       const signInResult = await signIn("credentials", {
         redirect: false,
-        email: trimmedEmail,
+        email: form.email.trim(),
         password: form.password,
-        callbackUrl: "/dashboard",
+        callbackUrl,
       });
 
       if (!signInResult || signInResult.error) {
@@ -94,10 +87,10 @@ export function RegisterPageClient(): React.JSX.Element {
         return;
       }
 
-      router.replace(signInResult.url ?? "/dashboard");
+      router.replace("/dashboard");
       router.refresh();
     } catch (error) {
-      setErrorText(error instanceof Error ? error.message : "Ошибка регистрации");
+      setErrorText(error instanceof Error ? error.message : t("errors.unknown"));
     } finally {
       setLoading(false);
     }
@@ -131,28 +124,34 @@ export function RegisterPageClient(): React.JSX.Element {
                     color: "var(--text-main)",
                   }}
                 >
-                  CodeCat
+                  {tCommon("brand")}
                 </div>
 
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-2">
+                  <LanguageToggle />
                   <ThemeToggle />
                 </div>
               </div>
 
-              <h2 className="text-3xl leading-tight font-semibold">Добро пожаловать!</h2>
+              <h2 className="text-3xl leading-tight font-semibold">{t("title")}</h2>
               <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
-                Создай аккаунт и сразу переходи в свой dashboard
+                {t("subtitle")}
               </p>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Имя</label>
+                  <label className="mb-2 block text-sm font-medium">{t("name")}</label>
                   <input
                     type="text"
                     autoComplete="name"
                     value={form.name}
-                    onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-                    placeholder="CodeCat User"
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
+                    }
+                    placeholder={t("namePlaceholder")}
                     className={cn(
                       "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
@@ -166,13 +165,18 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Email</label>
+                  <label className="mb-2 block text-sm font-medium">{t("email")}</label>
                   <input
                     type="email"
                     autoComplete="email"
                     value={form.email}
-                    onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-                    placeholder="you@example.com"
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
+                    placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
                       "h-12 w-full rounded-2xl border px-4 transition outline-none",
@@ -187,13 +191,18 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Пароль</label>
+                  <label className="mb-2 block text-sm font-medium">{t("password")}</label>
                   <input
                     type="password"
                     autoComplete="new-password"
                     value={form.password}
-                    onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
-                    placeholder="Минимум 6 символов"
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        password: e.target.value,
+                      }))
+                    }
+                    placeholder={t("passwordPlaceholder")}
                     required
                     minLength={6}
                     className={cn(
@@ -209,15 +218,18 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Повтори пароль</label>
+                  <label className="mb-2 block text-sm font-medium">{t("confirmPassword")}</label>
                   <input
                     type="password"
                     autoComplete="new-password"
                     value={form.confirmPassword}
                     onChange={(e) =>
-                      setForm((prev) => ({ ...prev, confirmPassword: e.target.value }))
+                      setForm((prev) => ({
+                        ...prev,
+                        confirmPassword: e.target.value,
+                      }))
                     }
-                    placeholder="Повтори пароль"
+                    placeholder={t("confirmPasswordPlaceholder")}
                     required
                     minLength={6}
                     className={cn(
@@ -257,14 +269,14 @@ export function RegisterPageClient(): React.JSX.Element {
                     boxShadow: "0 12px 30px rgba(217,70,239,0.22)",
                   }}
                 >
-                  {loading ? "Создаём аккаунт..." : "Зарегистрироваться"}
+                  {loading ? t("submitting") : t("submit")}
                 </button>
               </form>
 
               <p className="mt-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
-                Уже есть аккаунт?{" "}
+                {t("hasAccount")}{" "}
                 <Link href="/auth/login" className="font-medium underline underline-offset-4">
-                  Войти
+                  {t("loginLink")}
                 </Link>
               </p>
             </div>
@@ -280,15 +292,15 @@ export function RegisterPageClient(): React.JSX.Element {
                   color: "var(--text-main)",
                 }}
               >
-                CodeCat
+                {tCommon("brand")}
               </div>
 
               <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold">
-                Начни путь от новичка до уверенного разработчика
+                {t("heroTitle")}
               </h1>
 
               <p className="mt-4 max-w-[430px] text-base" style={{ color: "var(--text-muted)" }}>
-                Сохраняй прогресс, открывай новые темы и переходи от уроков к практике.
+                {t("heroText")}
               </p>
             </div>
 

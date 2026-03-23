@@ -3,7 +3,8 @@
     "descriptionLine1": "Is a platform for beginner programmers.",
     "descriptionLine2": "It offers levels from easy to advanced, a glossary of terms, gamified practice, and skills for real-world work.",
     "createdBy": "Created by:",
-    "start": "Start"
+    "start": "Start",
+    "register": "Register"
   },
   "Header": {
     "home": "Home",
@@ -27,5 +28,121 @@
   },
   "Glossary": {
     "title": "Glossary"
+  },
+  "AuthCommon": {
+    "brand": "CodeCat",
+    "or": "or",
+    "oauthGithub": "Continue with GitHub",
+    "oauthGoogle": "Continue with Google",
+    "oauthGoogleAlt": "Continue with Google",
+    "loadingGithub": "Connecting GitHub...",
+    "loadingGoogle": "Connecting Google..."
+  },
+  "AuthLogin": {
+    "title": "Welcome back!",
+    "subtitle": "Enter your email and password to continue to your profile",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Sign in",
+    "submitting": "Signing in...",
+    "noAccount": "Don’t have an account?",
+    "registerLink": "Create account",
+    "heroTitle": "Sign in and continue learning at your own pace",
+    "heroText": "Practice JS, TS and algorithms in an interactive format. Save your progress and move on to practice.",
+    "errors": {
+      "loginFailed": "Failed to sign in",
+      "invalidCredentials": "Invalid email or password",
+      "unknown": "Sign in error"
+    }
+  },
+  "AuthRegister": {
+    "title": "Welcome!",
+    "subtitle": "Create an account and go straight to your dashboard",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "namePlaceholder": "CodeCat User",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "At least 6 characters",
+    "confirmPasswordPlaceholder": "Repeat password",
+    "submit": "Create account",
+    "submitting": "Creating account...",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "heroTitle": "Start the journey from beginner to confident developer",
+    "heroText": "Save your progress, unlock new topics and move from lessons to practice.",
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "registerFailed": "Failed to register",
+      "unknown": "Registration error"
+    }
+  },
+  "Settings": {
+    "title": "Settings",
+    "description": "Manage your account, appearance and app preferences.",
+    "common": {
+      "on": "On",
+      "off": "Off",
+      "cancel": "Cancel"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Change your account name, email and password.",
+      "edit": "Edit",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "nameLabel": "Name",
+      "emailLabel": "Email",
+      "noEmail": "No email provided",
+      "successReLogin": "Profile updated. Please sign in again to refresh the session.",
+      "errors": {
+        "emailRequired": "Email is required",
+        "updateFailed": "Failed to update profile"
+      },
+      "password": {
+        "label": "Password",
+        "masked": "************",
+        "change": "Change password",
+        "current": "Enter current password",
+        "new": "Enter new password",
+        "confirm": "Confirm new password",
+        "save": "Save password",
+        "saving": "Saving...",
+        "success": "Password updated successfully",
+        "errors": {
+          "fillAll": "Please fill in all password fields.",
+          "minLength": "The new password must be at least 6 characters long.",
+          "mismatch": "The new password and confirmation do not match.",
+          "updateFailed": "Failed to update password"
+        }
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Choose the theme that is most comfortable for you.",
+      "light": "Light theme",
+      "dark": "Dark theme"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Switch the interface language."
+    },
+    "game": {
+      "title": "Game settings",
+      "description": "Customize how training sessions behave in the app.",
+      "sound": {
+        "title": "Sound effects"
+      },
+      "reset": "Reset settings"
+    },
+    "account": {
+      "title": "Account",
+      "description": "Sign out from your current session.",
+      "logout": "Log out",
+      "loggingOut": "Logging out..."
+    }
   }
 }

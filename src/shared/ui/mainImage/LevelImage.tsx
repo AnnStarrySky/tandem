@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import { LevelDisplay } from "./LevelDisplay";
 
 type Props = {
