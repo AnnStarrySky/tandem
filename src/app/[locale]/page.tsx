@@ -16,7 +16,7 @@ export default function Home() {
     router.push(`/${locale}/dashboard`);
   };
   return (
-    <div className="flex h-[50vh] w-[50vw] flex-col items-center justify-center gap-10 rounded-lg p-10 shadow-lg">
+    <div className="flex w-[50vw] flex-col items-center justify-center gap-10 rounded-lg bg-[#fefefe] p-10 shadow-lg">
       <IconLogoMain />
       <p className="text-center">
         {translation("descriptionLine1")}

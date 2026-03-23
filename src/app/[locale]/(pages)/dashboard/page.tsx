@@ -22,7 +22,7 @@ export default function Dashboard() {
           </Typography.Title>
           <LessonWrapper lessonNumber={1} topicKey="arrays" />
           <ProgressBar progress={70} />
-          <BaseBtn variant="primary" className="my-auto">
+          <BaseBtn variant="primary" className="my-auto py-3 uppercase">
             {translation("startTraining")}
           </BaseBtn>
         </div>

@@ -19,7 +19,7 @@ export const TopicDescription = ({ topic, className }: Props) => {
 
       <div dangerouslySetInnerHTML={{ __html: topic.description }} className="mb-4" />
 
-      <pre className="overflow-auto rounded-lg bg-white p-4">
+      <pre className="overflow-auto rounded-lg bg-[#fefefe] p-4">
         <code>{topic.example}</code>
       </pre>
     </div>
