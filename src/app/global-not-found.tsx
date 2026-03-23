@@ -1,0 +1,46 @@
+import "./globals.css";
+
+import { Geist, Geist_Mono } from "next/font/google";
+import Image from "next/image";
+
+import type { Metadata } from "next";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "CodeCat",
+  description: "404 - Page Not Found",
+};
+
+export default function GlobalNotFound() {
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex min-h-screen flex-col items-center justify-center gap-8">
+          <Image
+            src="/404.png"
+            alt="CodeCat"
+            width={420}
+            height={420}
+            priority
+            className="relative z-10 h-auto w-auto object-contain opacity-95 drop-shadow-[0_24px_48px_rgba(0,0,0,0.20)]"
+            style={{
+              maskImage: "radial-gradient(circle at center, black 70%, transparent 98%)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 70%, transparent 98%)",
+            }}
+          />
+          <h1 className="text-center text-4xl font-semibold">404 - Page Not Found</h1>
+          <p className="text-center">This page does not exist.</p>
+        </div>
+      </body>
+    </html>
+  );
+}
