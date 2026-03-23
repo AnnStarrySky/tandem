@@ -3,30 +3,25 @@
 import React, { useMemo, useState } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import { signIn } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { cn } from "@shared/lib";
 
-import { ThemeToggle } from "../ui";
+import { Link, useRouter } from "../../../../i18n";
+import { LanguageToggle, ThemeToggle } from "../ui";
 
 type LoginFormState = {
   email: string;
   password: string;
 };
 
-const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
-const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
-
 export function LoginPageClient(): React.JSX.Element {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const callbackUrl = useMemo(() => {
-    return searchParams.get("callbackUrl") ?? searchParams.get("from") ?? "/dashboard";
-  }, [searchParams]);
+  const locale = useLocale();
+  const t = useTranslations("AuthLogin");
+  const tCommon = useTranslations("AuthCommon");
 
   const [form, setForm] = useState<LoginFormState>({
     email: "",
@@ -34,13 +29,18 @@ export function LoginPageClient(): React.JSX.Element {
   });
 
   const [loading, setLoading] = useState(false);
-  const [oauthLoading, setOauthLoading] = useState<null | "github" | "google">(null);
+  const [oauthLoading, setOauthLoading] = useState<"github" | "google" | null>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
+
+  const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
+  const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+
+  const callbackUrl = useMemo(() => {
+    return `/${locale}/dashboard`;
+  }, [locale]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    if (loading || oauthLoading) return;
 
     setLoading(true);
     setErrorText(null);
@@ -54,45 +54,45 @@ export function LoginPageClient(): React.JSX.Element {
       });
 
       if (!result) {
-        setErrorText("Не удалось выполнить вход");
+        setErrorText(t("errors.loginFailed"));
         return;
       }
 
       if (result.error) {
-        setErrorText("Неверный email или пароль");
+        setErrorText(t("errors.invalidCredentials"));
         return;
       }
 
-      router.replace(result.url ?? callbackUrl);
+      router.replace("/dashboard");
       router.refresh();
     } catch (error) {
-      setErrorText(error instanceof Error ? error.message : "Ошибка входа");
+      setErrorText(error instanceof Error ? error.message : t("errors.unknown"));
     } finally {
       setLoading(false);
     }
   }
 
   async function handleGitHubSignIn() {
-    if (!githubEnabled || loading || oauthLoading) return;
-
-    setErrorText(null);
-    setOauthLoading("github");
-
     try {
-      await signIn("github", { callbackUrl });
+      setErrorText(null);
+      setOauthLoading("github");
+
+      await signIn("github", {
+        callbackUrl,
+      });
     } finally {
       setOauthLoading(null);
     }
   }
 
   async function handleGoogleSignIn() {
-    if (!googleEnabled || loading || oauthLoading) return;
-
-    setErrorText(null);
-    setOauthLoading("google");
-
     try {
-      await signIn("google", { callbackUrl });
+      setErrorText(null);
+      setOauthLoading("google");
+
+      await signIn("google", {
+        callbackUrl,
+      });
     } finally {
       setOauthLoading(null);
     }
@@ -125,16 +125,15 @@ export function LoginPageClient(): React.JSX.Element {
                   color: "var(--text-main)",
                 }}
               >
-                CodeCat
+                {tCommon("brand")}
               </div>
 
               <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold">
-                Войди и продолжай обучение в своём темпе
+                {t("heroTitle")}
               </h1>
 
               <p className="mt-4 max-w-[430px] text-base" style={{ color: "var(--text-muted)" }}>
-                Тренируй JS, TS и алгоритмы в интерактивном формате. Сохраняй прогресс и переходи к
-                практике.
+                {t("heroText")}
               </p>
             </div>
 
@@ -171,28 +170,34 @@ export function LoginPageClient(): React.JSX.Element {
                     color: "var(--text-main)",
                   }}
                 >
-                  CodeCat
+                  {tCommon("brand")}
                 </div>
 
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-2">
+                  <LanguageToggle />
                   <ThemeToggle />
                 </div>
               </div>
 
-              <h2 className="text-3xl leading-tight font-semibold">Приветствую!</h2>
+              <h2 className="text-3xl leading-tight font-semibold">{t("title")}</h2>
               <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
-                Введи email и пароль, чтобы перейти в профиль
+                {t("subtitle")}
               </p>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Email</label>
+                  <label className="mb-2 block text-sm font-medium">{t("email")}</label>
                   <input
                     type="email"
                     autoComplete="email"
                     value={form.email}
-                    onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-                    placeholder="you@example.com"
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
+                    placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
                       "h-12 w-full rounded-2xl border px-4 transition outline-none",
@@ -208,15 +213,19 @@ export function LoginPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium">Пароль</label>
+                  <label className="mb-2 block text-sm font-medium">{t("password")}</label>
                   <input
                     type="password"
                     autoComplete="current-password"
                     value={form.password}
-                    onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
-                    placeholder="••••••••"
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        password: e.target.value,
+                      }))
+                    }
+                    placeholder={t("passwordPlaceholder")}
                     required
-                    minLength={6}
                     className={cn(
                       "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-cyan-400/15",
@@ -255,7 +264,7 @@ export function LoginPageClient(): React.JSX.Element {
                     boxShadow: "0 12px 30px rgba(14,165,233,0.22)",
                   }}
                 >
-                  {loading ? "Входим..." : "Войти"}
+                  {loading ? t("submitting") : t("submit")}
                 </button>
               </form>
 
@@ -264,7 +273,7 @@ export function LoginPageClient(): React.JSX.Element {
                   className="relative py-3 text-center text-sm"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  <span className="relative z-10 bg-transparent px-3">или</span>
+                  <span className="relative z-10 bg-transparent px-3">{tCommon("or")}</span>
                 </div>
 
                 <div className="grid gap-3">
@@ -279,7 +288,7 @@ export function LoginPageClient(): React.JSX.Element {
                       color: "var(--text-main)",
                     }}
                   >
-                    {oauthLoading === "github" ? "Подключаем GitHub..." : "Войти через GitHub"}
+                    {oauthLoading === "github" ? tCommon("loadingGithub") : tCommon("oauthGithub")}
                   </button>
 
                   <button
@@ -293,15 +302,15 @@ export function LoginPageClient(): React.JSX.Element {
                       color: "var(--text-main)",
                     }}
                   >
-                    {oauthLoading === "google" ? "Подключаем Google..." : "Войти через Google"}
+                    {oauthLoading === "google" ? tCommon("loadingGoogle") : tCommon("oauthGoogle")}
                   </button>
                 </div>
               </div>
 
               <p className="mt-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
-                Нет аккаунта?{" "}
+                {t("noAccount")}{" "}
                 <Link href="/auth/register" className="font-medium underline underline-offset-4">
-                  Зарегистрироваться
+                  {t("registerLink")}
                 </Link>
               </p>
             </div>

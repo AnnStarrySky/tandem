@@ -3,7 +3,8 @@
     "descriptionLine1": "Это платформа для начинающих программистов.",
     "descriptionLine2": "Она предлагает уровни от простого к сложному, словарь терминов, игровую практику и навыки для реальной работы.",
     "createdBy": "Создано:",
-    "start": "Начать"
+    "start": "Начать",
+    "register": "Зарегистрироваться"
   },
   "Header": {
     "home": "Главная",
@@ -27,5 +28,121 @@
   },
   "Glossary": {
     "title": "Словарь"
+  },
+  "AuthCommon": {
+    "brand": "CodeCat",
+    "or": "или",
+    "oauthGithub": "Войти через GitHub",
+    "oauthGoogle": "Войти через Google",
+    "oauthGoogleAlt": "Войти через Google",
+    "loadingGithub": "Подключаем GitHub...",
+    "loadingGoogle": "Подключаем Google..."
+  },
+  "AuthLogin": {
+    "title": "Приветствую!",
+    "subtitle": "Введи email и пароль, чтобы перейти в профиль",
+    "email": "Email",
+    "password": "Пароль",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Войти",
+    "submitting": "Входим...",
+    "noAccount": "Нет аккаунта?",
+    "registerLink": "Зарегистрироваться",
+    "heroTitle": "Войди и продолжай обучение в своём темпе",
+    "heroText": "Тренируй JS, TS и алгоритмы в интерактивном формате. Сохраняй прогресс и переходи к практике.",
+    "errors": {
+      "loginFailed": "Не удалось выполнить вход",
+      "invalidCredentials": "Неверный email или пароль",
+      "unknown": "Ошибка входа"
+    }
+  },
+  "AuthRegister": {
+    "title": "Добро пожаловать!",
+    "subtitle": "Создай аккаунт и сразу переходи в свой dashboard",
+    "name": "Имя",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Повтори пароль",
+    "namePlaceholder": "CodeCat User",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "Минимум 6 символов",
+    "confirmPasswordPlaceholder": "Повтори пароль",
+    "submit": "Зарегистрироваться",
+    "submitting": "Создаём аккаунт...",
+    "hasAccount": "Уже есть аккаунт?",
+    "loginLink": "Войти",
+    "heroTitle": "Начни путь от новичка до уверенного разработчика",
+    "heroText": "Сохраняй прогресс, открывай новые темы и переходи от уроков к практике.",
+    "errors": {
+      "passwordMismatch": "Пароли не совпадают",
+      "registerFailed": "Не удалось зарегистрироваться",
+      "unknown": "Ошибка регистрации"
+    }
+  },
+  "Settings": {
+    "title": "Настройки",
+    "description": "Управляйте аккаунтом, внешним видом и параметрами приложения.",
+    "common": {
+      "on": "Вкл",
+      "off": "Выкл",
+      "cancel": "Отмена"
+    },
+    "profile": {
+      "title": "Профиль",
+      "description": "Изменяйте имя, email и пароль аккаунта.",
+      "edit": "Редактировать",
+      "save": "Сохранить изменения",
+      "saving": "Сохраняем...",
+      "nameLabel": "Имя",
+      "emailLabel": "Email",
+      "noEmail": "Email не указан",
+      "successReLogin": "Профиль обновлён. Войдите снова, чтобы обновить сессию.",
+      "errors": {
+        "emailRequired": "Email обязателен",
+        "updateFailed": "Не удалось обновить профиль"
+      },
+      "password": {
+        "label": "Пароль",
+        "masked": "************",
+        "change": "Изменить пароль",
+        "current": "Введите текущий пароль",
+        "new": "Введите новый пароль",
+        "confirm": "Подтвердите новый пароль",
+        "save": "Сохранить пароль",
+        "saving": "Сохраняем...",
+        "success": "Пароль успешно изменён",
+        "errors": {
+          "fillAll": "Заполните все поля пароля.",
+          "minLength": "Новый пароль должен содержать минимум 6 символов.",
+          "mismatch": "Новый пароль и подтверждение не совпадают.",
+          "updateFailed": "Не удалось изменить пароль"
+        }
+      }
+    },
+    "appearance": {
+      "title": "Внешний вид",
+      "description": "Выберите тему оформления, которая вам удобнее.",
+      "light": "Светлая тема",
+      "dark": "Тёмная тема"
+    },
+    "language": {
+      "title": "Язык",
+      "description": "Переключите язык интерфейса."
+    },
+    "game": {
+      "title": "Игровые настройки",
+      "description": "Настройте поведение тренажёра под себя.",
+      "sound": {
+        "title": "Звуковые эффекты"
+      },
+      "reset": "Сбросить настройки"
+    },
+    "account": {
+      "title": "Аккаунт",
+      "description": "Выйдите из текущей сессии.",
+      "logout": "Выйти",
+      "loggingOut": "Выход..."
+    }
   }
 }

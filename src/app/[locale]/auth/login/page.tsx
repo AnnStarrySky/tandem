@@ -8,11 +8,16 @@ import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 
 import { LoginPageClient } from "./page-client";
 
-export default async function LoginPage(): Promise<React.JSX.Element> {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function LoginPage({ params }: Props): Promise<React.JSX.Element> {
+  const { locale } = await params;
   const session = await getServerSession(authOptions);
 
   if (session?.user) {
-    redirect(AUTH_ROUTES.dashboard);
+    redirect(`/${locale}${AUTH_ROUTES.dashboard}`);
   }
 
   return (
