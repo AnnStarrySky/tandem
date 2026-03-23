@@ -8,9 +8,10 @@ import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { cn } from "@shared/lib";
+import { ThemeToggle } from "@shared/ui";
 
 import { Link, useRouter } from "../../../../i18n";
-import { LanguageToggle, ThemeToggle } from "../ui";
+import { LanguageToggle } from "../ui";
 
 type LoginFormState = {
   email: string;

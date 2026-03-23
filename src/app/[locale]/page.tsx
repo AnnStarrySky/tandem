@@ -37,7 +37,7 @@ export default function Home(): React.JSX.Element {
         <IconLogoMain />
 
         <p
-          className="max-w-[760px] text-center text-base leading-[1.6] sm:text-lg md:text-[24px]"
+          className="max-w-[760px] text-center text-base leading-[1.6] sm:text-lg md:text-[20px]"
           style={{ color: "var(--text-main)" }}
         >
           {translation("descriptionLine1")}
@@ -45,17 +45,17 @@ export default function Home(): React.JSX.Element {
           {translation("descriptionLine2")}
         </p>
 
-        <div className="flex w-full flex-col items-center justify-center gap-4 lg:flex-row lg:gap-5">
+        <div className="flex w-full flex-col items-center gap-4">
           <div
-            className="text-center lg:w-auto lg:min-w-[110px] lg:text-left"
+            className="text-center text-[20px] font-normal sm:text-[22px] md:text-[20px]"
             style={{ color: "var(--text-main)" }}
           >
             {translation("createdBy")}
           </div>
 
-          <div className="flex w-full flex-wrap items-center justify-center gap-4">
+          <div className="flex w-full flex-wrap items-center justify-center gap-3">
             <Link
-              className="creators-link rounded-lg border shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+              className="flex h-[42px] w-[200px] items-center justify-center rounded-lg border px-4 text-center text-[14px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] sm:text-[16px]"
               style={{
                 background: "var(--input-bg)",
                 borderColor: "var(--card-border)",
@@ -68,7 +68,7 @@ export default function Home(): React.JSX.Element {
             </Link>
 
             <Link
-              className="creators-link rounded-lg border shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+              className="flex h-[42px] w-[200px] items-center justify-center rounded-lg border px-4 text-center text-[14px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] sm:text-[16px]"
               style={{
                 background: "var(--input-bg)",
                 borderColor: "var(--card-border)",
@@ -81,7 +81,7 @@ export default function Home(): React.JSX.Element {
             </Link>
 
             <Link
-              className="creators-link rounded-lg border shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]"
+              className="flex h-[42px] w-[200px] items-center justify-center rounded-lg border px-4 text-center text-[14px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] sm:text-[16px]"
               style={{
                 background: "var(--input-bg)",
                 borderColor: "var(--card-border)",

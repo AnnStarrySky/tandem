@@ -7,9 +7,10 @@ import { ConfigProvider } from "antd";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+import { ThemeProvider } from "@shared/lib/theme";
+
 import { routing } from "../../i18n";
 import { AuthProvider } from "../providers/auth-provider";
-import { ThemeProvider } from "@shared/lib/theme";
 
 import type { Metadata } from "next";
 

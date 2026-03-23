@@ -5,8 +5,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { useTheme } from "@/src/app/providers/theme-provider";
 import { useEditableProfile, useSettings } from "@shared/lib/hooks";
+import { useTheme } from "@shared/lib/theme";
 import { BaseBtn } from "@shared/ui/button";
 
 import { LanguageSwitcher } from "./language-switcher";
