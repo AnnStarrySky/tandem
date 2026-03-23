@@ -27,6 +27,7 @@
   },
   "Glossary": {
     "title": "Glossary",
+    "btnBackTopic": "Back to list of topics",
     "topics": [
       {
         "id": 1,
@@ -48,7 +49,7 @@
       },
       {
         "id": 4,
-        "title": "Operators",
+        "title": "Ternary & Logical Operators",
         "description": "<p>The ternary operator <code>condition ? expr1 : expr2</code> is a shorthand for if-else. Logical operators <code>&&</code>, <code>||</code>, <code>??</code> (nullish coalescing) are used for conditional evaluation.</p>",
         "example": "let access = isAdmin ? 'allowed' : 'denied';\nlet name = userName ?? 'Guest';"
       },

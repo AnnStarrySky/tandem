@@ -5,9 +5,10 @@ import { Typography } from "antd";
 import { useTranslations, useMessages } from "next-intl";
 
 import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
+import { BaseBtn } from "@/src/shared/ui/button";
 
 export default function GlossaryPage() {
-  const t = useTranslations("Glossary");
+  const translate = useTranslations("Glossary");
   const messages = useMessages();
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
 
@@ -16,12 +17,19 @@ export default function GlossaryPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Typography.Title level={2}>{t("title")}</Typography.Title>
+        <Typography.Title level={2}>{translate("title")}</Typography.Title>
       </div>
 
-      {topics.length > 0 && <TopicList topics={topics} onSelect={setSelectedTopic} className="" />}
-
-      {selectedTopic && <TopicDescription topic={selectedTopic} />}
+      {selectedTopic ? (
+        <div>
+          <BaseBtn variant="secondary" className="mb-4" onClick={() => setSelectedTopic(null)}>
+            {translate("btnBackTopic")}
+          </BaseBtn>
+          <TopicDescription topic={selectedTopic} />
+        </div>
+      ) : (
+        <TopicList topics={topics} onSelect={setSelectedTopic} className="" />
+      )}
     </div>
   );
 }

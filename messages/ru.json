@@ -27,6 +27,7 @@
   },
   "Glossary": {
     "title": "Словарь",
+    "btnBackTopic": "Назад к списку тем",
     "topics": [
       {
         "id": 1,
@@ -48,7 +49,7 @@
       },
       {
         "id": 4,
-        "title": "Операторы",
+        "title": "Тернарный и логические операторы",
         "description": "<p>Тернарный оператор <code>condition ? expr1 : expr2</code> является сокращением для if-else. Логические операторы <code>&&</code>, <code>||</code>, <code>??</code> (nullish coalescing) используются для условной оценки.</p>",
         "example": "let access = isAdmin ? 'allowed' : 'denied';\nlet name = userName ?? 'Guest';"
       },
