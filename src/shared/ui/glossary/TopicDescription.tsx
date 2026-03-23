@@ -1,16 +1,13 @@
 import { Typography } from "antd";
-
 import { cn } from "../../lib";
-
 import { Topic } from "./Topic";
 
 type Props = {
   topic: Topic;
-  lang: "en" | "ru";
   className?: string;
 };
 
-export const TopicDescription = ({ topic, lang, className }: Props) => {
+export const TopicDescription = ({ topic, className }: Props) => {
   return (
     <div
       className={cn(
@@ -18,12 +15,12 @@ export const TopicDescription = ({ topic, lang, className }: Props) => {
         className,
       )}
     >
-      <Typography.Title level={3}>{topic.title[lang]}</Typography.Title>
+      <Typography.Title level={3}>{topic.title}</Typography.Title>
 
-      <div dangerouslySetInnerHTML={{ __html: topic.description[lang] }} className="mb-4" />
+      <div dangerouslySetInnerHTML={{ __html: topic.description }} className="mb-4" />
 
-      <pre className="overflow-auto rounded-lg bg-[#f4f3f8] p-4">
-        <code>{topic.example[lang]}</code>
+      <pre className="overflow-auto rounded-lg bg-white p-4">
+        <code>{topic.example}</code>
       </pre>
     </div>
   );

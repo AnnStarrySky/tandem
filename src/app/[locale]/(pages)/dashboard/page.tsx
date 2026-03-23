@@ -14,9 +14,9 @@ export default function Dashboard() {
   const translation = useTranslations("Dashboard");
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <div className="flex w-full justify-between">
-        <div className="flex w-full flex-col gap-3">
+        <div className="flex w-[60%] flex-col gap-3">
           <Typography.Title level={2} style={{ margin: 0 }}>
             {translation("dashboardTitle")}
           </Typography.Title>
@@ -26,7 +26,7 @@ export default function Dashboard() {
             {translation("startTraining")}
           </BaseBtn>
         </div>
-        <LevelImage typeCat="legend" alt="legend" />
+        <LevelImage typeCat="hacker" alt="hacker" />
       </div>
       <ResultBar />
       <div>
