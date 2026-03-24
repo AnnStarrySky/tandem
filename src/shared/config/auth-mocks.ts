@@ -1,3 +1,5 @@
+import { createMockUser, validateMockUserCredentials } from "@shared/lib/auth";
+
 import type { BackendAuthResponse, BackendUser } from "@shared/types";
 
 export type MockLoginInput = {
@@ -13,12 +15,6 @@ export type MockRegisterInput = {
 
 export type MockOAuthInput = {
   provider: "github" | "google";
-};
-
-const MOCK_USER: BackendUser = {
-  id: 1,
-  email: "demo@codecat.dev",
-  name: "Demo User",
 };
 
 export function wait(ms: number): Promise<void> {
@@ -47,14 +43,15 @@ export async function mockLogin(input: MockLoginInput): Promise<BackendAuthRespo
     throw new Error("Пароль должен содержать минимум 6 символов");
   }
 
-  if (email === "fail@codecat.dev") {
-    throw new Error("Неверный email или пароль");
-  }
+  const user = await validateMockUserCredentials({
+    email,
+    password,
+  });
 
   return buildAuthResponse({
-    ...MOCK_USER,
-    email,
-    name: email === "demo@codecat.dev" ? "Demo User" : "CodeCat User",
+    id: user.id,
+    email: user.email,
+    name: user.name,
   });
 }
 
@@ -73,11 +70,11 @@ export async function mockRegister(input: MockRegisterInput): Promise<{ success:
     throw new Error("Пароль должен содержать минимум 6 символов");
   }
 
-  if (email === "taken@codecat.dev") {
-    throw new Error("Пользователь с таким email уже существует");
-  }
-
-  void name;
+  await createMockUser({
+    email,
+    password,
+    name,
+  });
 
   return { success: true };
 }

@@ -7,9 +7,13 @@ import { ConfigProvider } from "antd";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+import { ThemeProvider } from "@shared/lib/theme";
+
 import { routing } from "../../i18n";
+import { AuthProvider } from "../providers/auth-provider";
 
 import type { Metadata } from "next";
+
 import "../globals.css";
 
 const geistSans = Geist({
@@ -44,11 +48,15 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="flex h-screen items-center justify-center">
-            <ConfigProvider>{children}</ConfigProvider>
-          </div>
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <div className="min-h-screen overflow-x-hidden">
+                <ConfigProvider>{children}</ConfigProvider>
+              </div>
+            </NextIntlClientProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
