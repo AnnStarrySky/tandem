@@ -15,7 +15,7 @@ export const Header = ({ className }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "flex w-[300px] flex-col items-start gap-4 rounded-tl-lg bg-[#f4f3f8] p-5",
+        "flex h-screen w-[300px] flex-col items-start gap-2 rounded-tl-lg bg-[#fefefe] p-5",
         className,
       )}
       style={{ background: "var(--sidebar-bg)" }}
@@ -24,10 +24,10 @@ export const Header = ({ className }: HeaderProps) => {
         <IconLogoMain />
       </div>
 
-      <nav className="app-sidebar-nav flex w-full flex-col items-center justify-start">
+      <nav className="app-sidebar-nav flex w-full flex-col items-center justify-start gap-2">
         <Link
           href={`/${locale}/dashboard`}
-          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
+          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
         >
           <Icon name="home" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
           <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("home")}</span>
@@ -35,7 +35,7 @@ export const Header = ({ className }: HeaderProps) => {
 
         <Link
           href={`/${locale}/glossary`}
-          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
+          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
         >
           <Icon name="glossary" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
           <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("glossary")}</span>
@@ -43,7 +43,7 @@ export const Header = ({ className }: HeaderProps) => {
 
         <Link
           href={`/${locale}/practice`}
-          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
+          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
         >
           <Icon name="practice" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
           <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("practice")}</span>
@@ -51,7 +51,7 @@ export const Header = ({ className }: HeaderProps) => {
 
         <Link
           href={`/${locale}/settings`}
-          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-transparent bg-[#f4f3f8] px-4 py-1 transition-all duration-300 hover:border-[2px] hover:border-white hover:bg-[#e0e5eb] hover:shadow-lg"
+          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
         >
           <Icon name="settings" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
           <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("settings")}</span>

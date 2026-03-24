@@ -27,122 +27,189 @@
     }
   },
   "Glossary": {
-    "title": "Словарь"
-  },
-  "AuthCommon": {
-    "brand": "CodeCat",
-    "or": "или",
-    "oauthGithub": "Войти через GitHub",
-    "oauthGoogle": "Войти через Google",
-    "oauthGoogleAlt": "Войти через Google",
-    "loadingGithub": "Подключаем GitHub...",
-    "loadingGoogle": "Подключаем Google..."
-  },
-  "AuthLogin": {
-    "title": "Приветствую!",
-    "subtitle": "Введи email и пароль, чтобы перейти в профиль",
-    "email": "Email",
-    "password": "Пароль",
-    "emailPlaceholder": "you@example.com",
-    "passwordPlaceholder": "••••••••",
-    "submit": "Войти",
-    "submitting": "Входим...",
-    "noAccount": "Нет аккаунта?",
-    "registerLink": "Зарегистрироваться",
-    "heroTitle": "Войди и продолжай обучение в своём темпе",
-    "heroText": "Тренируй JS, TS и алгоритмы в интерактивном формате. Сохраняй прогресс и переходи к практике.",
-    "errors": {
-      "loginFailed": "Не удалось выполнить вход",
-      "invalidCredentials": "Неверный email или пароль",
-      "unknown": "Ошибка входа"
-    }
-  },
-  "AuthRegister": {
-    "title": "Добро пожаловать!",
-    "subtitle": "Создай аккаунт и сразу переходи в свой dashboard",
-    "name": "Имя",
-    "email": "Email",
-    "password": "Пароль",
-    "confirmPassword": "Повтори пароль",
-    "namePlaceholder": "CodeCat User",
-    "emailPlaceholder": "you@example.com",
-    "passwordPlaceholder": "Минимум 6 символов",
-    "confirmPasswordPlaceholder": "Повтори пароль",
-    "submit": "Зарегистрироваться",
-    "submitting": "Создаём аккаунт...",
-    "hasAccount": "Уже есть аккаунт?",
-    "loginLink": "Войти",
-    "heroTitle": "Начни путь от новичка до уверенного разработчика",
-    "heroText": "Сохраняй прогресс, открывай новые темы и переходи от уроков к практике.",
-    "errors": {
-      "passwordMismatch": "Пароли не совпадают",
-      "registerFailed": "Не удалось зарегистрироваться",
-      "unknown": "Ошибка регистрации"
-    }
-  },
-  "Settings": {
-    "title": "Настройки",
-    "description": "Управляйте аккаунтом, внешним видом и параметрами приложения.",
-    "common": {
-      "on": "Вкл",
-      "off": "Выкл",
-      "cancel": "Отмена"
-    },
-    "profile": {
-      "title": "Профиль",
-      "description": "Изменяйте имя, email и пароль аккаунта.",
-      "edit": "Редактировать",
-      "save": "Сохранить изменения",
-      "saving": "Сохраняем...",
-      "nameLabel": "Имя",
-      "emailLabel": "Email",
-      "noEmail": "Email не указан",
-      "successReLogin": "Профиль обновлён. Войдите снова, чтобы обновить сессию.",
-      "errors": {
-        "emailRequired": "Email обязателен",
-        "updateFailed": "Не удалось обновить профиль"
+    "title": "Словарь",
+    "btnBackTopic": "Назад к списку тем",
+    "topics": [
+      {
+        "id": 1,
+        "title": "Переменные",
+        "description": "<p>Переменные используются для хранения данных. В JavaScript их можно объявлять с помощью <code>let</code>, <code>const</code> или <code>var</code>.</p>",
+        "example": "let name = 'Alice';\nconst age = 25;"
       },
-      "password": {
-        "label": "Пароль",
-        "masked": "************",
-        "change": "Изменить пароль",
-        "current": "Введите текущий пароль",
-        "new": "Введите новый пароль",
-        "confirm": "Подтвердите новый пароль",
-        "save": "Сохранить пароль",
-        "saving": "Сохраняем...",
-        "success": "Пароль успешно изменён",
-        "errors": {
-          "fillAll": "Заполните все поля пароля.",
-          "minLength": "Новый пароль должен содержать минимум 6 символов.",
-          "mismatch": "Новый пароль и подтверждение не совпадают.",
-          "updateFailed": "Не удалось изменить пароль"
-        }
+      {
+        "id": 2,
+        "title": "Методы чисел",
+        "description": "<p>JavaScript предоставляет встроенные методы для работы с числами, такие как <code>toFixed()</code>, <code>toString()</code>, <code>parseInt()</code> и <code>parseFloat()</code>.</p>",
+        "example": "let num = 3.1415;\nconsole.log(num.toFixed(2)); // 3.14"
+      },
+      {
+        "id": 3,
+        "title": "Методы строк",
+        "description": "<p>Строки имеют множество полезных методов: <code>slice()</code>, <code>substring()</code>, <code>toUpperCase()</code>, <code>toLowerCase()</code>, <code>includes()</code>, а также шаблонные строки с обратными кавычками.</p>",
+        "example": "let text = 'Hello';\nconsole.log(`${text} World!`); // Hello World!"
+      },
+      {
+        "id": 4,
+        "title": "Тернарный и логические операторы",
+        "description": "<p>Тернарный оператор <code>condition ? expr1 : expr2</code> является сокращением для if-else. Логические операторы <code>&&</code>, <code>||</code>, <code>??</code> (nullish coalescing) используются для условной оценки.</p>",
+        "example": "let access = isAdmin ? 'allowed' : 'denied';\nlet name = userName ?? 'Guest';"
+      },
+      {
+        "id": 5,
+        "title": "Switch Case",
+        "description": "<p>Оператор <code>switch</code> используется для выполнения различных действий в зависимости от условия. Полезен вместо множества if-else.</p>",
+        "example": "switch(day) {\n  case 1: console.log('Понедельник'); break;\n  case 2: console.log('Вторник'); break;\n  default: console.log('Другой день');\n}"
+      },
+      {
+        "id": 6,
+        "title": "Циклы",
+        "description": "<p>Циклы используются для повторения кода: <code>for</code>, <code>while</code>, <code>do...while</code>. Полезны для перебора массивов или повторяющихся действий.</p>",
+        "example": "for(let i = 0; i < 5; i++) {\n  console.log(i);\n}"
+      },
+      {
+        "id": 7,
+        "title": "Преобразование типов",
+        "description": "<p>JavaScript может неявно или явно преобразовывать типы данных. Для явного преобразования используются функции <code>Number()</code>, <code>String()</code>, <code>Boolean()</code>.</p>",
+        "example": "let x = '5';\nlet num = Number(x); // 5"
+      },
+      {
+        "id": 8,
+        "title": "Строгое сравнение",
+        "description": "<p>Используйте <code>===</code> и <code>!==</code> для строгого сравнения, чтобы избежать неявного приведения типов. <code>==</code> выполняет приведение типов перед сравнением.</p>",
+        "example": "console.log(5 === '5'); // false\nconsole.log(5 == '5'); // true"
+      },
+      {
+        "id": 9,
+        "title": "Let, Var, Const",
+        "description": "<p>Переменные, объявленные через <code>var</code>, имеют функциональную область видимости и могут быть подняты. <code>let</code> и <code>const</code> имеют блочную область видимости. <code>const</code> нельзя переназначать.</p>",
+        "example": "let a = 10;\nconst b = 20;\nvar c = 30;"
+      },
+      {
+        "id": 10,
+        "title": "Hoisting и Temporal Dead Zone",
+        "description": "<p>Hoisting поднимает объявления переменных и функций в начало их области видимости. Переменные, объявленные через <code>let</code> и <code>const</code>, находятся в Temporal Dead Zone до инициализации.</p>",
+        "example": "console.log(a); // ReferenceError\nlet a = 5;"
+      },
+      {
+        "id": 11,
+        "title": "Функции",
+        "description": "<p>Функции — это повторно используемые блоки кода, которые могут принимать параметры и возвращать значения. Могут быть объявлены как function declaration, function expression или arrow function.</p>",
+        "example": "function greet(name) {\n  return `Hello, ${name}`;\n}\nconst greetArrow = (name) => `Hello, ${name}`;"
+      },
+      {
+        "id": 12,
+        "title": "Область видимости (Scope)",
+        "description": "<p>Scope определяет, где доступны переменные. Глобальная область доступна везде, функциональная — только внутри функции, блочная — внутри блока ({...}) при использовании let/const.</p>",
+        "example": "let globalVar = 1;\nfunction test() {\n  let localVar = 2;\n  console.log(globalVar); // 1\n}"
+      },
+      {
+        "id": 13,
+        "title": "Замыкания (Closures)",
+        "description": "<p>Замыкания — это функции, которые «помнят» переменные из области, в которой они были созданы, даже после завершения этой области.</p>",
+        "example": "function outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    return count;\n  }\n}\nconst counter = outer();\ncounter(); // 1"
+      },
+      {
+        "id": 14,
+        "title": "Контекст и this",
+        "description": "<p>Значение <code>this</code> зависит от способа вызова функции. Методы, конструкторы и стрелочные функции ведут себя по-разному в отношении this.</p>",
+        "example": "const obj = { a: 10, show() { console.log(this.a); } };\nobj.show(); // 10"
+      },
+      {
+        "id": 15,
+        "title": "Call, Apply, Bind",
+        "description": "<p>Методы <code>call</code>, <code>apply</code> и <code>bind</code> позволяют вручную задать <code>this</code> для функции и передать аргументы.</p>",
+        "example": "function greet(msg) { console.log(msg + ' ' + this.name); }\nconst user = { name: 'Alice' };\ngreet.call(user, 'Hello');"
+      },
+      {
+        "id": 16,
+        "title": "Параметры по умолчанию и Rest",
+        "description": "<p>Функции могут иметь значения параметров по умолчанию. Rest-параметр <code>...args</code> собирает оставшиеся аргументы в массив.</p>",
+        "example": "function sum(a, b = 0, ...rest) {\n  return a + b + rest.reduce((x, y) => x + y, 0);\n}"
+      },
+      {
+        "id": 17,
+        "title": "Spread оператор",
+        "description": "<p>Spread-оператор <code>...</code> позволяет развернуть массивы или объекты, например, объединять массивы, копировать их или передавать аргументы в функции.</p>",
+        "example": "const arr1 = [1,2];\nconst arr2 = [...arr1, 3, 4]; // [1,2,3,4]"
+      },
+      {
+        "id": 18,
+        "title": "Деструктуризация",
+        "description": "<p>Деструктуризация позволяет извлекать значения из массивов или объектов в переменные компактным способом.</p>",
+        "example": "const [a, b] = [1, 2];\nconst {name, age} = {name: 'Alice', age: 25};"
+      },
+      {
+        "id": 19,
+        "title": "Методы объектов",
+        "description": "<p>Объекты имеют методы вроде <code>Object.keys()</code>, <code>Object.values()</code>, <code>Object.entries()</code>. Можно также определять геттеры, сеттеры и статические методы.</p>",
+        "example": "const obj = { a: 1, b: 2 };\nconsole.log(Object.keys(obj)); // ['a','b']"
+      },
+      {
+        "id": 20,
+        "title": "Методы массивов",
+        "description": "<p>Массивы предоставляют встроенные методы для перебора, фильтрации, маппинга, сортировки и выравнивания, такие как <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, <code>sort()</code>.</p>",
+        "example": "const arr = [1,2,3];\nconst squares = arr.map(x => x*x); // [1,4,9]"
+      },
+      {
+        "id": 21,
+        "title": "Основы DOM",
+        "description": "<p>DOM (Document Object Model) представляет HTML-структуру страницы. Элементы можно получать и изменять с помощью <code>document.getElementById()</code>, <code>querySelector()</code> и др.</p>",
+        "example": "const el = document.getElementById('title');\nel.textContent = 'Hello World!';"
+      },
+      {
+        "id": 22,
+        "title": "События",
+        "description": "<p>События — это действия в браузере, например, клик или нажатие клавиши. Используйте <code>addEventListener</code>, чтобы реагировать на события.</p>",
+        "example": "button.addEventListener('click', () => console.log('Клик!'));"
+      },
+      {
+        "id": 23,
+        "title": "Всплытие событий",
+        "description": "<p>События проходят три фазы: capturing, target и bubbling. Можно остановить всплытие с помощью <code>stopPropagation()</code> и предотвратить стандартное поведение через <code>preventDefault()</code>.</p>",
+        "example": "form.addEventListener('submit', e => e.preventDefault());"
+      },
+      {
+        "id": 24,
+        "title": "Таймеры",
+        "description": "<p>JavaScript предоставляет <code>setTimeout()</code> и <code>setInterval()</code> для отложенного и повторяющегося выполнения. Используйте <code>clearTimeout()</code> или <code>clearInterval()</code> для остановки.</p>",
+        "example": "const timer = setTimeout(() => console.log('Привет'), 1000);\nclearTimeout(timer);"
+      },
+      {
+        "id": 25,
+        "title": "Web Storage",
+        "description": "<p>LocalStorage и SessionStorage позволяют хранить данные в браузере. Cookies — другой способ хранения данных.</p>",
+        "example": "localStorage.setItem('name', 'Alice');\nconsole.log(localStorage.getItem('name'));"
+      },
+      {
+        "id": 26,
+        "title": "Функции-конструкторы",
+        "description": "<p>Функции-конструкторы используются для создания нескольких объектов с одинаковыми свойствами и методами с помощью ключевого слова <code>new</code>.</p>",
+        "example": "function Person(name, age) { this.name = name; this.age = age; }\nconst alice = new Person('Alice', 25);"
+      },
+      {
+        "id": 27,
+        "title": "Классы",
+        "description": "<p>ES6-классы — это синтаксический сахар для функций-конструкторов. Можно определять конструкторы, методы и использовать <code>extends</code> для наследования.</p>",
+        "example": "class Person {\n  constructor(name) { this.name = name; }\n  greet() { return `Hello, ${this.name}`; }\n}"
+      },
+      {
+        "id": 28,
+        "title": "Прототипное наследование",
+        "description": "<p>Объекты могут наследовать свойства и методы других объектов через цепочку прототипов. Используйте <code>Object.create()</code> или <code>__proto__</code>.</p>",
+        "example": "const parent = { greet() { return 'Hi'; } };\nconst child = Object.create(parent);\nconsole.log(child.greet()); // Hi"
+      },
+      {
+        "id": 29,
+        "title": "Promises и Async/Await",
+        "description": "<p>Promises представляют асинхронные операции. Синтаксис <code>async/await</code> позволяет писать асинхронный код в синхронном стиле.</p>",
+        "example": "async function fetchData() {\n  const res = await fetch('/api/data');\n  return res.json();\n}"
+      },
+      {
+        "id": 30,
+        "title": "Обработка ошибок",
+        "description": "<p>Используйте <code>try..catch</code> для обработки ошибок. Можно также выбрасывать свои ошибки с помощью <code>throw</code>.</p>",
+        "example": "try {\n  throw new Error('Упс');\n} catch(e) {\n  console.log(e.message);\n}"
       }
-    },
-    "appearance": {
-      "title": "Внешний вид",
-      "description": "Выберите тему оформления, которая вам удобнее.",
-      "light": "Светлая тема",
-      "dark": "Тёмная тема"
-    },
-    "language": {
-      "title": "Язык",
-      "description": "Переключите язык интерфейса."
-    },
-    "game": {
-      "title": "Игровые настройки",
-      "description": "Настройте поведение тренажёра под себя.",
-      "sound": {
-        "title": "Звуковые эффекты"
-      },
-      "reset": "Сбросить настройки"
-    },
-    "account": {
-      "title": "Аккаунт",
-      "description": "Выйдите из текущей сессии.",
-      "logout": "Выйти",
-      "loggingOut": "Выход..."
-    }
+    ]
   }
 }
