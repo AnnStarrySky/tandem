@@ -22,7 +22,11 @@ export default function GlossaryPage() {
 
       {selectedTopic ? (
         <div>
-          <BaseBtn variant="secondary" className="mb-4" onClick={() => setSelectedTopic(null)}>
+          <BaseBtn
+            variant="primary"
+            className="mt-4 mb-4 py-3"
+            onClick={() => setSelectedTopic(null)}
+          >
             {translate("btnBackTopic")}
           </BaseBtn>
           <TopicDescription topic={selectedTopic} />

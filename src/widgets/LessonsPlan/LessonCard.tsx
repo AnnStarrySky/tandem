@@ -2,6 +2,7 @@
 
 import { Typography } from "antd";
 import { cn } from "@/src/shared/lib";
+import { useTranslations } from "next-intl";
 
 type Props = {
   lessonNumber: number;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export const LessonCard = ({ lessonNumber, title, completed, className }: Props) => {
+  const translate = useTranslations("Dashboard");
   return (
     <div
       className={cn(
@@ -19,7 +21,7 @@ export const LessonCard = ({ lessonNumber, title, completed, className }: Props)
       )}
     >
       <Typography.Text style={{ fontSize: "12px", color: "#6a7285" }}>
-        Lesson {lessonNumber}
+        {translate("lesson")} {lessonNumber}
       </Typography.Text>
       <Typography.Text style={{ fontSize: "15px", color: "var(--text-main)", fontWeight: 500 }}>
         {title}

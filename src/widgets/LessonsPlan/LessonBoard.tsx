@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Typography } from "antd";
-import { useMessages } from "next-intl";
+import { useMessages, useTranslations } from "next-intl";
 import { cn } from "@/src/shared/lib";
 import { LessonCard } from "./LessonCard";
 import { BaseBtn } from "@/src/shared/ui/button";
@@ -19,7 +19,7 @@ type Topic = {
 export const LessonBoard = ({ className }: { className?: string }) => {
   const [page, setPage] = useState(1);
   const messages = useMessages();
-
+  const translate = useTranslations("Dashboard");
   const completedLessonIds = [1, 3, 5];
 
   const topics: Topic[] = (messages.Glossary.topics as Topic[]).map((topic) => ({
@@ -34,7 +34,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
   return (
     <div className={cn("flex flex-col gap-10", className)}>
       <Typography.Title level={3} style={{ margin: 0, color: "var(--text-main)" }}>
-        Study Plan
+        {translate("studyplan")}
       </Typography.Title>
 
       <div className="grid grid-cols-3 gap-6">

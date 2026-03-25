@@ -40,15 +40,6 @@ export const Header = ({ className }: HeaderProps) => {
           <Icon name="glossary" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
           <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("glossary")}</span>
         </Link>
-
-        <Link
-          href={`/${locale}/practice`}
-          className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
-        >
-          <Icon name="practice" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-          <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("practice")}</span>
-        </Link>
-
         <Link
           href={`/${locale}/settings`}
           className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
