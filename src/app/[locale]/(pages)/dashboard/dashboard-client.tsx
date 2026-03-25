@@ -12,6 +12,7 @@ import { LevelImage } from "@shared/ui/mainImage";
 import { LessonWrapper } from "@shared/ui/paragraph";
 import { ProgressBar } from "@widgets/progress";
 import { ResultBar } from "@widgets/result";
+import { LessonBoard } from "@/src/widgets/LessonsPlan";
 
 export default function Dashboard() {
   const translation = useTranslations("Dashboard");
@@ -41,12 +42,7 @@ export default function Dashboard() {
       <div className="app-dashboard-result">
         <ResultBar />
       </div>
-
-      <div>
-        <BaseBtn variant="outline" className="mt-3" onClick={() => router.push(`/${locale}`)}>
-          Back
-        </BaseBtn>
-      </div>
+      <LessonBoard />
     </section>
   );
 }

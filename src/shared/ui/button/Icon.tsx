@@ -6,11 +6,13 @@ import AntdIcon, {
   HomeOutlined,
   FormOutlined,
   UserOutlined,
+  LeftOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 
 import { cn } from "../../lib";
 
-type IconType = "settings" | "home" | "practice" | "profile";
+type IconType = "settings" | "home" | "practice" | "profile" | "leftArrow" | "rightArrow";
 
 type Props = {
   name: IconType;
@@ -24,6 +26,8 @@ export const iconMap = {
   home: HomeOutlined,
   practice: FormOutlined,
   profile: UserOutlined,
+  leftArrow: LeftOutlined,
+  rightArrow: RightOutlined,
 } satisfies Record<string, React.ComponentType>;
 
 export function Icon({ name, size = 16, color, className }: Props) {
