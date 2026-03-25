@@ -5,8 +5,8 @@ import { Typography } from "antd";
 import { useMessages } from "next-intl";
 import { cn } from "@/src/shared/lib";
 import { LessonCard } from "./LessonCard";
-import { BaseBtn } from "@/src/shared/ui/button/BaseBtn";
-import { Icon } from "@/src/shared/ui/button/Icon";
+import { BaseBtn } from "@/src/shared/ui/button";
+import { Icon } from "@/src/shared/ui/button";
 
 const PAGE_SIZE = 9;
 
