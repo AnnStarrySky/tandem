@@ -18,8 +18,8 @@ export default function Dashboard() {
   const translation = useTranslations("Dashboard");
   return (
     <section className="app-dashboard-page flex flex-col gap-8 text-[var(--text-main)]">
-      <div className="flex w-full justify-between gap-8">
-        <div className="flex w-[60%] flex-col gap-5">
+      <div className="flex w-full flex-col justify-between gap-8 lg:flex-row">
+        <div className="flex w-full flex-col gap-5 lg:w-[60%]">
           <Typography.Title level={2} style={{ margin: 0, color: "var(--text-main)" }}>
             {translation("dashboardTitle")}
           </Typography.Title>
@@ -32,8 +32,9 @@ export default function Dashboard() {
             {translation("startTraining")}
           </BaseBtn>
         </div>
-
-        <LevelImage typeCat="legend" alt="legend" />
+        <div className="flex w-full justify-center lg:w-auto lg:justify-start">
+          <LevelImage typeCat="programmer" alt="legend" />
+        </div>
       </div>
 
       <div className="app-dashboard-result">
