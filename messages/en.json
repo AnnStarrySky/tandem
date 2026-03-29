@@ -303,6 +303,31 @@
           "updateFailed": "Failed to update password"
         }
       }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Choose the theme that is most comfortable for you.",
+      "light": "Light theme",
+      "dark": "Dark theme"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Switch the interface language."
+    },
+    "game": {
+      "title": "Game settings",
+      "description": "Customize how training sessions behave in the app.",
+      "sound": {
+        "title": "Sound effects"
+      },
+      "reset": "Reset settings"
+    },
+    "account": {
+      "title": "Account",
+      "description": "Sign out from your current session.",
+      "logout": "Log out",
+      "loggingOut": "Logging out..."
     }
   }
 }
+
