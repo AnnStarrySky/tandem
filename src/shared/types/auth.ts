@@ -9,3 +9,10 @@ export type BackendAuthResponse = {
   accessToken: string;
   refreshToken?: string;
 };
+
+export type BackendLoginResponse = {
+  id: string;
+  name: string;
+  jwtToken: string;
+  errors?: object;
+};
