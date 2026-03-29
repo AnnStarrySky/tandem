@@ -15,7 +15,7 @@ export const Header = ({ className }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "flex h-screen w-[300px] flex-col items-start gap-2 rounded-tl-lg bg-[#fefefe] p-5",
+        "flex min-h-screen w-[300px] flex-col items-start gap-2 rounded-tl-lg bg-[#fefefe] p-3 sm:p-4 md:p-5",
         className,
       )}
       style={{ background: "var(--sidebar-bg)" }}

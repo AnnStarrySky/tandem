@@ -1,6 +1,5 @@
 "use client";
 
-import { Typography } from "antd";
 import { cn } from "@/src/shared/lib";
 import { useTranslations } from "next-intl";
 
@@ -13,29 +12,21 @@ type Props = {
 
 export const LessonCard = ({ lessonNumber, title, completed, className }: Props) => {
   const translate = useTranslations("Dashboard");
+
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-2 rounded-lg border border-[#f4f3f8] bg-[#fefefe] p-4 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]",
+        "relative flex min-h-[100px] flex-col gap-3 overflow-hidden rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-6 shadow-sm",
         className,
       )}
     >
-      <Typography.Text style={{ fontSize: "12px", color: "#6a7285" }}>
+      <span className="text-[12px] tracking-wider text-[var(--text-muted)] uppercase">
         {translate("lesson")} {lessonNumber}
-      </Typography.Text>
-      <Typography.Text style={{ fontSize: "15px", color: "var(--text-main)", fontWeight: 500 }}>
-        {title}
-      </Typography.Text>
+      </span>
 
-      {completed && (
-        <div
-          className="absolute top-0 right-0 h-full"
-          style={{
-            width: "5%",
-            backgroundColor: "#A7F3D0",
-          }}
-        />
-      )}
+      <p className="text-[16px] leading-tight font-bold text-[var(--text-main)]">{title}</p>
+
+      {completed && <div className="absolute top-0 right-0 h-full w-4 bg-[#84f59b]" />}
     </div>
   );
 };

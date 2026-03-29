@@ -11,7 +11,7 @@ export const IconLogoMain = ({ className }: Props) => {
   return (
     <div className={cn("flex items-center self-center", className)}>
       <IconLogo />
-      <span className="text-[24px] font-bold">CodeCat</span>
+      <span className="text-[24px] font-bold text-[var(--text-main)]">CodeCat</span>
     </div>
   );
 };
