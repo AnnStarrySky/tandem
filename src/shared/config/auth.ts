@@ -4,19 +4,21 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { mockLogin, mockOAuth } from "./auth-mocks";
 
-import type { BackendAuthResponse } from "@shared/types";
+import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
 import type { NextAuthOptions } from "next-auth";
 
 export const AUTH_ROUTES = {
   signIn: "/auth/login",
   signUp: "/auth/register",
   dashboard: "/dashboard",
+  backendLogin: "api/login",
 } as const;
 
 export const AUTH_ENV = {
   useMock: process.env.AUTH_USE_MOCK === "true",
   githubEnabled: Boolean(process.env.GITHUB_ID && process.env.GITHUB_SECRET),
   googleEnabled: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET),
+  backendUrl: process.env.BACKEND_URL,
 } as const;
 
 const providers: NextAuthOptions["providers"] = [
@@ -31,26 +33,67 @@ const providers: NextAuthOptions["providers"] = [
         return null;
       }
 
-      try {
-        let data: BackendAuthResponse;
+      if (AUTH_ENV.useMock) {
+        try {
+          let data: BackendAuthResponse;
 
-        if (AUTH_ENV.useMock) {
           data = await mockLogin({
             email: credentials.email.trim(),
             password: credentials.password,
           });
-        } else {
-          throw new Error("Backend login is not connected yet");
-        }
 
-        return {
-          id: data.user.id,
-          email: data.user.email ?? undefined,
-          name: data.user.name ?? undefined,
-          __backend: data,
-        };
-      } catch {
-        return null;
+          return {
+            id: data.user.id,
+            email: data.user.email ?? undefined,
+            name: data.user.name ?? undefined,
+            __backend: data,
+          };
+        } catch {
+          return null;
+        }
+      } else {
+        try {
+          if (!AUTH_ENV.backendUrl) {
+            throw Error("No backend URL");
+          }
+          const backendResult = await fetch(
+            new URL(AUTH_ROUTES.backendLogin, AUTH_ENV.backendUrl),
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({
+                email: credentials.email.trim(),
+                password: credentials.password,
+              }),
+            },
+          );
+
+          if (backendResult.ok) {
+            const data: BackendLoginResponse = await backendResult.json();
+
+            let backendUser: BackendAuthResponse = {
+              user: {
+                id: 1,
+                email: credentials.email.trim(),
+                name: data.name,
+              },
+              accessToken: data.jwtToken,
+            };
+            return {
+              id: 1,
+              email: credentials.email.trim(),
+              name: data.name,
+              __backend: backendUser,
+            };
+          } else {
+            return null;
+          }
+        } catch {
+          return null;
+        }
       }
     },
   }),
@@ -88,7 +131,6 @@ export const authOptions: NextAuthOptions = {
           ...token.user,
           ...session.user,
         };
-
         return token;
       }
 
