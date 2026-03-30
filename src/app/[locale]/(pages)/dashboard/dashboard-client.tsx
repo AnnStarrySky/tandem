@@ -32,7 +32,7 @@ export default function Dashboard() {
             {translation("startTraining")}
           </BaseBtn>
         </div>
-        <div className="flex w-full justify-center lg:w-auto lg:justify-start">
+        <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
           <LevelImage typeCat="newbie" alt="newbie" />
         </div>
       </div>
