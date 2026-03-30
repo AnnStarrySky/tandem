@@ -16,9 +16,9 @@ export const ResultBar = ({ className }: Props) => {
         className,
       )}
     >
-      <TotalScore score={520} />
-      <RatingScore rating={3} />
-      <CompletedTasks tasks={25} />
+      <TotalScore score={0} />
+      <RatingScore rating={1} />
+      <CompletedTasks tasks={0} />
     </div>
   );
 };

@@ -26,14 +26,14 @@ export default function Dashboard() {
 
           <LessonWrapper lessonNumber={1} topicKey="arrays" className="app-dashboard-lesson" />
 
-          <ProgressBar progress={70} />
+          <ProgressBar progress={0} />
 
           <BaseBtn variant="primary" className="my-auto py-3 uppercase">
             {translation("startTraining")}
           </BaseBtn>
         </div>
         <div className="flex w-full justify-center lg:w-auto lg:justify-start">
-          <LevelImage typeCat="programmer" alt="legend" />
+          <LevelImage typeCat="newbie" alt="newbie" />
         </div>
       </div>
 

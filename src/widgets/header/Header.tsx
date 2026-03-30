@@ -4,6 +4,7 @@ import { useTranslations, useLocale } from "next-intl";
 
 import { cn } from "@/src/shared/lib";
 import { Icon, IconLogoMain } from "@/src/shared/ui/icon";
+import { UserName } from "@/src/shared/ui";
 
 type HeaderProps = {
   className?: string;
@@ -23,7 +24,10 @@ export const Header = ({ className }: HeaderProps) => {
       <div className="app-sidebar-logo">
         <IconLogoMain />
       </div>
-
+      <UserName
+        userName="Anna"
+        className="w-full rounded-lg border-[2px] border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
+      />
       <nav className="app-sidebar-nav flex w-full flex-col items-center justify-start gap-2">
         <Link
           href={`/${locale}/dashboard`}

@@ -17,7 +17,7 @@ export const LevelImage = ({ typeCat, alt = "Image" }: Props) => {
   return (
     <div className="relative flex h-[220px] w-[220px] items-center justify-center rounded-full border-[2px] border-[var(--card-border)] bg-[var(--input-bg)]">
       <Image src={src} alt={alt} fill className="object-cover" />
-      <LevelDisplay levelNumber={5} />
+      <LevelDisplay levelNumber={1} />
     </div>
   );
 };
