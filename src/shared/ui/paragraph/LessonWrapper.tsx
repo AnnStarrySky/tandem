@@ -13,9 +13,9 @@ export const LessonWrapper = ({ lessonNumber, topicKey, className }: Props) => {
   const translation = useTranslations("Dashboard");
   return (
     <div className={cn("flex gap-1", className)}>
-      <Typography.Title level={3} style={{ fontSize: "20px", margin: 0 }}>
+      <h3 className="m-0 text-[20px] font-medium">
         {translation("lesson")} {lessonNumber}. {translation(`topics.${topicKey}`)}
-      </Typography.Title>
+      </h3>
     </div>
   );
 };
