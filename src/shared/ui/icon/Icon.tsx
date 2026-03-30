@@ -2,19 +2,30 @@
 
 import React from "react";
 
-import AntdIcon from "@ant-design/icons";
-import {
-  SettingOutlined,
-  HomeOutlined,
-  FormOutlined,
-  ReadOutlined,
-  CrownOutlined,
+import AntdIcon, {
   CheckOutlined,
+  CrownOutlined,
+  FormOutlined,
+  HomeOutlined,
+  LeftOutlined,
+  ReadOutlined,
+  RightOutlined,
+  SettingOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 
 import { cn } from "../../lib";
 
-type IconType = "settings" | "home" | "practice" | "glossary" | "rating" | "check";
+export type IconType =
+  | "settings"
+  | "home"
+  | "practice"
+  | "glossary"
+  | "rating"
+  | "check"
+  | "profile"
+  | "leftArrow"
+  | "rightArrow";
 
 type Props = {
   name: IconType;
@@ -30,7 +41,10 @@ export const iconMap = {
   glossary: ReadOutlined,
   rating: CrownOutlined,
   check: CheckOutlined,
-} satisfies Record<string, React.ComponentType>;
+  profile: UserOutlined,
+  leftArrow: LeftOutlined,
+  rightArrow: RightOutlined,
+} satisfies Record<IconType, React.ComponentType>;
 
 export const Icon = ({ name, size = 16, color, className }: Props) => {
   const Svg = iconMap[name];
@@ -38,10 +52,10 @@ export const Icon = ({ name, size = 16, color, className }: Props) => {
   return (
     <AntdIcon
       component={Svg}
-      className={cn("inline-flex leading-none", color, className)}
+      className={cn("inline-flex leading-none", className)}
       style={{
         fontSize: `${size}px`,
-        color: color,
+        color,
       }}
     />
   );

@@ -30,11 +30,25 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body = (await req.json()) as RegisterBody;
 
+    const email = body.email?.trim().toLowerCase();
+    const password = body.password ?? "";
+    const name = body.name?.trim() || undefined;
+
+    if (!email || !password) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Email and password are required",
+        },
+        { status: 400 },
+      );
+    }
+
     if (USE_MOCK) {
       await mockRegister({
-        email: body.email.trim(),
-        password: body.password,
-        name: body.name?.trim() || undefined,
+        email,
+        password,
+        name,
       });
     } else {
       throw new Error("Backend register is not connected yet");

@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+
 import { createMockUser, validateMockUserCredentials } from "@shared/lib/auth";
 
 import type { BackendAuthResponse, BackendUser } from "@shared/types";
@@ -70,9 +72,11 @@ export async function mockRegister(input: MockRegisterInput): Promise<{ success:
     throw new Error("Пароль должен содержать минимум 6 символов");
   }
 
+  const passwordHash = await bcrypt.hash(password, 12);
+
   await createMockUser({
     email,
-    password,
+    passwordHash,
     name,
   });
 

@@ -1,12 +1,16 @@
 "use client";
 
 import { useState } from "react";
+
 import { Typography } from "antd";
 import { useMessages, useTranslations } from "next-intl";
+
+import { getPracticeTopicIdByLessonNumber } from "@/src/entities/practice";
 import { cn } from "@/src/shared/lib";
-import { LessonCard } from "./LessonCard";
 import { BaseBtn } from "@/src/shared/ui/button";
-import { Icon } from "@/src/shared/ui/button";
+import { Icon } from "@/src/shared/ui/icon";
+
+import { LessonCard } from "./LessonCard";
 
 const PAGE_SIZE = 9;
 
@@ -27,7 +31,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
     completed: completedLessonIds.includes(topic.id),
   }));
 
-  const totalPages = Math.ceil(topics.length / PAGE_SIZE);
+  const totalPages = Math.max(1, Math.ceil(topics.length / PAGE_SIZE));
   const start = (page - 1) * PAGE_SIZE;
   const currentTopics = topics.slice(start, start + PAGE_SIZE);
 
@@ -44,6 +48,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
             lessonNumber={topic.id}
             title={topic.title}
             completed={topic.completed}
+            practiceTopicId={getPracticeTopicIdByLessonNumber(topic.id)}
           />
         ))}
       </div>
@@ -66,7 +71,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
             className={cn(
               "h-8 w-8 p-0 text-sm",
               p === page
-                ? "border-transparent bg-gradient-to-r from-[#13b2f6] to-[#84f59b] text-white"
+                ? "border-transparent bg-linear-to-r from-[#13b2f6] to-[#84f59b] text-white"
                 : "border border-[#f4f3f8] bg-[#fefefe] text-[#6a7285]",
             )}
           >
