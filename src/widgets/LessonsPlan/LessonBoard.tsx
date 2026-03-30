@@ -22,7 +22,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
 
   return (
     <div className={cn("flex flex-col gap-6", className)}>
-      <h3 className="text-xl font-semibold text-[var(--text-main)]">{translate("studyplan")}</h3>
+      <h3 className="text-xl font-medium text-[var(--text-main)]">{translate("studyplan")}</h3>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {currentTopics.map((topic) => (

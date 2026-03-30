@@ -10,11 +10,12 @@ import {
   ReadOutlined,
   CrownOutlined,
   CheckOutlined,
+  TrophyOutlined,
 } from "@ant-design/icons";
 
 import { cn } from "../../lib";
 
-type IconType = "settings" | "home" | "practice" | "glossary" | "rating" | "check";
+type IconType = "settings" | "home" | "practice" | "glossary" | "rating" | "check" | "levels";
 
 type Props = {
   name: IconType;
@@ -30,6 +31,7 @@ export const iconMap = {
   glossary: ReadOutlined,
   rating: CrownOutlined,
   check: CheckOutlined,
+  levels: TrophyOutlined,
 } satisfies Record<string, React.ComponentType>;
 
 export const Icon = ({ name, size = 16, color, className }: Props) => {

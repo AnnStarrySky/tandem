@@ -19,9 +19,7 @@ export const TopicList = ({ topics, onSelect, className }: Props) => {
           )}
           onClick={() => onSelect(topic)}
         >
-          <div className="text-sm font-medium text-[var(--text-main)] sm:text-base lg:text-lg">
-            {topic.title}
-          </div>
+          <div className="text-sm font-medium text-[var(--text-main)]">{topic.title}</div>
         </li>
       ))}
     </ul>

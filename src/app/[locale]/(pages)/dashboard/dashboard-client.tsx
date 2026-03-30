@@ -33,7 +33,7 @@ export default function Dashboard() {
           </BaseBtn>
         </div>
         <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
-          <LevelImage typeCat="newbie" alt="newbie" />
+          <LevelImage typeCat="newbie" alt="newbie" levelNumber={1} />
         </div>
       </div>
 

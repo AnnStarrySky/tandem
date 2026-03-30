@@ -10,7 +10,8 @@
     "home": "Главная",
     "glossary": "Глоссарий",
     "practice": "Практика",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "levels": "Таблица уровней"
   },
   "Dashboard": {
     "dashboardTitle": "Моя домашняя страница",
@@ -25,7 +26,7 @@
       "arrays": "Массивы",
       "functions": "Функции"
     },
-    "studyplan": "План"
+    "studyplan": "План обучения"
   },
   "Glossary": {
     "title": "Словарь",
@@ -212,6 +213,32 @@
         "example": "try {\n  throw new Error('Упс');\n} catch(e) {\n  console.log(e.message);\n}"
       }
     ]
+  },
+  "LevelTable": {
+    "title": "Таблица уровней",
+    "subtitle": "Зарабатывай XP, чтобы открывать новых котов и уровни",
+    "taskTypes": "Типы задач",
+    "quiz": "Quiz (лёгкий)",
+    "quizPoints": "10 XP за задачу",
+    "codeCompletion": "Code Completion (средний)",
+    "codeCompletionPoints": "20 XP за задачу",
+    "codeWriting": "Code Writing (сложный)",
+    "codeWritingPoints": "30 XP за задачу",
+    "levels": "Пороги уровней",
+    "colLevel": "Уровень",
+    "colCat": "Кот",
+    "colCondition": "Условие",
+    "colPoints": "Нужно XP",
+    "level1condition": "Стартовый уровень",
+    "level2condition": "Любые темы, минимум 1/3 всех",
+    "level3condition": "Все лёгкие темы завершены",
+    "level4condition": "Все лёгкие + все средние темы",
+    "level5condition": "Все лёгкие + все средние + ≥700 XP из сложных",
+    "level1points": "0",
+    "level2points": "100",
+    "level3points": "300",
+    "level4points": "900",
+    "level5points": "1600"
   },
   "AuthCommon": {
     "brand": "CodeCat",

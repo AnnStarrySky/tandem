@@ -24,7 +24,7 @@ export const LessonCard = ({ lessonNumber, title, completed, className }: Props)
         {translate("lesson")} {lessonNumber}
       </span>
 
-      <p className="text-[16px] leading-tight font-bold text-[var(--text-main)]">{title}</p>
+      <p className="text-[16px] leading-tight text-[var(--text-main)]">{title}</p>
 
       {completed && <div className="absolute top-0 right-0 h-full w-4 bg-[#84f59b]" />}
     </div>
