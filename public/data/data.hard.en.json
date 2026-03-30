@@ -1,0 +1,760 @@
+{
+  "topics": [
+    {
+      "id": "variables",
+      "order": 1,
+      "title": "Variables",
+      "description": "Store and use values in named containers.",
+      "keywords": ["let", "const", "var"],
+      "task": {
+        "type": "code-editor",
+        "title": "Variables Code Editor",
+        "description": "Write a small working solution.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "variables-hard-1",
+            "title": "Create a Variable",
+            "description": "Write a small working solution.",
+            "instructions": "Declare a variable `courseName` with value \"RS School\" and print it with `console.log`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const courseName = \"RS School\";\nconsole.log(courseName);",
+              "let courseName = \"RS School\";\nconsole.log(courseName);",
+              "var courseName = \"RS School\";\nconsole.log(courseName);"
+            ],
+            "hint": "Use exact variable name `courseName`."
+          }
+        ]
+      }
+    },
+    {
+      "id": "number-methods",
+      "order": 2,
+      "title": "Number Methods",
+      "description": "Work with numbers, formatting and conversions.",
+      "keywords": ["Number()", "toFixed()", "parseInt()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Number Methods Code Editor",
+        "description": "Use a number method.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "number-methods-hard-1",
+            "title": "Format Price",
+            "description": "Use a number method.",
+            "instructions": "Create a constant `price` with value `12.345` and print it formatted to 2 decimal places.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": ["const price = 12.345;\nconsole.log(price.toFixed(2));"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "string-methods",
+      "order": 3,
+      "title": "String Methods",
+      "description": "Transform and inspect strings with built-in methods.",
+      "keywords": ["trim()", "toUpperCase()", "length"],
+      "task": {
+        "type": "code-editor",
+        "title": "String Methods Code Editor",
+        "description": "Use chained string methods.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "string-methods-hard-1",
+            "title": "Normalize Text",
+            "description": "Use chained string methods.",
+            "instructions": "Create a constant `name` with value \"  codecat  \" and log the trimmed uppercase version.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const name = \"  codecat  \";\nconsole.log(name.trim().toUpperCase());"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ternary-logical-operators",
+      "order": 4,
+      "title": "Ternary & Logical Operators",
+      "description": "Use boolean logic and concise conditional expressions.",
+      "keywords": ["&&", "||", "?:"],
+      "task": {
+        "type": "code-editor",
+        "title": "Ternary & Logical Operators Code Editor",
+        "description": "Create a ternary expression and print the result.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "ternary-logical-operators-hard-1",
+            "title": "Access by Age",
+            "description": "Create a ternary expression and print the result.",
+            "instructions": "Create `age = 17`, then create `message` using ternary operator: if age >= 18 return \"adult\", otherwise \"minor\". Log `message`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const age = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\nconsole.log(message);",
+              "let age = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\nconsole.log(message);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "switch-case",
+      "order": 5,
+      "title": "Switch Case",
+      "description": "Branch execution based on a single value.",
+      "keywords": ["switch", "case", "default"],
+      "task": {
+        "type": "code-editor",
+        "title": "Switch Case Code Editor",
+        "description": "Branch execution based on a value.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "switch-case-hard-1",
+            "title": "Use a Switch Statement",
+            "description": "Branch execution based on a value.",
+            "instructions": "Declare `day = \"monday\"`. Use `switch` to log \"Start\" for monday and \"Other\" in default.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    console.log(\"Other\");\n}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "loops",
+      "order": 6,
+      "title": "Loops",
+      "description": "Repeat actions using loop constructs.",
+      "keywords": ["for", "while", "break"],
+      "task": {
+        "type": "code-editor",
+        "title": "Loops Code Editor",
+        "description": "Write a loop from 1 to 3.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "loops-hard-1",
+            "title": "Print Numbers",
+            "description": "Write a loop from 1 to 3.",
+            "instructions": "Write a `for` loop that logs numbers from 1 to 3.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+              "for(let i = 1; i <= 3; i++){\n  console.log(i);\n}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "type-conversions",
+      "order": 7,
+      "title": "Type Conversions",
+      "description": "Convert values between string, number and boolean.",
+      "keywords": ["Number()", "String()", "Boolean()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Type Conversions Code Editor",
+        "description": "Convert explicitly and print.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "type-conversions-hard-1",
+            "title": "String to Number",
+            "description": "Convert explicitly and print.",
+            "instructions": "Create `value = \"99\"` and log it as a number using explicit conversion.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": ["const value = \"99\";\nconsole.log(Number(value));"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "strict-comparison",
+      "order": 8,
+      "title": "Strict Comparison",
+      "description": "Compare values by both type and value.",
+      "keywords": ["===", "!=="],
+      "task": {
+        "type": "code-editor",
+        "title": "Strict Comparison Code Editor",
+        "description": "Write strict comparison code.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "strict-comparison-hard-1",
+            "title": "Compare Types Safely",
+            "description": "Write strict comparison code.",
+            "instructions": "Create `a = 5` and `b = \"5\"`, then log the result of strict comparison.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": ["const a = 5;\nconst b = \"5\";\nconsole.log(a === b);"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "let-var-const",
+      "order": 9,
+      "title": "Let, Var, Const",
+      "description": "Choose the right declaration keyword.",
+      "keywords": ["let", "var", "const"],
+      "task": {
+        "type": "code-editor",
+        "title": "Let, Var, Const Code Editor",
+        "description": "Write declarations with different mutability.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "let-var-const-hard-1",
+            "title": "Use const and let",
+            "description": "Write declarations with different mutability.",
+            "instructions": "Create a constant `appName = \"CodeCat\"` and a variable `score = 0`, then log both.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const appName = \"CodeCat\";\nlet score = 0;\nconsole.log(appName, score);",
+              "const appName = \"CodeCat\";\nlet score = 0;\nconsole.log(appName);\nconsole.log(score);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hoisting-temporal-dead-zone",
+      "order": 10,
+      "title": "Hoisting & Temporal Dead Zone",
+      "description": "Understand declaration timing and initialization behavior.",
+      "keywords": ["hoisting", "TDZ", "undefined"],
+      "task": {
+        "type": "code-editor",
+        "title": "Hoisting & Temporal Dead Zone Code Editor",
+        "description": "Show correct initialization order.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "hoisting-temporal-dead-zone-hard-1",
+            "title": "TDZ Example",
+            "description": "Show correct initialization order.",
+            "instructions": "Write code that first declares `const age = 18` and then logs it. Do not access it before declaration.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": ["const age = 18;\nconsole.log(age);"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "functions",
+      "order": 11,
+      "title": "Functions",
+      "description": "Create reusable blocks of logic.",
+      "keywords": ["function", "return", "parameters"],
+      "task": {
+        "type": "code-editor",
+        "title": "Functions Code Editor",
+        "description": "Return a computed value.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "functions-hard-1",
+            "title": "Create a Function",
+            "description": "Return a computed value.",
+            "instructions": "Write a function `sum(a, b)` that returns the sum of two numbers, then log `sum(2, 3)`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function sum(a, b) {\n  return a + b;\n}\nconsole.log(sum(2, 3));",
+              "const sum = (a, b) => {\n  return a + b;\n};\nconsole.log(sum(2, 3));"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope",
+      "order": 12,
+      "title": "Scope",
+      "description": "Control where values are visible and accessible.",
+      "keywords": ["block scope", "function scope"],
+      "task": {
+        "type": "code-editor",
+        "title": "Scope Code Editor",
+        "description": "Declare and use a local variable.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "scope-hard-1",
+            "title": "Function Scope",
+            "description": "Declare and use a local variable.",
+            "instructions": "Write a function `printName()` that declares a local variable `name = 'CodeCat'` and logs it inside the function. Then call the function.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function printName() {\n  const name = \"CodeCat\";\n  console.log(name);\n}\nprintName();"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "closures",
+      "order": 13,
+      "title": "Closures",
+      "description": "Use inner functions with remembered outer state.",
+      "keywords": ["inner function", "outer scope"],
+      "task": {
+        "type": "code-editor",
+        "title": "Closures Code Editor",
+        "description": "Return an inner function.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "closures-hard-1",
+            "title": "Create a Closure",
+            "description": "Return an inner function.",
+            "instructions": "Write a function `outer()` that declares `const value = 10` and returns an inner function that logs `value`. Then call `outer()()`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function outer() {\n  const value = 10;\n  return function inner() {\n    console.log(value);\n  };\n}\nouter()();"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-this",
+      "order": 14,
+      "title": "Context & this",
+      "description": "Understand how `this` depends on call context.",
+      "keywords": ["this", "object method", "arrow function"],
+      "task": {
+        "type": "code-editor",
+        "title": "Context & this Code Editor",
+        "description": "Use object method context.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "context-this-hard-1",
+            "title": "Print with this",
+            "description": "Use object method context.",
+            "instructions": "Create an object `user` with `name: \"CodeCat\"` and a method `printName()` that logs `this.name`. Then call `user.printName()`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.name);\n  },\n};\nuser.printName();"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "call-apply-bind",
+      "order": 15,
+      "title": "Call, Apply, Bind",
+      "description": "Control function context explicitly.",
+      "keywords": ["call()", "apply()", "bind()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Call, Apply, Bind Code Editor",
+        "description": "Bind context and execute later.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "call-apply-bind-hard-1",
+            "title": "Use bind",
+            "description": "Bind context and execute later.",
+            "instructions": "Create a function `printName()` that logs `this.name`. Then create `user = { name: \"CodeCat\" }`, bind the function to `user`, store it in `boundPrintName`, and call it.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function printName() {\n  console.log(this.name);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "default-parameters-rest",
+      "order": 16,
+      "title": "Default Parameters & Rest",
+      "description": "Use safer function signatures and flexible arguments.",
+      "keywords": ["default params", "...args"],
+      "task": {
+        "type": "code-editor",
+        "title": "Default Parameters & Rest Code Editor",
+        "description": "Collect all values in one parameter.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "default-parameters-rest-hard-1",
+            "title": "Rest Arguments",
+            "description": "Collect all values in one parameter.",
+            "instructions": "Write a function `printArgs(...args)` that logs `args`, then call `printArgs(1, 2, 3)`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function printArgs(...args) {\n  console.log(args);\n}\nprintArgs(1, 2, 3);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spread-operator",
+      "order": 17,
+      "title": "Spread Operator",
+      "description": "Expand arrays and objects.",
+      "keywords": ["...", "clone", "merge"],
+      "task": {
+        "type": "code-editor",
+        "title": "Spread Operator Code Editor",
+        "description": "Use spread with arrays.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "spread-operator-hard-1",
+            "title": "Merge Arrays",
+            "description": "Use spread with arrays.",
+            "instructions": "Create `first = [1, 2]` and `second = [3, 4]`, then create `merged` using spread and log it.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const first = [1, 2];\nconst second = [3, 4];\nconst merged = [...first, ...second];\nconsole.log(merged);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "destructuring",
+      "order": 18,
+      "title": "Destructuring",
+      "description": "Extract values from arrays and objects cleanly.",
+      "keywords": ["{ name }", "[first]"],
+      "task": {
+        "type": "code-editor",
+        "title": "Destructuring Code Editor",
+        "description": "Use destructuring from an object.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "destructuring-hard-1",
+            "title": "Extract a Value",
+            "description": "Use destructuring from an object.",
+            "instructions": "Create `user = { name: \"CodeCat\", level: 5 }`, destructure `name`, then log it.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const user = { name: \"CodeCat\", level: 5 };\nconst { name } = user;\nconsole.log(name);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "object-methods",
+      "order": 19,
+      "title": "Object Methods",
+      "description": "Use built-in object helpers for keys, values and entries.",
+      "keywords": ["Object.keys()", "Object.values()", "Object.entries()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Object Methods Code Editor",
+        "description": "Use an object helper.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "object-methods-hard-1",
+            "title": "Print Object Values",
+            "description": "Use an object helper.",
+            "instructions": "Create `user = { name: \"CodeCat\", level: 5 }` and log `Object.values(user)`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const user = { name: \"CodeCat\", level: 5 };\nconsole.log(Object.values(user));"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "array-methods",
+      "order": 20,
+      "title": "Array Methods",
+      "description": "Transform arrays with map, filter, reduce and more.",
+      "keywords": ["map()", "filter()", "reduce()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Array Methods Code Editor",
+        "description": "Return only needed items.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "array-methods-hard-1",
+            "title": "Filter Numbers",
+            "description": "Return only needed items.",
+            "instructions": "Create `numbers = [1, 2, 3, 4]`, create `evenNumbers` using `filter`, and log it.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((item) => item % 2 === 0);\nconsole.log(evenNumbers);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dom-basics",
+      "order": 21,
+      "title": "DOM Basics",
+      "description": "Select and update page elements.",
+      "keywords": ["querySelector()", "textContent"],
+      "task": {
+        "type": "code-editor",
+        "title": "DOM Basics Code Editor",
+        "description": "Write a simple DOM operation.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "dom-basics-hard-1",
+            "title": "Update Text Content",
+            "description": "Write a simple DOM operation.",
+            "instructions": "Write code that selects an element with class `.title` and sets its `textContent` to `Hello`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const title = document.querySelector(\".title\");\ntitle.textContent = \"Hello\";",
+              "const title = document.querySelector('.title');\ntitle.textContent = 'Hello';"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "events",
+      "order": 22,
+      "title": "Events",
+      "description": "Respond to user interaction with handlers.",
+      "keywords": ["click", "addEventListener()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Events Code Editor",
+        "description": "Handle button click.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "events-hard-1",
+            "title": "Attach a Click Handler",
+            "description": "Handle button click.",
+            "instructions": "Write code that selects `.btn` and adds a `click` event listener that logs `clicked`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "const button = document.querySelector(\".btn\");\nbutton.addEventListener(\"click\", () => {\n  console.log(\"clicked\");\n});"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "event-propagation",
+      "order": 23,
+      "title": "Event Propagation",
+      "description": "Understand bubbling, capturing and propagation control.",
+      "keywords": ["bubbling", "stopPropagation()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Event Propagation Code Editor",
+        "description": "Stop an event from moving upward.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "event-propagation-hard-1",
+            "title": "Prevent Bubbling",
+            "description": "Stop an event from moving upward.",
+            "instructions": "Write a click handler that receives `event` and calls `event.stopPropagation()`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "button.addEventListener(\"click\", (event) => {\n  event.stopPropagation();\n});"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "timers",
+      "order": 24,
+      "title": "Timers",
+      "description": "Schedule delayed and repeated execution.",
+      "keywords": ["setTimeout()", "setInterval()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Timers Code Editor",
+        "description": "Schedule a delayed callback.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "timers-hard-1",
+            "title": "Use setTimeout",
+            "description": "Schedule a delayed callback.",
+            "instructions": "Write code that logs `Hello` after 1000ms using `setTimeout`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "setTimeout(() => {\n  console.log(\"Hello\");\n}, 1000);",
+              "setTimeout(function () {\n  console.log(\"Hello\");\n}, 1000);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "web-storage",
+      "order": 25,
+      "title": "Web Storage",
+      "description": "Store and retrieve simple browser data.",
+      "keywords": ["localStorage", "setItem()", "getItem()"],
+      "task": {
+        "type": "code-editor",
+        "title": "Web Storage Code Editor",
+        "description": "Use localStorage methods.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "web-storage-hard-1",
+            "title": "Save and Read Storage",
+            "description": "Use localStorage methods.",
+            "instructions": "Write code that saves `dark` under key `theme` and then logs the value from storage.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "localStorage.setItem(\"theme\", \"dark\");\nconsole.log(localStorage.getItem(\"theme\"));"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "constructor-functions",
+      "order": 26,
+      "title": "Constructor Functions",
+      "description": "Create objects with constructor functions.",
+      "keywords": ["function User()", "new"],
+      "task": {
+        "type": "code-editor",
+        "title": "Constructor Functions Code Editor",
+        "description": "Write and use a constructor function.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "constructor-functions-hard-1",
+            "title": "Create a Constructor Function",
+            "description": "Write and use a constructor function.",
+            "instructions": "Write a constructor function `User(name)` that assigns `this.name = name`, then create `new User(\"CodeCat\")` and log `user.name`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+              "function User(name) {\n  this.name = name;\n}\nconst user = new User('CodeCat');\nconsole.log(user.name);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "classes",
+      "order": 27,
+      "title": "Classes",
+      "description": "Model data with class syntax.",
+      "keywords": ["class", "constructor", "new"],
+      "task": {
+        "type": "code-editor",
+        "title": "Classes Code Editor",
+        "description": "Define and instantiate a class.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "classes-hard-1",
+            "title": "Create a Class",
+            "description": "Define and instantiate a class.",
+            "instructions": "Write a class `User` with constructor that accepts `name` and assigns `this.name`. Then create `new User(\"CodeCat\")` and log `user.name`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+              "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User('CodeCat');\nconsole.log(user.name);"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prototype-inheritance",
+      "order": 28,
+      "title": "Prototype Inheritance",
+      "description": "Understand how prototype chains work.",
+      "keywords": ["prototype", "__proto__"],
+      "task": {
+        "type": "code-editor",
+        "title": "Prototype Inheritance Code Editor",
+        "description": "Use prototype for shared behavior.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "prototype-inheritance-hard-1",
+            "title": "Add a Prototype Method",
+            "description": "Use prototype for shared behavior.",
+            "instructions": "Write a constructor function `User(name)` that assigns `this.name = name`. Then add `User.prototype.sayHi = function () { console.log(this.name); }`, create an instance and call `sayHi()`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+              "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User('CodeCat');\nuser.sayHi();"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "promises-async-await",
+      "order": 29,
+      "title": "Promises & Async/Await",
+      "description": "Handle asynchronous work and result flow.",
+      "keywords": ["Promise", "async", "await"],
+      "task": {
+        "type": "code-editor",
+        "title": "Promises & Async/Await Code Editor",
+        "description": "Create an async function and await a promise.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "promises-async-await-hard-1",
+            "title": "Async Function",
+            "description": "Create an async function and await a promise.",
+            "instructions": "Write an `async function loadData()` that awaits `fetch('/api/data')` and logs the result.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "async function loadData() {\n  const result = await fetch(\"/api/data\");\n  console.log(result);\n}",
+              "async function loadData() {\n  const result = await fetch('/api/data');\n  console.log(result);\n}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "error-handling",
+      "order": 30,
+      "title": "Error Handling",
+      "description": "Catch and handle runtime errors safely.",
+      "keywords": ["try", "catch", "throw"],
+      "task": {
+        "type": "code-editor",
+        "title": "Error Handling Code Editor",
+        "description": "Handle a possible error safely.",
+        "points": 30,
+        "questions": [
+          {
+            "id": "error-handling-hard-1",
+            "title": "Use try/catch",
+            "description": "Handle a possible error safely.",
+            "instructions": "Write code with `try/catch` that throws `new Error('Oops')` and then logs the caught error inside `catch`.",
+            "starterCode": "// write your solution here",
+            "expectedAnswers": [
+              "try {\n  throw new Error(\"Oops\");\n} catch (error) {\n  console.log(error);\n}",
+              "try {\n  throw new Error('Oops');\n} catch (error) {\n  console.log(error);\n}"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
