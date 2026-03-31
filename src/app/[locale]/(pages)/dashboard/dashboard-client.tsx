@@ -2,20 +2,22 @@
 
 import React from "react";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Typography } from "antd";
 import { useLocale, useTranslations } from "next-intl";
 
+import { LessonBoard } from "@/src/widgets/LessonsPlan";
 import { BaseBtn } from "@shared/ui/button";
 import { LevelImage } from "@shared/ui/mainImage";
 import { LessonWrapper } from "@shared/ui/paragraph";
 import { ProgressBar } from "@widgets/progress";
 import { ResultBar } from "@widgets/result";
-import { LessonBoard } from "@/src/widgets/LessonsPlan";
 
 export default function Dashboard() {
   const translation = useTranslations("Dashboard");
+  const locale = useLocale();
+
   return (
     <section className="app-dashboard-page flex flex-col gap-8 text-[var(--text-main)]">
       <div className="flex w-full flex-col justify-between gap-8 lg:flex-row">
@@ -28,9 +30,11 @@ export default function Dashboard() {
 
           <ProgressBar progress={0} />
 
-          <BaseBtn variant="primary" className="my-auto py-3 uppercase">
-            {translation("startTraining")}
-          </BaseBtn>
+          <Link href={`/${locale}/practice`}>
+            <BaseBtn variant="primary" className="my-auto py-3 uppercase">
+              {translation("startTraining")}
+            </BaseBtn>
+          </Link>
         </div>
         <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
           <LevelImage typeCat="newbie" alt="newbie" levelNumber={1} />
@@ -40,6 +44,7 @@ export default function Dashboard() {
       <div className="app-dashboard-result">
         <ResultBar />
       </div>
+
       <LessonBoard />
     </section>
   );

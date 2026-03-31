@@ -28,64 +28,70 @@ function getStatusCode(error: unknown): number {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  if (USE_MOCK) {
-    try {
-      const body = (await req.json()) as RegisterBody;
+  try {
+    const body = (await req.json()) as RegisterBody;
 
+    const email = body.email?.trim().toLowerCase();
+    const password = body.password ?? "";
+    const name = body.name?.trim() || undefined;
+
+    if (!email || !password) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Email and password are required",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (USE_MOCK) {
       await mockRegister({
-        email: body.email.trim(),
-        password: body.password,
-        name: body.name?.trim() || undefined,
+        email,
+        password,
+        name,
       });
-      return NextResponse.json({ success: true });
-    } catch (error) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: getErrorMessage(error),
-        },
-        { status: getStatusCode(error) },
-      );
-    }
-  } else {
-    try {
-      if (!BACKEND_URL) {
-        throw Error("No backend URL");
-      }
-      const url = new URL("/api/register", BACKEND_URL);
-      const body = (await req.json()) as RegisterBody;
 
-      const backendResult = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email: body.email.trim(),
-          password: body.password,
-          name: body.name?.trim() || "User",
-        }),
-      });
-      if (backendResult.ok) {
-        return NextResponse.json({ success: true });
-      } else {
-        return NextResponse.json(
-          {
-            success: false,
-            message: backendResult.statusText,
-          },
-          { status: backendResult.status },
-        );
-      }
-    } catch (error) {
+      return NextResponse.json({ success: true });
+    }
+
+    if (!BACKEND_URL) {
+      throw new Error("No backend URL");
+    }
+
+    const url = new URL("/api/register", BACKEND_URL);
+
+    const backendResult = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        name: name || "User",
+      }),
+    });
+
+    if (!backendResult.ok) {
       return NextResponse.json(
         {
           success: false,
-          message: getErrorMessage(error),
+          message: backendResult.statusText,
         },
-        { status: getStatusCode(error) },
+        { status: backendResult.status },
       );
     }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: getErrorMessage(error),
+      },
+      { status: getStatusCode(error) },
+    );
   }
 }
