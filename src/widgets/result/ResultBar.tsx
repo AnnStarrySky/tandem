@@ -12,13 +12,13 @@ export const ResultBar = ({ className }: Props) => {
   return (
     <div
       className={cn(
-        "flex items-center justify-between rounded-lg border-[1px] border-[#f4f3f8] bg-[#fefefe] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]",
+        "flex flex-col items-center justify-between rounded-lg border border-[var(--card-border)] bg-[var(--input-bg)] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] lg:flex-row",
         className,
       )}
     >
-      <TotalScore score={520} />
-      <RatingScore rating={3} />
-      <CompletedTasks tasks={25} />
+      <TotalScore score={0} />
+      <RatingScore rating={1} />
+      <CompletedTasks tasks={0} />
     </div>
   );
 };

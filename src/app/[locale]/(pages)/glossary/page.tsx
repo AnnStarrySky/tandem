@@ -18,7 +18,12 @@ export default function GlossaryPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Typography.Title level={2}>{translate("title")}</Typography.Title>
+        <Typography.Title
+          level={2}
+          style={{ margin: 0, marginBottom: 20, color: "var(--text-main)" }}
+        >
+          {translate("title")}
+        </Typography.Title>
       </div>
 
       {selectedTopic ? (

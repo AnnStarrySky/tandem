@@ -11,6 +11,7 @@ import AntdIcon, {
   ReadOutlined,
   RightOutlined,
   SettingOutlined,
+  TrophyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 
@@ -25,7 +26,8 @@ export type IconType =
   | "check"
   | "profile"
   | "leftArrow"
-  | "rightArrow";
+  | "rightArrow"
+  | "levels";
 
 type Props = {
   name: IconType;
@@ -44,6 +46,7 @@ export const iconMap = {
   profile: UserOutlined,
   leftArrow: LeftOutlined,
   rightArrow: RightOutlined,
+  levels: TrophyOutlined,
 } satisfies Record<IconType, React.ComponentType>;
 
 export const Icon = ({ name, size = 16, color, className }: Props) => {

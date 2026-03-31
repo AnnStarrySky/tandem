@@ -20,15 +20,15 @@ export default function Dashboard() {
 
   return (
     <section className="app-dashboard-page flex flex-col gap-8 text-[var(--text-main)]">
-      <div className="flex w-full justify-between gap-8">
-        <div className="flex w-[60%] flex-col gap-5">
+      <div className="flex w-full flex-col justify-between gap-8 lg:flex-row">
+        <div className="flex w-full flex-col gap-5 lg:w-[60%]">
           <Typography.Title level={2} style={{ margin: 0, color: "var(--text-main)" }}>
             {translation("dashboardTitle")}
           </Typography.Title>
 
           <LessonWrapper lessonNumber={1} topicKey="arrays" className="app-dashboard-lesson" />
 
-          <ProgressBar progress={70} />
+          <ProgressBar progress={0} />
 
           <Link href={`/${locale}/practice`}>
             <BaseBtn variant="primary" className="my-auto py-3 uppercase">
@@ -36,8 +36,9 @@ export default function Dashboard() {
             </BaseBtn>
           </Link>
         </div>
-
-        <LevelImage typeCat="legend" alt="legend" />
+        <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
+          <LevelImage typeCat="newbie" alt="newbie" levelNumber={1} />
+        </div>
       </div>
 
       <div className="app-dashboard-result">

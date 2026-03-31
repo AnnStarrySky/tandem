@@ -10,7 +10,8 @@
     "home": "Home",
     "glossary": "Glossary",
     "practice": "Practice",
-    "settings": "Settings"
+    "settings": "Settings",
+    "levels": "Level Table"
   },
   "Dashboard": {
     "dashboardTitle": "Dashboard",
@@ -18,7 +19,7 @@
     "completed": "completed",
     "startTraining": "Start training",
     "rating": "Rating",
-    "completedtasks": "Completed tasks",
+    "completedtasks": "Completed",
     "levelcat": "lv.",
     "topics": {
       "cycles": "Cycle",
@@ -212,6 +213,32 @@
         "example": "try {\n  throw new Error('Oops');\n} catch(e) {\n  console.log(e.message);\n}"
       }
     ]
+  },
+  "LevelTable": {
+    "title": "Level Table",
+    "subtitle": "Earn XP to unlock new cats and levels",
+    "taskTypes": "Task types",
+    "quiz": "Quiz (easy)",
+    "quizPoints": "10 XP per task",
+    "codeCompletion": "Code Completion (medium)",
+    "codeCompletionPoints": "20 XP per task",
+    "codeWriting": "Code Writing (hard)",
+    "codeWritingPoints": "30 XP per task",
+    "levels": "Level thresholds",
+    "colLevel": "Level",
+    "colCat": "Cat",
+    "colCondition": "Condition",
+    "colPoints": "XP required",
+    "level1condition": "Starting level",
+    "level2condition": "Any topics, min 1/3 of all",
+    "level3condition": "All easy topics completed",
+    "level4condition": "All easy + all medium topics",
+    "level5condition": "All easy + all medium + ≥700 XP from hard",
+    "level1points": "0",
+    "level2points": "100",
+    "level3points": "300",
+    "level4points": "900",
+    "level5points": "1600"
   },
   "AuthCommon": {
     "brand": "CodeCat",

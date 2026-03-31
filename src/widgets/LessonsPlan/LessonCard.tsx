@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-import { Typography } from "antd";
 import { useLocale, useTranslations } from "next-intl";
 
 import { cn } from "@/src/shared/lib";
@@ -28,28 +27,18 @@ export const LessonCard = ({
   const content = (
     <div
       className={cn(
-        "relative flex flex-col gap-2 rounded-lg border border-[#f4f3f8] bg-[#fefefe] p-4 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] transition-all duration-300",
-        practiceTopicId ? "cursor-pointer hover:shadow-none" : "",
+        "relative flex min-h-[100px] flex-col gap-3 overflow-hidden rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-6 shadow-sm",
+        practiceTopicId ? "cursor-pointer transition-all duration-300 hover:shadow-none" : "",
         className,
       )}
     >
-      <Typography.Text style={{ fontSize: "12px", color: "#6a7285" }}>
+      <span className="text-[12px] tracking-wider text-[var(--text-muted)] uppercase">
         {translate("lesson")} {lessonNumber}
-      </Typography.Text>
+      </span>
 
-      <Typography.Text style={{ fontSize: "15px", color: "var(--text-main)", fontWeight: 500 }}>
-        {title}
-      </Typography.Text>
+      <p className="text-[16px] leading-tight text-[var(--text-main)]">{title}</p>
 
-      {completed ? (
-        <div
-          className="absolute top-0 right-0 h-full"
-          style={{
-            width: "5%",
-            backgroundColor: "#A7F3D0",
-          }}
-        />
-      ) : null}
+      {completed ? <div className="absolute top-0 right-0 h-full w-4 bg-[#84f59b]" /> : null}
     </div>
   );
 

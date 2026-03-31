@@ -11,7 +11,7 @@ export const TotalScore = ({ score, className }: Props) => {
   return (
     <div
       className={cn(
-        "flex flex-1 justify-center border-r border-r-[1px] border-[#f4f3f8] p-2",
+        "flex w-full flex-1 items-center justify-center border-b border-[var(--card-border)] p-2 lg:border-r lg:border-b-0",
         className,
       )}
     >

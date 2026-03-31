@@ -9,6 +9,7 @@ type RegisterBody = {
 };
 
 const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
+const BACKEND_URL = process.env.BACKEND_URL;
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -50,8 +51,37 @@ export async function POST(req: Request): Promise<Response> {
         password,
         name,
       });
-    } else {
-      throw new Error("Backend register is not connected yet");
+
+      return NextResponse.json({ success: true });
+    }
+
+    if (!BACKEND_URL) {
+      throw new Error("No backend URL");
+    }
+
+    const url = new URL("/api/register", BACKEND_URL);
+
+    const backendResult = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        name: name || "User",
+      }),
+    });
+
+    if (!backendResult.ok) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: backendResult.statusText,
+        },
+        { status: backendResult.status },
+      );
     }
 
     return NextResponse.json({ success: true });
