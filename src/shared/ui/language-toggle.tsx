@@ -74,7 +74,7 @@ export function LanguageToggle({ variant = "segmented", className }: Props): Rea
         type="button"
         onClick={() => replaceLocale("en")}
         className={cn(
-          "min-w-[56px]  cursor-pointer rounded-[16px] px-4 py-2 text-sm font-semibold transition-all duration-200",
+          "min-w-[56px] cursor-pointer rounded-[16px] px-4 py-2 text-sm font-semibold transition-all duration-200",
           locale === "en" ? "opacity-100" : "opacity-70 hover:opacity-100",
         )}
         style={{

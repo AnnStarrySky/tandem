@@ -1,4 +1,4 @@
-import { getPracticeData } from "./get-practice-data";
+import { getPracticeTopicApi } from "../api";
 
 import type { PracticeDifficulty, PracticeTopic } from "../model";
 
@@ -7,7 +7,9 @@ export async function getPracticeTopic(
   locale: string,
   difficulty: PracticeDifficulty,
 ): Promise<PracticeTopic | null> {
-  const data = await getPracticeData(locale, difficulty);
-
-  return data.topics.find((topic) => topic.id === topicId) ?? null;
+  return getPracticeTopicApi({
+    topicId,
+    locale,
+    difficulty,
+  });
 }

@@ -68,15 +68,21 @@ export default function PracticeTopicPage({ params }: Props) {
   return (
     <div className="grid gap-8">
       <section>
-        <div className="mb-2 text-sm tracking-[0.2em] text-slate-500 uppercase dark:text-white/65">
+        <div
+          className="mb-2 text-sm tracking-[0.2em] uppercase"
+          style={{ color: "var(--text-main)", opacity: 0.7 }}
+        >
           {t("lesson")} {topic.order}
         </div>
 
-        <h1 className="text-4xl font-semibold text-slate-900 md:text-5xl dark:text-white">
+        <h1 className="text-4xl font-semibold md:text-5xl" style={{ color: "var(--text-main)" }}>
           {topic.title}
         </h1>
 
-        <p className="mt-3 max-w-3xl text-base text-slate-600 md:text-lg dark:text-slate-300">
+        <p
+          className="mt-3 max-w-3xl text-base md:text-lg"
+          style={{ color: "var(--text-main)", opacity: 0.82 }}
+        >
           {topic.description}
         </p>
       </section>

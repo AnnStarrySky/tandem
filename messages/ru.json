@@ -311,7 +311,20 @@
     "expectedSolution": "Ожидаемое решение",
     "hint": "Подсказка",
     "loadingEditor": "Загрузка редактора...",
-    "pointsReward": "Награда: {points} баллов"
+    "pointsReward": "Награда: {points} баллов",
+    "gameCompleted": "Игра завершена",
+    "yourResult": "Твой результат",
+    "points": "Баллы",
+    "answers": "Ответы",
+    "progress": "Прогресс",
+    "correct": "Верно",
+    "wrong": "Ошибки",
+    "totalQuestions": "Всего",
+    "nextLevel": "Следующий уровень",
+    "closeModal": "Закрыть модальное окно",
+    "excellent": "Отлично",
+    "good": "Хорошо",
+    "keepGoing": "Продолжай"
   },
   "Settings": {
     "profileTitle": "Профиль",

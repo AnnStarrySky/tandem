@@ -89,11 +89,14 @@ export default function PracticePage() {
   return (
     <div className="grid gap-8">
       <section>
-        <h1 className="text-4xl font-semibold text-slate-900 md:text-5xl dark:text-white">
+        <h1 className="text-4xl font-semibold md:text-5xl" style={{ color: "var(--text-main)" }}>
           {t("title")}
         </h1>
 
-        <p className="mt-3 max-w-3xl text-base text-slate-600 md:text-lg dark:text-slate-300">
+        <p
+          className="mt-3 max-w-3xl text-base md:text-lg"
+          style={{ color: "var(--text-main)", opacity: 0.82 }}
+        >
           {t("subtitle")}
         </p>
       </section>
@@ -122,7 +125,8 @@ export default function PracticePage() {
                 variant="primary"
                 onClick={() => setPage(page - 1)}
                 disabled={page === 1}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white p-0 text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white p-0 shadow-sm transition hover:bg-slate-50 disabled:opacity-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                style={{ color: "var(--text-main)" }}
               >
                 <Icon name="leftArrow" size={12} color="currentColor" />
               </BaseBtn>
@@ -136,8 +140,9 @@ export default function PracticePage() {
                     "h-10 w-10 rounded-xl p-0 text-sm shadow-sm transition",
                     item === page
                       ? "border-transparent bg-linear-to-r from-[#13b2f6] to-[#84f59b] text-white"
-                      : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10",
+                      : "border border-slate-200 bg-white hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10",
                   )}
+                  style={item === page ? undefined : { color: "var(--text-main)" }}
                 >
                   {item}
                 </BaseBtn>
@@ -147,7 +152,8 @@ export default function PracticePage() {
                 variant="primary"
                 onClick={() => setPage(page + 1)}
                 disabled={page === totalPages}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white p-0 text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white p-0 shadow-sm transition hover:bg-slate-50 disabled:opacity-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                style={{ color: "var(--text-main)" }}
               >
                 <Icon name="rightArrow" size={12} color="currentColor" />
               </BaseBtn>

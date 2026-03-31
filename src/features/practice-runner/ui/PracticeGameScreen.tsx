@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import type { ReactNode } from "react";
+
 import Link from "next/link";
+
 import { useLocale, useTranslations } from "next-intl";
 
 import type { PracticeDifficulty, PracticeTopic } from "@/src/entities/practice";
@@ -10,15 +12,10 @@ type Props = {
   topic: PracticeTopic;
   difficulty: PracticeDifficulty;
   page?: number;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export function PracticeGameScreen({
-  topic,
-  difficulty,
-  page,
-  children,
-}: Props): React.JSX.Element {
+export function PracticeGameScreen({ topic, difficulty, page, children }: Props) {
   const t = useTranslations("Practice");
   const locale = useLocale();
 
@@ -33,17 +30,26 @@ export function PracticeGameScreen({
   return (
     <div className="grid gap-6">
       <section className="grid gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="mb-2 text-sm tracking-[0.2em] text-slate-500 uppercase dark:text-white/65">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0">
+            <div
+              className="mb-2 text-sm tracking-[0.2em] uppercase"
+              style={{ color: "var(--text-main)", opacity: 0.7 }}
+            >
               {t("lesson")} {topic.order} • {t(difficulty)}
             </div>
 
-            <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl dark:text-white">
+            <h1
+              className="text-3xl font-semibold md:text-4xl"
+              style={{ color: "var(--text-main)" }}
+            >
               {topic.title}
             </h1>
 
-            <p className="mt-3 max-w-3xl text-base text-slate-600 md:text-lg dark:text-slate-300">
+            <p
+              className="mt-3 max-w-3xl text-base md:text-lg"
+              style={{ color: "var(--text-main)", opacity: 0.82 }}
+            >
               {topic.description}
             </p>
           </div>

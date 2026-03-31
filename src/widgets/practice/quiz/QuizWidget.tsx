@@ -2,34 +2,25 @@
 
 import { useMemo, useState } from "react";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 
 import type { PracticeCompleteResult, QuizQuestion, QuizTask } from "@/src/entities/practice";
 
-import { getPracticeWideActionButtonClass } from "../lib";
+import { calculateEarnedPoints, getNextDifficultyHref, getProgressPercent } from "../lib";
 import { PracticeResultModal } from "../resultModal";
+import { PracticeTaskLayout } from "../task-layout";
 
 type Props = {
   task: QuizTask;
   onComplete?: (result: PracticeCompleteResult) => void;
 };
 
-function calculateEarnedPoints(score: number, total: number, maxPoints: number): number {
-  if (total === 0) return 0;
-  return Math.round((score / total) * maxPoints);
-}
-
-function getNextDifficultyHref(pathname: string): string | null {
-  if (pathname.endsWith("/easy")) return pathname.replace(/\/easy$/, "/medium");
-  if (pathname.endsWith("/medium")) return pathname.replace(/\/medium$/, "/hard");
-  return null;
-}
-
 export function QuizWidget({ task, onComplete }: Props) {
   const t = useTranslations("Practice");
   const router = useRouter();
+  const pathname = usePathname();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -51,7 +42,8 @@ export function QuizWidget({ task, onComplete }: Props) {
   const correctAnswers = score;
   const wrongAnswers = total - correctAnswers;
   const earnedPoints = calculateEarnedPoints(score, total, task.points);
-  const progressPercent = Math.round(((currentQuestionIndex + 1) / total) * 100);
+  const progressPercent = getProgressPercent(currentQuestionIndex, total);
+  const nextHref = getNextDifficultyHref(pathname);
 
   function handleSelectAnswer(option: string) {
     if (isLocked) return;
@@ -102,9 +94,6 @@ export function QuizWidget({ task, onComplete }: Props) {
   }
 
   function handleNextLevel() {
-    const pathname = typeof window !== "undefined" ? window.location.pathname : "";
-    const nextHref = getNextDifficultyHref(pathname);
-
     if (nextHref) {
       router.push(nextHref);
     }
@@ -157,30 +146,14 @@ export function QuizWidget({ task, onComplete }: Props) {
     );
   }
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
-  const nextHref = getNextDifficultyHref(pathname);
-
   return (
     <>
-      <section className="relative w-full rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,#c63ae6_0%,#6b38ff_48%,#4725d8_100%)] p-3 shadow-[0_18px_40px_rgba(72,30,140,0.22)]">
-        <div className="rounded-[22px] border border-white/10 bg-[rgba(255,255,255,0.05)] p-4 md:p-5">
-          <div className="mb-3 flex items-center justify-between gap-4">
-            <div className="text-xs font-semibold tracking-[0.22em] text-white/75 uppercase">
-              {t("quiz")}
-            </div>
-
-            <div className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-white">
-              {currentQuestionIndex + 1} / {total}
-            </div>
-          </div>
-
-          <div className="mb-5 h-3 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-linear-to-r from-[#13b2f6] to-[#84f59b] transition-all duration-300"
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
-
+      <PracticeTaskLayout
+        badge={t("quiz")}
+        currentStep={currentQuestionIndex + 1}
+        totalSteps={total}
+        progressPercent={progressPercent}
+        headerContent={
           <div className="mb-5 rounded-[22px] border border-white/10 bg-[rgba(255,255,255,0.06)] px-5 py-6 text-center text-white">
             <div className="mb-2 text-[11px] tracking-[0.28em] text-white/65 uppercase">
               {t("question")} {currentQuestionIndex + 1}
@@ -190,25 +163,28 @@ export function QuizWidget({ task, onComplete }: Props) {
               {currentQuestion.question}
             </h2>
           </div>
-
+        }
+        mainContent={
           <div className="grid gap-3">
             {currentQuestion.options.map((option) => renderAnswerButton(currentQuestion, option))}
           </div>
-
-          {showHelp ? (
-            <div className="mt-4 rounded-2xl border border-[#84f59b]/45 bg-[rgba(132,245,155,0.16)] p-4 text-sm leading-6 text-white shadow-[0_8px_18px_rgba(132,245,155,0.10)]">
+        }
+        helperContent={
+          showHelp ? (
+            <div className="rounded-2xl border border-[#84f59b]/45 bg-[rgba(132,245,155,0.16)] p-4 text-sm leading-6 text-white shadow-[0_8px_18px_rgba(132,245,155,0.10)]">
               {t("correctAnswer")}:{" "}
               <span className="font-semibold">{currentQuestion.correctAnswer}</span>
               {currentQuestion.explanation ? (
                 <div className="mt-2 text-white/90">{currentQuestion.explanation}</div>
               ) : null}
             </div>
-          ) : null}
-
-          {isLocked ? (
+          ) : null
+        }
+        statusContent={
+          isLocked ? (
             <div
               className={[
-                "mt-4 rounded-2xl p-4 text-sm font-medium shadow-[0_8px_18px_rgba(0,0,0,0.10)]",
+                "rounded-2xl p-4 text-sm font-medium shadow-[0_8px_18px_rgba(0,0,0,0.10)]",
                 selectedAnswer === currentQuestion.correctAnswer
                   ? "border border-[#84f59b]/45 bg-[rgba(132,245,155,0.18)] text-[#ecfff1]"
                   : "border border-[#ff6b81]/45 bg-[rgba(255,107,129,0.18)] text-[#ffe9ee]",
@@ -218,13 +194,14 @@ export function QuizWidget({ task, onComplete }: Props) {
                 ? t("correctNice")
                 : t("wrongUseHelp")}
             </div>
-          ) : null}
-
-          <div className="mt-5 grid grid-cols-2 gap-3">
+          ) : null
+        }
+        footerContent={
+          <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => setShowHelp((prev) => !prev)}
-              className={getPracticeWideActionButtonClass(false)}
+              className="w-full cursor-pointer rounded-2xl bg-gradient-to-r from-[#13b2f6] to-[#84f59b] px-5 py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_rgba(19,178,246,0.22)] transition-transform duration-200 hover:translate-y-[-1px]"
             >
               {showHelp ? t("hideHelp") : t("help")}
             </button>
@@ -233,26 +210,31 @@ export function QuizWidget({ task, onComplete }: Props) {
               type="button"
               onClick={handleNext}
               disabled={!isLocked}
-              className={getPracticeWideActionButtonClass(!isLocked)}
+              className={[
+                "w-full cursor-pointer rounded-2xl bg-gradient-to-r from-[#13b2f6] to-[#84f59b] px-5 py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_rgba(19,178,246,0.22)] transition-transform duration-200 hover:translate-y-[-1px]",
+                !isLocked
+                  ? "cursor-not-allowed bg-white/10 text-white/50 shadow-none"
+                  : "bg-gradient-to-r from-[#13b2f6] to-[#84f59b] shadow-[0_10px_22px_rgba(19,178,246,0.22)] hover:translate-y-[-1px]",
+              ].join(" ")}
             >
               {currentQuestionIndex === total - 1 ? t("finish") : t("next")}
             </button>
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {finished ? (
-        <PracticeResultModal
-          score={score}
-          correctAnswers={correctAnswers}
-          wrongAnswers={wrongAnswers}
-          total={total}
-          earnedPoints={earnedPoints}
-          maxPoints={task.points}
-          onRetry={handleRetry}
-          onNextLevel={nextHref ? handleNextLevel : undefined}
-        />
-      ) : null}
+      <PracticeResultModal
+        open={finished}
+        score={score}
+        correctAnswers={correctAnswers}
+        wrongAnswers={wrongAnswers}
+        total={total}
+        earnedPoints={earnedPoints}
+        maxPoints={task.points}
+        onRetry={handleRetry}
+        onNextLevel={nextHref ? handleNextLevel : undefined}
+        onClose={handleRetry}
+      />
     </>
   );
 }

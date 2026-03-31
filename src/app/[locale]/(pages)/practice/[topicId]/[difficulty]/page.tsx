@@ -6,8 +6,15 @@ import { useSearchParams } from "next/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
 
-import type { PracticeDifficulty, PracticeTask, PracticeTopic } from "@/src/entities/practice";
-import { getPracticeTask, getPracticeTopic } from "@/src/entities/practice";
+import {
+  getPracticeTask,
+  getPracticeTopic,
+  savePracticeResultApi,
+  type PracticeCompleteResult,
+  type PracticeDifficulty,
+  type PracticeTask,
+  type PracticeTopic,
+} from "@/src/entities/practice";
 import { PracticeGameScreen } from "@/src/features/practice-runner";
 import { CodeCompletionWidget, CodeEditorWidget, QuizWidget } from "@/src/widgets/practice";
 
@@ -65,9 +72,7 @@ export default function PracticeDifficultyPage({ params }: Props) {
           getPracticeTask(topicId, difficultyValue, locale),
         ]);
 
-        if (!mounted) {
-          return;
-        }
+        if (!mounted) return;
 
         setTopic(loadedTopic);
         setTask(loadedTask);
@@ -85,6 +90,25 @@ export default function PracticeDifficultyPage({ params }: Props) {
     };
   }, [topicId, resolvedDifficulty, locale]);
 
+  async function handleComplete(result: PracticeCompleteResult) {
+    if (!resolvedDifficulty || !task) return;
+
+    const earnedPoints =
+      result.total > 0 ? Math.round((result.score / result.total) * task.points) : 0;
+
+    try {
+      await savePracticeResultApi({
+        topicId,
+        difficulty: resolvedDifficulty,
+        locale,
+        result,
+        earnedPoints,
+      });
+    } catch (error) {
+      console.error("Failed to save practice result", error);
+    }
+  }
+
   if (loading) {
     return <div className="text-slate-600 dark:text-slate-300">{t("loadingTask")}</div>;
   }
@@ -95,9 +119,13 @@ export default function PracticeDifficultyPage({ params }: Props) {
 
   return (
     <PracticeGameScreen topic={topic} difficulty={resolvedDifficulty} page={page}>
-      {task.type === "quiz" ? <QuizWidget task={task} /> : null}
-      {task.type === "code-completion" ? <CodeCompletionWidget task={task} /> : null}
-      {task.type === "code-editor" ? <CodeEditorWidget task={task} /> : null}
+      {task.type === "quiz" ? <QuizWidget task={task} onComplete={handleComplete} /> : null}
+      {task.type === "code-completion" ? (
+        <CodeCompletionWidget task={task} onComplete={handleComplete} />
+      ) : null}
+      {task.type === "code-editor" ? (
+        <CodeEditorWidget task={task} onComplete={handleComplete} />
+      ) : null}
     </PracticeGameScreen>
   );
 }

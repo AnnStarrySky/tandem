@@ -311,7 +311,20 @@
     "expectedSolution": "Expected solution",
     "hint": "Hint",
     "loadingEditor": "Loading editor...",
-    "pointsReward": "Reward: {points} points"
+    "pointsReward": "Reward: {points} points",
+    "gameCompleted": "Game completed",
+    "yourResult": "Your result",
+    "points": "Points",
+    "answers": "Answers",
+    "progress": "Progress",
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "totalQuestions": "Total",
+    "nextLevel": "Next level",
+    "closeModal": "Close modal",
+    "excellent": "Excellent",
+    "good": "Good",
+    "keepGoing": "Keep going"
   },
   "Settings": {
     "profileTitle": "Profile",
