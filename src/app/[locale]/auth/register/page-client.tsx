@@ -34,10 +34,7 @@ export function RegisterPageClient(): React.JSX.Element {
   });
 
   const [loading, setLoading] = useState(false);
-  const [oauthLoading, setOauthLoading] = useState<"github" | null>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
-
-  const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
 
   const callbackUrl = useMemo(() => {
     return `/${locale}/dashboard`;
@@ -99,19 +96,6 @@ export function RegisterPageClient(): React.JSX.Element {
     }
   }
 
-  async function handleGitHubSignIn() {
-    try {
-      setErrorText(null);
-      setOauthLoading("github");
-
-      await signIn("github", {
-        callbackUrl,
-      });
-    } finally {
-      setOauthLoading(null);
-    }
-  }
-
   return (
     <main className="relative min-h-[100dvh] overflow-hidden">
       <div className="pointer-events-none fixed inset-0" aria-hidden="true">
@@ -149,24 +133,14 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
               </div>
 
-              <h2
-                className="text-3xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
-                {t("title")}
-              </h2>
+              <h2 className="text-3xl leading-tight font-semibold">{t("title")}</h2>
               <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
                 {t("subtitle")}
               </p>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("name")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("name")}</label>
                   <input
                     type="text"
                     autoComplete="name"
@@ -179,7 +153,7 @@ export function RegisterPageClient(): React.JSX.Element {
                     }
                     placeholder={t("namePlaceholder")}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
                     style={{
@@ -191,12 +165,7 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("email")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("email")}</label>
                   <input
                     type="email"
                     autoComplete="email"
@@ -210,7 +179,7 @@ export function RegisterPageClient(): React.JSX.Element {
                     placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
                     style={{
@@ -222,12 +191,7 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("password")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("password")}</label>
                   <input
                     type="password"
                     autoComplete="new-password"
@@ -242,7 +206,7 @@ export function RegisterPageClient(): React.JSX.Element {
                     required
                     minLength={6}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
                     style={{
@@ -254,12 +218,7 @@ export function RegisterPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("confirmPassword")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("confirmPassword")}</label>
                   <input
                     type="password"
                     autoComplete="new-password"
@@ -274,7 +233,7 @@ export function RegisterPageClient(): React.JSX.Element {
                     required
                     minLength={6}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
                     style={{
@@ -300,9 +259,9 @@ export function RegisterPageClient(): React.JSX.Element {
 
                 <button
                   type="submit"
-                  disabled={loading || oauthLoading !== null}
+                  disabled={loading}
                   className={cn(
-                    "h-12 w-full cursor-pointer rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
+                    "h-12 w-full rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
                     "hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60",
                   )}
                   style={{
@@ -311,20 +270,6 @@ export function RegisterPageClient(): React.JSX.Element {
                   }}
                 >
                   {loading ? t("submitting") : t("submit")}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleGitHubSignIn}
-                  disabled={!githubEnabled || loading || oauthLoading !== null}
-                  className="h-12 w-full cursor-pointer rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
-                  style={{
-                    borderColor: "var(--card-border)",
-                    background: "var(--input-bg)",
-                    color: "var(--text-main)",
-                  }}
-                >
-                  {oauthLoading === "github" ? tCommon("loadingGithub") : tCommon("oauthGithub")}
                 </button>
               </form>
 
@@ -350,10 +295,7 @@ export function RegisterPageClient(): React.JSX.Element {
                 {tCommon("brand")}
               </div>
 
-              <h1
-                className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
+              <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold">
                 {t("heroTitle")}
               </h1>
 

@@ -1,27 +1,31 @@
-import { createMockUser, validateMockUserCredentials } from "@shared/lib/auth";
-
 import type { BackendAuthResponse, BackendUser } from "@shared/types";
 
-export type MockLoginInput = {
+type MockLoginInput = {
   email: string;
   password: string;
 };
 
-export type MockRegisterInput = {
+type MockRegisterInput = {
   email: string;
   password: string;
   name?: string;
 };
 
-export type MockOAuthInput = {
+type MockOAuthInput = {
   provider: "github" | "google";
 };
 
-export function wait(ms: number): Promise<void> {
+const MOCK_USER: BackendUser = {
+  id: 1,
+  email: "demo@codecat.dev",
+  name: "Demo User",
+};
+
+function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function buildAuthResponse(user: BackendUser): BackendAuthResponse {
+function buildAuthResponse(user: BackendUser): BackendAuthResponse {
   return {
     user,
     accessToken: "mock-access-token",
@@ -30,7 +34,7 @@ export function buildAuthResponse(user: BackendUser): BackendAuthResponse {
 }
 
 export async function mockLogin(input: MockLoginInput): Promise<BackendAuthResponse> {
-  await wait(10);
+  await wait(400);
 
   const email = input.email.trim().toLowerCase();
   const password = input.password;
@@ -43,20 +47,15 @@ export async function mockLogin(input: MockLoginInput): Promise<BackendAuthRespo
     throw new Error("Пароль должен содержать минимум 6 символов");
   }
 
-  const user = await validateMockUserCredentials({
-    email,
-    password,
-  });
-
   return buildAuthResponse({
-    id: user.id,
-    email: user.email,
-    name: user.name,
+    ...MOCK_USER,
+    email,
+    name: email === "demo@codecat.dev" ? "Demo User" : "CodeCat User",
   });
 }
 
 export async function mockRegister(input: MockRegisterInput): Promise<{ success: true }> {
-  await wait(10);
+  await wait(500);
 
   const email = input.email.trim().toLowerCase();
   const password = input.password;
@@ -70,17 +69,17 @@ export async function mockRegister(input: MockRegisterInput): Promise<{ success:
     throw new Error("Пароль должен содержать минимум 6 символов");
   }
 
-  await createMockUser({
-    email,
-    password,
-    name,
-  });
+  if (email === "taken@codecat.dev") {
+    throw new Error("Пользователь с таким email уже существует");
+  }
+
+  void name;
 
   return { success: true };
 }
 
 export async function mockOAuth(input: MockOAuthInput): Promise<BackendAuthResponse> {
-  await wait(10);
+  await wait(400);
 
   return buildAuthResponse({
     id: input.provider === "github" ? 2 : 3,

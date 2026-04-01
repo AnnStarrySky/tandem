@@ -3,13 +3,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { PropsWithChildren } from "react";
 
-import { DEFAULT_SETTINGS } from "@shared/config/settings";
-import {
-  APP_SETTINGS_UPDATED_EVENT,
-  getClientAppSettings,
-  updateClientAppSettings,
-} from "@shared/lib/sound-client";
-
 export type Theme = "light" | "dark";
 
 type ThemeContextValue = {
@@ -23,7 +16,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 function getSystemTheme(): Theme {
   if (typeof window === "undefined") {
-    return DEFAULT_SETTINGS.theme;
+    return "dark";
   }
 
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -31,46 +24,40 @@ function getSystemTheme(): Theme {
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
+
   root.setAttribute("data-theme", theme);
   root.style.colorScheme = theme;
 }
 
 export function ThemeProvider({ children }: PropsWithChildren): React.JSX.Element {
-  const [theme, setThemeState] = useState<Theme>(DEFAULT_SETTINGS.theme);
+  const [theme, setThemeState] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const storedSettings = getClientAppSettings();
-    const nextTheme = storedSettings.theme ?? getSystemTheme();
+    const stored = window.localStorage.getItem("theme") as Theme | null;
+    const nextTheme = stored ?? getSystemTheme();
 
     setThemeState(nextTheme);
     applyTheme(nextTheme);
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    function syncTheme() {
-      const nextTheme = getClientAppSettings().theme ?? getSystemTheme();
-      setThemeState(nextTheme);
-      applyTheme(nextTheme);
-    }
-
-    window.addEventListener(APP_SETTINGS_UPDATED_EVENT, syncTheme);
-
-    return () => {
-      window.removeEventListener(APP_SETTINGS_UPDATED_EVENT, syncTheme);
-    };
-  }, []);
-
   const setTheme = useCallback((nextTheme: Theme) => {
     setThemeState(nextTheme);
-    updateClientAppSettings({ theme: nextTheme });
+    window.localStorage.setItem("theme", nextTheme);
     applyTheme(nextTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }, [setTheme, theme]);
+    setThemeState((prevTheme) => {
+      const nextTheme = prevTheme === "dark" ? "light" : "dark";
+
+      window.localStorage.setItem("theme", nextTheme);
+      applyTheme(nextTheme);
+
+      return nextTheme;
+    });
+  }, []);
 
   const value = useMemo<ThemeContextValue>(
     () => ({

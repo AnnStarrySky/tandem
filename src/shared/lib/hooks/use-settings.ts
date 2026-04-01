@@ -1,66 +1,82 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { DEFAULT_SETTINGS, SETTINGS_STORAGE_KEY } from "@shared/config/settings";
-import {
-  APP_SETTINGS_UPDATED_EVENT,
-  getClientAppSettings,
-  resetClientAppSettings,
-  type ClientAppSettings,
-  updateClientAppSettings,
-} from "@shared/lib/sound-client";
 
-type UseSettingsReturn = {
-  settings: typeof DEFAULT_SETTINGS;
-  updateSettings: (partialSettings: Partial<ClientAppSettings>) => void;
-  resetSettings: () => void;
-  mounted: boolean;
-};
+import type { UserSettings } from "@shared/types";
 
-export function useSettings(): UseSettingsReturn {
+function readSettings(): UserSettings {
+  if (typeof window === "undefined") {
+    return DEFAULT_SETTINGS;
+  }
+
+  try {
+    const raw = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
+
+    if (!raw) {
+      return DEFAULT_SETTINGS;
+    }
+
+    const parsed = JSON.parse(raw) as Partial<UserSettings>;
+
+    return {
+      ...DEFAULT_SETTINGS,
+      ...parsed,
+    };
+  } catch {
+    return DEFAULT_SETTINGS;
+  }
+}
+
+function writeSettings(settings: UserSettings) {
+  window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+}
+
+export function useSettings() {
+  const [settings, setSettings] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [mounted, setMounted] = useState(false);
-  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
 
   useEffect(() => {
-    setSettings(getClientAppSettings());
+    const nextSettings = readSettings();
+
+    setSettings(nextSettings);
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    function syncSettings() {
-      setSettings(getClientAppSettings());
-    }
+  const updateSettings = useCallback((patch: Partial<UserSettings>) => {
+    setSettings((prev) => {
+      const next = {
+        ...prev,
+        ...patch,
+      };
 
-    function handleStorage(event: StorageEvent) {
-      if (event.key !== SETTINGS_STORAGE_KEY) {
-        return;
-      }
+      writeSettings(next);
 
-      syncSettings();
-    }
-
-    window.addEventListener("storage", handleStorage);
-    window.addEventListener(APP_SETTINGS_UPDATED_EVENT, syncSettings);
-
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-      window.removeEventListener(APP_SETTINGS_UPDATED_EVENT, syncSettings);
-    };
+      return next;
+    });
   }, []);
 
-  const updateSettings = useCallback((partialSettings: Partial<ClientAppSettings>) => {
-    setSettings(updateClientAppSettings(partialSettings));
-  }, []);
+  const setSoundEnabled = useCallback(
+    (value: boolean) => {
+      updateSettings({ soundEnabled: value });
+    },
+    [updateSettings],
+  );
 
   const resetSettings = useCallback(() => {
-    setSettings(resetClientAppSettings());
+    setSettings(DEFAULT_SETTINGS);
+    writeSettings(DEFAULT_SETTINGS);
   }, []);
 
-  return {
-    settings,
-    updateSettings,
-    resetSettings,
-    mounted,
-  };
+  return useMemo(
+    () => ({
+      settings,
+      mounted,
+      updateSettings,
+      setSoundEnabled,
+      resetSettings,
+    }),
+    [mounted, resetSettings, setSoundEnabled, settings, updateSettings],
+  );
 }

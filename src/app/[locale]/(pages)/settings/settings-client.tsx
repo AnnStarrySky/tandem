@@ -1,762 +1,536 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { signOut, useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
-import { useEditableProfile, useLocaleSwitch, useSettings, useUiSound } from "@shared/lib/hooks";
+import { useEditableProfile, useSettings } from "@shared/lib/hooks";
 import { useTheme } from "@shared/lib/theme";
 import { BaseBtn } from "@shared/ui/button";
 
-import type { AppLanguage } from "@shared/types";
+import { LanguageSwitcher } from "./language-switcher";
 
-type ProfileResponse = {
-  success: boolean;
+type RequestState = {
+  type: "success" | "error";
+  message: string;
+} | null;
+
+type ApiResponse = {
+  success?: boolean;
   message?: string;
   user?: {
     id: number;
-    name?: string | null;
     email?: string | null;
+    name?: string | null;
   };
 };
 
-type PasswordResponse = {
-  success: boolean;
-  message?: string;
-};
-
-type NoticeState = {
-  type: "success" | "error";
-  text: string;
-} | null;
-
-function EditIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.9"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 20h9" />
-      <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" />
-    </svg>
-  );
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 export default function SettingsClient() {
   const t = useTranslations("Settings");
-  const { data: session, update } = useSession();
-  const { theme, setTheme } = useTheme();
-  const { settings, updateSettings, resetSettings, mounted: settingsMounted } = useSettings();
-  const { playClickSound } = useUiSound();
-  const { replaceLocale } = useLocaleSwitch();
+  const locale = useLocale();
+  const { data: session, update: updateSession } = useSession();
+
+  const { theme, setTheme, mounted: themeMounted } = useTheme();
+  const {
+    settings,
+    mounted: settingsMounted,
+    setSoundEnabled,
+    resetSettings,
+    updateSettings,
+  } = useSettings();
 
   const initialProfile = useMemo(
     () => ({
-      name: session?.user?.name ?? "",
-      email: session?.user?.email ?? "",
+      name: session?.user?.name || "CodeCat User",
+      email: session?.user?.email || "",
     }),
     [session?.user?.email, session?.user?.name],
   );
 
-  const { profile, mounted: profileMounted, updateProfile } = useEditableProfile(initialProfile);
+  const { profile, updateProfile } = useEditableProfile(initialProfile);
 
-  const [profileDraft, setProfileDraft] = useState(initialProfile);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [isSavingPassword, setIsSavingPassword] = useState(false);
+
+  const [profileState, setProfileState] = useState<RequestState>(null);
+  const [passwordState, setPasswordState] = useState<RequestState>(null);
+
+  const [draftName, setDraftName] = useState(initialProfile.name);
+  const [draftEmail, setDraftEmail] = useState(initialProfile.email);
+
   const [currentPassword, setCurrentPassword] = useState("");
-  const [nextPassword, setNextPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [profileLoading, setProfileLoading] = useState(false);
-  const [passwordLoading, setPasswordLoading] = useState(false);
-
-  const [profileNotice, setProfileNotice] = useState<NoticeState>(null);
-  const [passwordNotice, setPasswordNotice] = useState<NoticeState>(null);
-
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [isEditingSecurity, setIsEditingSecurity] = useState(false);
+  useEffect(() => {
+    setDraftName(profile.name);
+    setDraftEmail(profile.email);
+  }, [profile.email, profile.name]);
 
   useEffect(() => {
-    setProfileDraft(initialProfile);
-  }, [initialProfile]);
+    if (!settingsMounted || !themeMounted) {
+      return;
+    }
 
-  const cardStyle: CSSProperties = {
-    background: "var(--card-bg)",
-    borderColor: "var(--card-border)",
-    boxShadow: "var(--card-shadow)",
+    if (settings.theme !== theme) {
+      updateSettings({ theme });
+    }
+  }, [settings.theme, settingsMounted, theme, themeMounted, updateSettings]);
+
+  const handleThemeChange = (nextTheme: "light" | "dark") => {
+    setTheme(nextTheme);
+    updateSettings({ theme: nextTheme });
   };
 
-  const innerCardStyle: CSSProperties = {
-    background: "var(--input-bg)",
-    borderColor: "var(--card-border)",
-  };
+  const handleSaveProfile = async () => {
+    const normalizedName = draftName.trim() || "CodeCat User";
+    const normalizedEmail = draftEmail.trim().toLowerCase();
 
-  const textMainStyle: CSSProperties = {
-    color: "var(--text-main)",
-  };
+    setProfileState(null);
 
-  const textMutedStyle: CSSProperties = {
-    color: "var(--text-muted)",
-  };
-
-  const noticeBaseClass =
-    "mt-4 rounded-2xl border px-4 py-3 text-sm leading-6 transition-all duration-300";
-
-  const profileChanged =
-    profileDraft.name.trim() !== (profile.name ?? "").trim() ||
-    profileDraft.email.trim() !== (profile.email ?? "").trim();
-
-  const canEditProfile = isEditingName || isEditingEmail;
-
-  async function handleSaveProfile(): Promise<void> {
-    setProfileNotice(null);
-
-    const trimmedName = profileDraft.name.trim();
-    const trimmedEmail = profileDraft.email.trim().toLowerCase();
-    const currentEmail = (profile.email ?? session?.user?.email ?? "").trim().toLowerCase();
-
-    if (!trimmedName || !trimmedEmail || !currentEmail) {
-      setProfileNotice({
+    if (!normalizedEmail) {
+      setProfileState({
         type: "error",
-        text: t("profileValidation"),
+        message: t("profile.errors.emailRequired"),
       });
       return;
     }
 
-    setProfileLoading(true);
+    if (!isValidEmail(normalizedEmail)) {
+      setProfileState({
+        type: "error",
+        message: t("profile.errors.emailRequired"),
+      });
+      return;
+    }
 
     try {
-      const res = await fetch("/api/profile", {
+      setIsSavingProfile(true);
+
+      const response = await fetch("/api/profile", {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          currentEmail,
-          name: trimmedName,
-          email: trimmedEmail,
+          name: normalizedName,
+          email: normalizedEmail,
         }),
       });
 
-      const data = (await res.json()) as ProfileResponse;
+      const data = (await response.json().catch(() => null)) as ApiResponse | null;
 
-      if (!res.ok || !data.success || !data.user) {
-        setProfileNotice({
-          type: "error",
-          text: data.message ?? t("profileSaveError"),
-        });
-        return;
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || t("profile.errors.updateFailed"));
       }
 
       updateProfile({
-        name: data.user.name ?? trimmedName,
-        email: data.user.email ?? trimmedEmail,
+        name: normalizedName,
+        email: normalizedEmail,
       });
 
-      setProfileDraft({
-        name: data.user.name ?? trimmedName,
-        email: data.user.email ?? trimmedEmail,
-      });
-
-      await update({
+      await updateSession({
         user: {
           ...session?.user,
-          name: data.user.name ?? trimmedName,
-          email: data.user.email ?? trimmedEmail,
+          name: normalizedName,
+          email: normalizedEmail,
         },
       });
 
-      setIsEditingName(false);
-      setIsEditingEmail(false);
-
-      playClickSound();
-
-      setProfileNotice({
+      setIsEditingProfile(false);
+      setProfileState({
         type: "success",
-        text: t("profileSaveSuccess"),
+        message: t("profile.successReLogin"),
       });
-    } catch {
-      setProfileNotice({
+    } catch (error) {
+      setProfileState({
         type: "error",
-        text: t("profileSaveError"),
+        message: error instanceof Error ? error.message : t("profile.errors.updateFailed"),
       });
     } finally {
-      setProfileLoading(false);
+      setIsSavingProfile(false);
     }
-  }
+  };
 
-  function handleCancelProfileEdit(): void {
-    playClickSound();
-    setProfileDraft({
-      name: profile.name ?? "",
-      email: profile.email ?? "",
-    });
-    setIsEditingName(false);
-    setIsEditingEmail(false);
-    setProfileNotice(null);
-  }
+  const handleCancelProfile = () => {
+    setDraftName(profile.name);
+    setDraftEmail(profile.email);
+    setProfileState(null);
+    setIsEditingProfile(false);
+  };
 
-  async function handleChangePassword(): Promise<void> {
-    setPasswordNotice(null);
+  const handleSavePassword = async () => {
+    setPasswordState(null);
 
-    const currentEmail = (profile.email ?? session?.user?.email ?? "").trim().toLowerCase();
-
-    if (!currentEmail || !currentPassword || !nextPassword || !confirmPassword) {
-      setPasswordNotice({
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordState({
         type: "error",
-        text: t("passwordValidationRequired"),
+        message: t("profile.password.errors.fillAll"),
       });
       return;
     }
 
-    if (nextPassword.length < 6) {
-      setPasswordNotice({
+    if (newPassword.length < 6) {
+      setPasswordState({
         type: "error",
-        text: t("passwordValidationLength"),
+        message: t("profile.password.errors.minLength"),
       });
       return;
     }
 
-    if (nextPassword !== confirmPassword) {
-      setPasswordNotice({
+    if (newPassword !== confirmPassword) {
+      setPasswordState({
         type: "error",
-        text: t("passwordValidationMatch"),
+        message: t("profile.password.errors.mismatch"),
       });
       return;
     }
-
-    setPasswordLoading(true);
 
     try {
-      const res = await fetch("/api/profile/password", {
+      setIsSavingPassword(true);
+
+      const response = await fetch("/api/profile/password", {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          email: currentEmail,
           currentPassword,
-          nextPassword,
+          nextPassword: newPassword,
         }),
       });
 
-      const data = (await res.json()) as PasswordResponse;
+      const data = (await response.json().catch(() => null)) as ApiResponse | null;
 
-      if (!res.ok || !data.success) {
-        setPasswordNotice({
-          type: "error",
-          text: data.message ?? t("passwordChangeError"),
-        });
-        return;
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || t("profile.password.errors.updateFailed"));
       }
 
       setCurrentPassword("");
-      setNextPassword("");
+      setNewPassword("");
       setConfirmPassword("");
-      setIsEditingSecurity(false);
+      setShowPasswordForm(false);
 
-      playClickSound();
-
-      setPasswordNotice({
+      setPasswordState({
         type: "success",
-        text: t("passwordChangeSuccess"),
+        message: t("profile.password.success"),
       });
-    } catch {
-      setPasswordNotice({
+    } catch (error) {
+      setPasswordState({
         type: "error",
-        text: t("passwordChangeError"),
+        message: error instanceof Error ? error.message : t("profile.password.errors.updateFailed"),
       });
     } finally {
-      setPasswordLoading(false);
+      setIsSavingPassword(false);
     }
-  }
+  };
 
-  function handleCancelSecurityEdit(): void {
-    playClickSound();
-    setCurrentPassword("");
-    setNextPassword("");
-    setConfirmPassword("");
-    setIsEditingSecurity(false);
-    setPasswordNotice(null);
-  }
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
 
-  function handleThemeChange(nextTheme: "light" | "dark"): void {
-    playClickSound();
-    setTheme(nextTheme);
-    updateSettings({ theme: nextTheme });
-  }
+      await signOut({
+        callbackUrl: `/${locale}/auth/login`,
+      });
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
-  function handleLanguageChange(nextLanguage: AppLanguage): void {
-    playClickSound();
-    updateSettings({ language: nextLanguage });
-    replaceLocale(nextLanguage);
-  }
+  const handleResetSettings = () => {
+    resetSettings();
+    setTheme("dark");
+  };
 
-  async function handleLogout(): Promise<void> {
-    playClickSound();
-    await signOut({ callbackUrl: "/" });
-  }
+  const getToggleVariant = (isActive: boolean) => (isActive ? "primary" : "outline");
 
-  function renderToggleButton(
-    label: string,
-    active: boolean,
-    onClick: () => void,
-    soundIgnore = false,
-  ) {
+  const renderState = (state: RequestState) => {
+    if (!state) {
+      return null;
+    }
+
+    const isSuccess = state.type === "success";
+
     return (
-      <button
-        type="button"
-        onClick={onClick}
-        data-sound-ignore={soundIgnore ? "true" : undefined}
-        className="min-w-28 cursor-pointer rounded-2xl border px-5 py-2.5 text-base font-semibold transition-all duration-200 hover:-translate-y-px active:translate-y-0 active:scale-[0.98]"
+      <div
+        className="rounded-xl border px-4 py-3 text-sm"
         style={{
-          borderColor: active ? "transparent" : "var(--card-border)",
-          background: active ? "linear-gradient(90deg, #13b2f6 0%, #84f59b 100%)" : "transparent",
-          color: active ? "#ffffff" : "var(--text-main)",
-          boxShadow: active ? "0 10px 24px rgba(19,178,246,0.18)" : "none",
+          borderColor: isSuccess ? "rgba(16,185,129,0.25)" : "var(--danger-border)",
+          background: isSuccess ? "rgba(16,185,129,0.10)" : "var(--danger-bg)",
+          color: isSuccess ? "#10b981" : "var(--danger-text)",
         }}
       >
-        {label}
-      </button>
-    );
-  }
-
-  if (!profileMounted || !settingsMounted) {
-    return (
-      <div className="grid gap-6 xl:grid-cols-2">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div
-            key={index}
-            className="min-h-60 animate-pulse rounded-[28px] border p-6"
-            style={cardStyle}
-          />
-        ))}
+        {state.message}
       </div>
     );
-  }
+  };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-2">
-      <section className="rounded-[28px] border p-6 md:p-7" style={cardStyle}>
-        <div>
-          <h2 className="text-[28px] leading-tight font-bold" style={textMainStyle}>
-            {t("profileTitle")}
-          </h2>
-          <p className="mt-2 text-sm leading-6" style={textMutedStyle}>
-            {t("profileDescription")}
-          </p>
-        </div>
+    <section className="flex w-full min-w-0 flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <h1 className="m-0 text-4xl font-semibold">{t("title")}</h1>
+        <p className="m-0 text-base text-[var(--text-muted)]">{t("description")}</p>
+      </div>
 
-        <div className="mt-6 grid gap-4">
-          <label
-            className="rounded-[22px] border p-4 transition-all duration-200"
-            style={{
-              ...innerCardStyle,
-              borderColor: isEditingName ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              boxShadow: isEditingName ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-          >
-            <div className="mb-2 text-sm font-medium" style={textMutedStyle}>
-              {t("nameLabel")}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[var(--card-shadow)] backdrop-blur-md">
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="m-0 text-2xl font-semibold">{t("profile.title")}</h2>
+              <p className="m-0 mt-1 text-sm text-[var(--text-muted)]">
+                {t("profile.description")}
+              </p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <input
-                value={profileDraft.name}
-                onChange={(event) =>
-                  setProfileDraft((prev) => ({
-                    ...prev,
-                    name: event.target.value,
-                  }))
-                }
-                disabled={!isEditingName}
-                className="w-full border-none bg-transparent text-lg outline-none disabled:cursor-default disabled:opacity-100"
-                style={textMainStyle}
-                placeholder={t("namePlaceholder")}
-              />
-
-              <button
-                type="button"
-                data-sound-ignore="true"
+            {!isEditingProfile ? (
+              <BaseBtn
+                variant="outline"
+                className="w-auto max-w-none px-4 py-2 text-sm"
                 onClick={() => {
-                  playClickSound();
-                  setIsEditingName(true);
-                  setProfileNotice(null);
+                  setProfileState(null);
+                  setIsEditingProfile(true);
                 }}
-                className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-2xl border transition-all duration-200 hover:-translate-y-px"
-                style={{
-                  borderColor: isEditingName ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-                  color: isEditingName ? "#13b2f6" : "var(--text-main)",
-                  background: isEditingName ? "rgba(19, 178, 246, 0.08)" : "transparent",
-                  boxShadow: isEditingName ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-                }}
-                aria-label={t("editName")}
-                title={t("editName")}
               >
-                <EditIcon />
-              </button>
-            </div>
-          </label>
-
-          <label
-            className="rounded-[22px] border p-4 transition-all duration-200"
-            style={{
-              ...innerCardStyle,
-              borderColor: isEditingEmail ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              boxShadow: isEditingEmail ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-          >
-            <div className="mb-2 text-sm font-medium" style={textMutedStyle}>
-              {t("emailLabel")}
-            </div>
-
-            <div className="flex items-center gap-3">
-              <input
-                value={profileDraft.email}
-                onChange={(event) =>
-                  setProfileDraft((prev) => ({
-                    ...prev,
-                    email: event.target.value,
-                  }))
-                }
-                disabled={!isEditingEmail}
-                className="w-full border-none bg-transparent text-lg outline-none disabled:cursor-default disabled:opacity-100"
-                style={textMainStyle}
-                placeholder={t("emailPlaceholder")}
-                type="email"
-              />
-
-              <button
-                type="button"
-                data-sound-ignore="true"
-                onClick={() => {
-                  playClickSound();
-                  setIsEditingEmail(true);
-                  setProfileNotice(null);
-                }}
-                className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-2xl border transition-all duration-200 hover:-translate-y-px"
-                style={{
-                  borderColor: isEditingEmail ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-                  color: isEditingEmail ? "#13b2f6" : "var(--text-main)",
-                  background: isEditingEmail ? "rgba(19, 178, 246, 0.08)" : "transparent",
-                  boxShadow: isEditingEmail ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-                }}
-                aria-label={t("editEmail")}
-                title={t("editEmail")}
-              >
-                <EditIcon />
-              </button>
-            </div>
-          </label>
-        </div>
-
-        <div className="mt-6 flex flex-col items-start gap-3">
-          <BaseBtn
-            variant="primary"
-            className="w-60 max-w-full text-[18px]"
-            onClick={handleSaveProfile}
-            disabled={!profileChanged || !canEditProfile || profileLoading}
-            data-sound-ignore="true"
-          >
-            {profileLoading ? t("saving") : t("saveProfile")}
-          </BaseBtn>
-
-          {canEditProfile ? (
-            <BaseBtn
-              variant="outline"
-              className="w-60 max-w-full text-[18px]"
-              onClick={handleCancelProfileEdit}
-              data-sound-ignore="true"
-            >
-              {t("cancel")}
-            </BaseBtn>
-          ) : null}
-
-          <button
-            type="button"
-            data-sound-ignore="true"
-            onClick={handleLogout}
-            className="w-60 max-w-full cursor-pointer rounded-xl border px-4 py-2 text-[18px] font-semibold transition-all duration-300 hover:-translate-y-px active:scale-[0.98]"
-            style={{
-              color: "#dc2626",
-              borderColor: "rgba(220, 38, 38, 0.25)",
-              background: "rgba(220, 38, 38, 0.08)",
-              boxShadow: "0 10px 24px rgba(220, 38, 38, 0.08)",
-            }}
-          >
-            {t("logout")}
-          </button>
-        </div>
-
-        {profileNotice ? (
-          <div
-            className={noticeBaseClass}
-            style={
-              profileNotice.type === "success"
-                ? {
-                    borderColor: "var(--card-border)",
-                    background: "var(--input-bg)",
-                    color: "var(--text-main)",
-                  }
-                : {
-                    borderColor: "var(--danger-border)",
-                    background: "var(--danger-bg)",
-                    color: "var(--danger-text)",
-                  }
-            }
-          >
-            {profileNotice.text}
+                {t("profile.edit")}
+              </BaseBtn>
+            ) : null}
           </div>
-        ) : null}
-      </section>
 
-      <section className="rounded-[28px] border p-6 md:p-7" style={cardStyle}>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-[28px] leading-tight font-bold" style={textMainStyle}>
-              {t("securityTitle")}
-            </h2>
+          <div className="flex flex-col gap-3">
+            {renderState(profileState)}
 
-            <p className="mt-2 text-sm leading-6" style={textMutedStyle}>
-              {t("securityDescription")}
+            <div className="rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-4">
+              <div className="mb-2 text-sm text-[var(--text-muted)]">{t("profile.nameLabel")}</div>
+
+              {isEditingProfile ? (
+                <input
+                  value={draftName}
+                  onChange={(e) => setDraftName(e.target.value)}
+                  className="w-full rounded-lg border border-[var(--input-border)] bg-transparent px-3 py-2 text-base outline-none"
+                />
+              ) : (
+                <div className="text-base font-medium">{profile.name}</div>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-4">
+              <div className="mb-2 text-sm text-[var(--text-muted)]">{t("profile.emailLabel")}</div>
+
+              {isEditingProfile ? (
+                <input
+                  value={draftEmail}
+                  onChange={(e) => setDraftEmail(e.target.value)}
+                  className="w-full rounded-lg border border-[var(--input-border)] bg-transparent px-3 py-2 text-base outline-none"
+                  type="email"
+                />
+              ) : (
+                <div className="text-base font-medium break-all">
+                  {profile.email || t("profile.noEmail")}
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-4">
+              <div className="mb-2 text-sm text-[var(--text-muted)]">
+                {t("profile.password.label")}
+              </div>
+
+              <div className="mb-3 text-base font-medium">{t("profile.password.masked")}</div>
+
+              {renderState(passwordState)}
+
+              {!showPasswordForm ? (
+                <BaseBtn
+                  variant="outline"
+                  className="mt-3 w-auto max-w-none px-4 py-2 text-sm"
+                  onClick={() => {
+                    setPasswordState(null);
+                    setShowPasswordForm(true);
+                  }}
+                >
+                  {t("profile.password.change")}
+                </BaseBtn>
+              ) : (
+                <div className="mt-3 flex flex-col gap-3">
+                  <input
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    type="password"
+                    placeholder={t("profile.password.current")}
+                    className="w-full rounded-lg border border-[var(--input-border)] bg-transparent px-3 py-2 text-base outline-none"
+                  />
+                  <input
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    type="password"
+                    placeholder={t("profile.password.new")}
+                    className="w-full rounded-lg border border-[var(--input-border)] bg-transparent px-3 py-2 text-base outline-none"
+                  />
+                  <input
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    type="password"
+                    placeholder={t("profile.password.confirm")}
+                    className="w-full rounded-lg border border-[var(--input-border)] bg-transparent px-3 py-2 text-base outline-none"
+                  />
+
+                  <div className="flex flex-wrap gap-3">
+                    <BaseBtn
+                      variant="outline"
+                      className="w-auto max-w-none px-4 py-2 text-sm"
+                      onClick={handleSavePassword}
+                      disabled={isSavingPassword}
+                    >
+                      {isSavingPassword ? t("profile.password.saving") : t("profile.password.save")}
+                    </BaseBtn>
+
+                    <BaseBtn
+                      variant="outline"
+                      className="w-auto max-w-none px-4 py-2 text-sm"
+                      onClick={() => {
+                        setShowPasswordForm(false);
+                        setPasswordState(null);
+                        setCurrentPassword("");
+                        setNewPassword("");
+                        setConfirmPassword("");
+                      }}
+                      disabled={isSavingPassword}
+                    >
+                      {t("common.cancel")}
+                    </BaseBtn>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {isEditingProfile ? (
+              <div className="flex flex-wrap gap-3">
+                <BaseBtn
+                  variant="outline"
+                  className="w-auto max-w-none px-4 py-2 text-sm"
+                  onClick={handleSaveProfile}
+                  disabled={isSavingProfile}
+                >
+                  {isSavingProfile ? t("profile.saving") : t("profile.save")}
+                </BaseBtn>
+
+                <BaseBtn
+                  variant="outline"
+                  className="w-auto max-w-none px-4 py-2 text-sm"
+                  onClick={handleCancelProfile}
+                  disabled={isSavingProfile}
+                >
+                  {t("common.cancel")}
+                </BaseBtn>
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[var(--card-shadow)] backdrop-blur-md">
+          <div className="mb-4">
+            <h2 className="m-0 text-2xl font-semibold">{t("appearance.title")}</h2>
+            <p className="m-0 mt-1 text-sm text-[var(--text-muted)]">
+              {t("appearance.description")}
             </p>
           </div>
 
-          <button
-            type="button"
-            data-sound-ignore="true"
-            onClick={() => {
-              playClickSound();
-              setIsEditingSecurity(true);
-              setPasswordNotice(null);
-            }}
-            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-2xl border transition-all duration-200 hover:-translate-y-px"
-            style={{
-              borderColor: isEditingSecurity ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              color: isEditingSecurity ? "#13b2f6" : "var(--text-main)",
-              background: isEditingSecurity ? "rgba(19, 178, 246, 0.08)" : "transparent",
-              boxShadow: isEditingSecurity ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-            aria-label={t("editSecurity")}
-            title={t("editSecurity")}
-          >
-            <EditIcon />
-          </button>
-        </div>
-
-        <div className="mt-6 grid gap-4">
-          <label
-            className="rounded-[22px] border p-4 transition-all duration-200"
-            style={{
-              ...innerCardStyle,
-              borderColor: isEditingSecurity ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              boxShadow: isEditingSecurity ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-          >
-            <div className="mb-2 text-sm font-medium" style={textMutedStyle}>
-              {t("currentPasswordLabel")}
-            </div>
-            <input
-              value={currentPassword}
-              onChange={(event) => setCurrentPassword(event.target.value)}
-              disabled={!isEditingSecurity}
-              className="w-full border-none bg-transparent text-lg outline-none disabled:cursor-default disabled:opacity-100"
-              style={textMainStyle}
-              type="password"
-              placeholder={t("currentPasswordPlaceholder")}
-            />
-          </label>
-
-          <label
-            className="rounded-[22px] border p-4 transition-all duration-200"
-            style={{
-              ...innerCardStyle,
-              borderColor: isEditingSecurity ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              boxShadow: isEditingSecurity ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-          >
-            <div className="mb-2 text-sm font-medium" style={textMutedStyle}>
-              {t("newPasswordLabel")}
-            </div>
-            <input
-              value={nextPassword}
-              onChange={(event) => setNextPassword(event.target.value)}
-              disabled={!isEditingSecurity}
-              className="w-full border-none bg-transparent text-lg outline-none disabled:cursor-default disabled:opacity-100"
-              style={textMainStyle}
-              type="password"
-              placeholder={t("newPasswordPlaceholder")}
-            />
-          </label>
-
-          <label
-            className="rounded-[22px] border p-4 transition-all duration-200"
-            style={{
-              ...innerCardStyle,
-              borderColor: isEditingSecurity ? "rgba(19, 178, 246, 0.35)" : "var(--card-border)",
-              boxShadow: isEditingSecurity ? "0 0 0 3px rgba(19,178,246,0.08)" : "none",
-            }}
-          >
-            <div className="mb-2 text-sm font-medium" style={textMutedStyle}>
-              {t("confirmPasswordLabel")}
-            </div>
-            <input
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              disabled={!isEditingSecurity}
-              className="w-full border-none bg-transparent text-lg outline-none disabled:cursor-default disabled:opacity-100"
-              style={textMainStyle}
-              type="password"
-              placeholder={t("confirmPasswordPlaceholder")}
-            />
-          </label>
-        </div>
-
-        <div className="mt-6 flex flex-col items-start gap-3">
-          <BaseBtn
-            variant="primary"
-            className="w-65 max-w-full text-[18px]"
-            onClick={handleChangePassword}
-            disabled={passwordLoading || !isEditingSecurity}
-            data-sound-ignore="true"
-          >
-            {passwordLoading ? t("changingPassword") : t("changePassword")}
-          </BaseBtn>
-
-          {isEditingSecurity ? (
+          <div className="flex flex-wrap gap-3">
             <BaseBtn
-              variant="outline"
-              className="w-65 max-w-full text-[18px]"
-              onClick={handleCancelSecurityEdit}
-              data-sound-ignore="true"
+              variant={getToggleVariant(themeMounted && theme === "light")}
+              className="w-auto max-w-none min-w-[140px] px-4 py-2 text-sm"
+              onClick={() => handleThemeChange("light")}
             >
-              {t("cancel")}
+              {t("appearance.light")}
             </BaseBtn>
-          ) : null}
+
+            <BaseBtn
+              variant={getToggleVariant(themeMounted && theme === "dark")}
+              className="w-auto max-w-none min-w-[140px] px-4 py-2 text-sm"
+              onClick={() => handleThemeChange("dark")}
+            >
+              {t("appearance.dark")}
+            </BaseBtn>
+          </div>
         </div>
 
-        {passwordNotice ? (
-          <div
-            className={noticeBaseClass}
-            style={
-              passwordNotice.type === "success"
-                ? {
-                    borderColor: "var(--card-border)",
-                    background: "var(--input-bg)",
-                    color: "var(--text-main)",
-                  }
-                : {
-                    borderColor: "var(--danger-border)",
-                    background: "var(--danger-bg)",
-                    color: "var(--danger-text)",
-                  }
-            }
-          >
-            {passwordNotice.text}
-          </div>
-        ) : null}
-      </section>
-
-      <section className="rounded-[28px] border p-6 md:p-7 xl:col-span-2" style={cardStyle}>
-        <h2 className="text-[28px] leading-tight font-bold" style={textMainStyle}>
-          {t("preferencesTitle")}
-        </h2>
-
-        <p className="mt-2 text-sm leading-6" style={textMutedStyle}>
-          {t("preferencesDescription")}
-        </p>
-
-        <div className="mt-6 grid gap-5 lg:grid-cols-3">
-          <div className="rounded-3xl border p-5" style={innerCardStyle}>
-            <div className="mb-3 text-sm font-medium" style={textMutedStyle}>
-              {t("languageTitle")}
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {renderToggleButton(
-                "EN",
-                settings.language === "en",
-                () => handleLanguageChange("en"),
-                true,
-              )}
-              {renderToggleButton(
-                "RU",
-                settings.language === "ru",
-                () => handleLanguageChange("ru"),
-                true,
-              )}
-            </div>
+        <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[var(--card-shadow)] backdrop-blur-md">
+          <div className="mb-4">
+            <h2 className="m-0 text-2xl font-semibold">{t("language.title")}</h2>
+            <p className="m-0 mt-1 text-sm text-[var(--text-muted)]">{t("language.description")}</p>
           </div>
 
-          <div className="rounded-3xl border p-5" style={innerCardStyle}>
-            <div className="mb-3 text-sm font-medium" style={textMutedStyle}>
-              {t("themeTitle")}
-            </div>
+          <LanguageSwitcher />
+        </div>
 
-            <div className="flex flex-wrap gap-3">
-              {renderToggleButton(
-                t("lightTheme"),
-                theme === "light",
-                () => handleThemeChange("light"),
-                true,
-              )}
-              {renderToggleButton(
-                t("darkTheme"),
-                theme === "dark",
-                () => handleThemeChange("dark"),
-                true,
-              )}
-            </div>
+        <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[var(--card-shadow)] backdrop-blur-md">
+          <div className="mb-4">
+            <h2 className="m-0 text-2xl font-semibold">{t("game.title")}</h2>
+            <p className="m-0 mt-1 text-sm text-[var(--text-muted)]">{t("game.description")}</p>
           </div>
 
-          <div className="rounded-3xl border p-5" style={innerCardStyle}>
-            <div className="mb-3 text-sm font-medium" style={textMutedStyle}>
-              {t("soundTitle")}
+          <div className="flex flex-col gap-4">
+            <div className="rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-4">
+              <div className="mb-2 text-sm text-[var(--text-muted)]">{t("game.sound.title")}</div>
+
+              <div className="flex flex-wrap gap-3">
+                <BaseBtn
+                  variant={getToggleVariant(settingsMounted && settings.soundEnabled)}
+                  className="w-auto max-w-none min-w-[90px] px-4 py-2 text-sm"
+                  onClick={() => setSoundEnabled(true)}
+                >
+                  {t("common.on")}
+                </BaseBtn>
+
+                <BaseBtn
+                  variant={getToggleVariant(settingsMounted && !settings.soundEnabled)}
+                  className="w-auto max-w-none min-w-[90px] px-4 py-2 text-sm"
+                  onClick={() => setSoundEnabled(false)}
+                >
+                  {t("common.off")}
+                </BaseBtn>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              {renderToggleButton(
-                t("soundOn"),
-                settings.soundEnabled,
-                () => {
-                  updateSettings({ soundEnabled: true });
-                  playClickSound();
-                },
-                true,
-              )}
-
-              {renderToggleButton(
-                t("soundOff"),
-                !settings.soundEnabled,
-                () => {
-                  updateSettings({ soundEnabled: false });
-                },
-                true,
-              )}
+            <div>
+              <BaseBtn
+                variant="outline"
+                className="w-auto max-w-none px-4 py-2 text-sm"
+                onClick={handleResetSettings}
+              >
+                {t("game.reset")}
+              </BaseBtn>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="rounded-2xl border border-[var(--danger-border)] bg-[var(--danger-bg)] p-5 shadow-[var(--card-shadow)] backdrop-blur-md xl:col-span-2">
+          <div className="mb-4">
+            <h2 className="m-0 text-2xl font-semibold text-[var(--danger-text)]">
+              {t("account.title")}
+            </h2>
+            <p className="m-0 mt-1 text-sm text-[var(--text-muted)]">{t("account.description")}</p>
+          </div>
+
           <BaseBtn
             variant="outline"
-            className="w-55 max-w-full text-[18px]"
-            data-sound-ignore="true"
-            onClick={() => {
-              playClickSound();
-              resetSettings();
-            }}
+            className="w-auto max-w-none px-4 py-2 text-sm"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
           >
-            {t("resetSettings")}
+            {isLoggingOut ? t("account.loggingOut") : t("account.logout")}
           </BaseBtn>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-
 import { Typography } from "antd";
 import { useTranslations, useMessages } from "next-intl";
 
-import { BaseBtn } from "@/src/shared/ui/button";
 import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
+import { BaseBtn } from "@/src/shared/ui/button";
 
 export default function GlossaryPage() {
   const translate = useTranslations("Glossary");

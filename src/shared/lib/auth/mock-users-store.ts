@@ -1,12 +1,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import bcrypt from "bcryptjs";
-
 type StoredMockUser = {
   id: number;
   email: string;
-  passwordHash: string;
+  password: string;
   name: string;
 };
 
@@ -23,7 +21,7 @@ const DEFAULT_DB: MockUsersDb = {
     {
       id: 1,
       email: "demo@codecat.dev",
-      passwordHash: "$2b$12$9mZ7ZxJwQ5V6x4m0Kp6W6.6m7kS3M0J6rjY1E2Q5x2l5kQzM7V6sK", // 123456
+      password: "123456",
       name: "Demo User",
     },
   ],
@@ -61,13 +59,13 @@ export async function findMockUserByEmail(email: string): Promise<StoredMockUser
 
 export async function createMockUser(input: {
   email: string;
-  passwordHash: string;
+  password: string;
   name?: string;
 }): Promise<StoredMockUser> {
   const db = await readDb();
 
   const email = input.email.trim().toLowerCase();
-  const passwordHash = input.passwordHash;
+  const password = input.password;
   const name = input.name?.trim() || "CodeCat User";
 
   const exists = db.users.some((user) => user.email === email);
@@ -79,7 +77,7 @@ export async function createMockUser(input: {
   const nextUser: StoredMockUser = {
     id: db.lastId + 1,
     email,
-    passwordHash,
+    password,
     name,
   };
 
@@ -100,13 +98,7 @@ export async function validateMockUserCredentials(input: {
 
   const user = await findMockUserByEmail(email);
 
-  if (!user) {
-    throw new Error("Неверный email или пароль");
-  }
-
-  const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-
-  if (!isValidPassword) {
+  if (!user || user.password !== password) {
     throw new Error("Неверный email или пароль");
   }
 
@@ -165,20 +157,13 @@ export async function updateMockUserPassword(input: {
     throw new Error("Пользователь не найден");
   }
 
-  const isValidCurrentPassword = await bcrypt.compare(
-    currentPassword,
-    db.users[userIndex].passwordHash,
-  );
-
-  if (!isValidCurrentPassword) {
+  if (db.users[userIndex].password !== currentPassword) {
     throw new Error("Текущий пароль введён неверно");
   }
 
-  const nextPasswordHash = await bcrypt.hash(nextPassword, 12);
-
   db.users[userIndex] = {
     ...db.users[userIndex],
-    passwordHash: nextPasswordHash,
+    password: nextPassword,
   };
 
   await writeDb(db);
