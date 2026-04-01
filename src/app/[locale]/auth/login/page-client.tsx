@@ -129,10 +129,7 @@ export function LoginPageClient(): React.JSX.Element {
                 {tCommon("brand")}
               </div>
 
-              <h1
-                className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
+              <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold">
                 {t("heroTitle")}
               </h1>
 
@@ -183,24 +180,14 @@ export function LoginPageClient(): React.JSX.Element {
                 </div>
               </div>
 
-              <h2
-                className="text-3xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
-                {t("title")}
-              </h2>
+              <h2 className="text-3xl leading-tight font-semibold">{t("title")}</h2>
               <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
                 {t("subtitle")}
               </p>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("email")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("email")}</label>
                   <input
                     type="email"
                     autoComplete="email"
@@ -214,7 +201,7 @@ export function LoginPageClient(): React.JSX.Element {
                     placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-cyan-400/15",
                     )}
                     style={{
@@ -227,12 +214,7 @@ export function LoginPageClient(): React.JSX.Element {
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
-                    {t("password")}
-                  </label>
+                  <label className="mb-2 block text-sm font-medium">{t("password")}</label>
                   <input
                     type="password"
                     autoComplete="current-password"
@@ -246,7 +228,7 @@ export function LoginPageClient(): React.JSX.Element {
                     placeholder={t("passwordPlaceholder")}
                     required
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
                       "focus:ring-4 focus:ring-cyan-400/15",
                     )}
                     style={{
@@ -275,7 +257,7 @@ export function LoginPageClient(): React.JSX.Element {
                   type="submit"
                   disabled={loading || oauthLoading !== null}
                   className={cn(
-                    "h-12 w-full cursor-pointer rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
+                    "h-12 w-full rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
                     "hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60",
                   )}
                   style={{
@@ -300,7 +282,7 @@ export function LoginPageClient(): React.JSX.Element {
                     type="button"
                     onClick={handleGitHubSignIn}
                     disabled={!githubEnabled || loading || oauthLoading !== null}
-                    className="h-12 cursor-pointer rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
+                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
                     style={{
                       borderColor: "var(--card-border)",
                       background: "var(--input-bg)",
@@ -314,7 +296,7 @@ export function LoginPageClient(): React.JSX.Element {
                     type="button"
                     onClick={handleGoogleSignIn}
                     disabled={!googleEnabled || loading || oauthLoading !== null}
-                    className="h-12 cursor-pointer rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
+                    className="h-12 rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
                     style={{
                       borderColor: "var(--card-border)",
                       background: "var(--input-bg)",

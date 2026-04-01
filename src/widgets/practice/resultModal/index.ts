@@ -1,1 +1,0 @@
-export { PracticeResultModal } from "./PracticeResultModal";

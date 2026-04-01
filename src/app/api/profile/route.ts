@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 
+import { getServerSession } from "next-auth";
+
+import { authOptions } from "@shared/config/auth";
 import { updateMockUserProfile } from "@shared/lib/auth";
 
-type ProfileBody = {
-  currentEmail?: string;
-  email?: string;
-  name?: string;
-};
-
 const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
+
+type UpdateProfileBody = {
+  name: string;
+  email: string;
+};
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -19,14 +21,8 @@ function getErrorMessage(error: unknown): string {
 }
 
 function getStatusCode(error: unknown): number {
-  if (error instanceof Error) {
-    if (error.message.includes("Пользователь не найден")) {
-      return 404;
-    }
-
-    if (error.message.includes("уже существует")) {
-      return 409;
-    }
+  if (error instanceof Error && error.message.includes("уже существует")) {
+    return 409;
   }
 
   return 400;
@@ -34,40 +30,32 @@ function getStatusCode(error: unknown): number {
 
 export async function PATCH(req: Request): Promise<Response> {
   try {
-    const body = (await req.json()) as ProfileBody;
+    const session = await getServerSession(authOptions);
 
-    const currentEmail = body.currentEmail?.trim().toLowerCase() ?? "";
-    const nextEmail = body.email?.trim().toLowerCase() ?? "";
-    const nextName = body.name?.trim() ?? "";
-
-    if (!currentEmail || !nextEmail || !nextName) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Current email, next email and name are required",
-        },
-        { status: 400 },
-      );
+    if (!session?.user?.email) {
+      return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    if (USE_MOCK) {
-      const user = await updateMockUserProfile({
-        currentEmail,
-        nextEmail,
-        nextName,
-      });
+    const body = (await req.json()) as UpdateProfileBody;
 
-      return NextResponse.json({
-        success: true,
-        user: {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        },
-      });
+    if (!USE_MOCK) {
+      throw new Error("Backend profile update is not connected yet");
     }
 
-    throw new Error("Backend profile update is not connected yet");
+    const updatedUser = await updateMockUserProfile({
+      currentEmail: session.user.email,
+      nextEmail: body.email,
+      nextName: body.name,
+    });
+
+    return NextResponse.json({
+      success: true,
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       {
