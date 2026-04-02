@@ -1,7 +1,8 @@
 "use client";
 
-import { BaseBtn } from "@/src/shared/ui/button/BaseBtn";
 import Image from "next/image";
+
+import { BaseBtn } from "@shared/ui/button";
 
 export default function Error({
   error,
