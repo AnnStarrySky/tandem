@@ -25,7 +25,6 @@
       "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"],
       "@widgets/*": ["./src/widgets/*"],
-      "@types/*": ["./src/types/*"],
       "@styles/*": ["./src/app/styles/*"]
     }
   },
