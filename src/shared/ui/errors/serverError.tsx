@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 
-export default function ServerError(errorInfo: { codeNumber: number; errorMessage?: string }) {
+import type { ServerErrorInfo } from "@shared/types/";
+
+export default function ServerError(serverErrorInfo: ServerErrorInfo) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Image
@@ -18,11 +20,15 @@ export default function ServerError(errorInfo: { codeNumber: number; errorMessag
         }}
       />
       <h1 className="text-center text-4xl font-semibold">
-        {errorInfo
-          ? `An error "${errorInfo.codeNumber}" occurred on server`
+        {serverErrorInfo
+          ? `An error "${serverErrorInfo.codeNumber}" occurred on server`
           : "An error occurred on client"}
       </h1>
-      {errorInfo?.errorMessage ? <p className="text-center">{errorInfo.errorMessage}</p> : ""}
+      {serverErrorInfo?.errorMessage ? (
+        <p className="text-center">{serverErrorInfo.errorMessage}</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
