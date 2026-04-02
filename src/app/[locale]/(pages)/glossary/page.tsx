@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 
+import { BaseBtn } from "@shared/ui/button";
 import { Typography } from "antd";
 import { useTranslations, useLocale } from "next-intl";
 
-import { BaseBtn } from "@/src/shared/ui/button";
 import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
+import { ServerError } from "@/src/widgets/errors";
 
 import Loading from "../../loading";
-import ServerError from "@/src/shared/ui/errors/serverError";
+
 import type { ServerErrorInfo } from "@shared/types/";
 
 export default function GlossaryPage() {
