@@ -4,7 +4,11 @@ import Image from "next/image";
 
 import type { ServerErrorInfo } from "@shared/types/";
 
-export default function ServerError(serverErrorInfo: ServerErrorInfo) {
+type Props = {
+  serverErrorInfo: ServerErrorInfo;
+};
+
+export default function ServerError({ serverErrorInfo }: Props) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Image

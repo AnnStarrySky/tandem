@@ -1,19 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import { Typography } from "antd";
-import { useTranslations, useMessages } from "next-intl";
+import { useEffect, useState } from "react";
 
-import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
+import { Typography } from "antd";
+import { useTranslations, useLocale } from "next-intl";
+
 import { BaseBtn } from "@/src/shared/ui/button";
+import { TopicList, TopicDescription, Topic } from "@/src/shared/ui/glossary";
+
+import Loading from "../../loading";
+import ServerError from "@/src/shared/ui/errors/serverError";
+import type { ServerErrorInfo } from "@shared/types/";
 
 export default function GlossaryPage() {
   const translate = useTranslations("Glossary");
-  const messages = useMessages();
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
 
-  const topics: Topic[] = messages.Glossary.topics;
+  const locale = useLocale();
+  const [topics, setTopics] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState<ServerErrorInfo | null>(null);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`/api/glossary?locale=${locale}`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setTopics(await response.json());
+      } else {
+        setError({ codeNumber: response.status, errorMessage: response.statusText });
+      }
+      setLoading(false);
+    }
+    fetchData();
+  }, [locale]);
+
+  if (isLoading) {
+    return <Loading />;
+  } else if (error) {
+    return <ServerError serverErrorInfo={error} />;
+  }
   return (
     <div>
       <div className="flex items-center justify-between">
