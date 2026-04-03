@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getMessages } from "next-intl/server";
 
-export async function GET(request: NextRequest): Promise<Response> {
-  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function GET(_request: NextRequest, { params }: Props): Promise<Response> {
+  const { locale } = (await params) ?? "en";
 
   if (process.env.AUTH_USE_MOCK === "true") {
     const messages = await getMessages({ locale });
