@@ -10,5 +10,14 @@ export async function GET(request: NextRequest): Promise<Response> {
     return NextResponse.json(messages.Glossary.topics);
   }
 
-  return NextResponse.json([]);
+  const BACKEND_URL = process.env.BACKEND_URL;
+  const url = new URL(`/api/glossary/topics/pew}`, BACKEND_URL);
+
+  const response = await fetch(url);
+
+  if (response.ok) {
+    return NextResponse.json(await response.json());
+  } else {
+    return NextResponse.json({ success: false }, { status: response.status });
+  }
 }
