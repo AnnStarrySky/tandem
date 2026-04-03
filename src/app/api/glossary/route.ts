@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getMessages } from "next-intl/server";
-import { wait } from "@/src/shared/config/auth-mocks";
 
 export async function GET(request: NextRequest): Promise<Response> {
-  await wait(300000);
   const locale = request.nextUrl.searchParams.get("locale") ?? "en";
 
   if (process.env.AUTH_USE_MOCK === "true") {
