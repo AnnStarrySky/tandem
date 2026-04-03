@@ -24,7 +24,7 @@ export default function GlossaryPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/glossary?locale=${locale}`, {
+      const response = await fetch(`/api/${locale}/glossary`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
