@@ -1,13 +1,15 @@
 .loader {
   width: 48px;
   height: 48px;
-  border: 3px solid #fff;
+  border: 3px solid var(--loader-border);
   border-radius: 50%;
   display: inline-block;
   position: relative;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+  user-select: none;
 }
+
 .loader::after {
   content: "";
   box-sizing: border-box;
@@ -19,7 +21,7 @@
   height: 40px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-bottom-color: #ff3d00;
+  border-bottom-color: var(--loader-inner);
 }
 
 .loaderContainer {
@@ -34,6 +36,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
