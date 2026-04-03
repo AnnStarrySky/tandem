@@ -2,15 +2,13 @@
 
 import Image from "next/image";
 
-import { BaseBtn } from "@shared/ui/button";
+import type { ServerErrorInfo } from "@shared/types/";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+type Props = {
+  serverErrorInfo: ServerErrorInfo;
+};
+
+export const ServerError = ({ serverErrorInfo }: Props) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Image
@@ -25,11 +23,16 @@ export default function Error({
           WebkitMaskImage: "radial-gradient(circle at center, black 70%, transparent 98%)",
         }}
       />
-      <h1 className="text-center text-4xl font-semibold">An error occurred </h1>
-      {<p className="text-center">{error.message}</p>}
-      <BaseBtn variant="primary" className="w-[200px]" onClick={reset}>
-        Try Again
-      </BaseBtn>
+      <h1 className="text-center text-4xl font-semibold">
+        {serverErrorInfo
+          ? `An error "${serverErrorInfo.codeNumber}" occurred on server`
+          : "An error occurred on client"}
+      </h1>
+      {serverErrorInfo?.errorMessage ? (
+        <p className="text-center">{serverErrorInfo.errorMessage}</p>
+      ) : (
+        ""
+      )}
     </div>
   );
-}
+};

@@ -58,6 +58,9 @@ html[data-theme="light"] {
   --sidebar-hover-bg: #e0e5eb;
   --sidebar-hover-border: #ffffff;
   --sidebar-logo-filter: none;
+
+  --loader-border: #0d1e3c;
+  --loader-inner: #2a4076;
 }
 
 html[data-theme="dark"] {
@@ -88,6 +91,9 @@ html[data-theme="dark"] {
   --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
   --sidebar-hover-border: rgba(255, 255, 255, 0.08);
   --sidebar-logo-filter: brightness(0) invert(1);
+
+  --loader-border: #f8fafc;
+  --loader-inner: #93aed8;
 }
 
 html,
