@@ -3,33 +3,36 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --bg-main: #070b12;
-  --bg-secondary: #0c1220;
-  --bg-accent: rgba(14, 165, 233, 0.16);
-  --bg-accent-2: rgba(217, 70, 239, 0.14);
-  --bg-accent-3: rgba(16, 185, 129, 0.12);
+  --bg-main: #eef4fb;
+  --bg-secondary: #f9fbff;
+  --bg-accent: rgba(14, 165, 233, 0.14);
+  --bg-accent-2: rgba(217, 70, 239, 0.1);
+  --bg-accent-3: rgba(16, 185, 129, 0.08);
 
-  --card-bg: rgba(17, 18, 24, 0.78);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 20px 80px rgba(0, 0, 0, 0.28);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 20px 80px rgba(15, 23, 42, 0.1);
 
-  --text-main: #f8fafc;
-  --text-muted: rgba(255, 255, 255, 0.68);
+  --text-main: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.62);
 
-  --input-bg: rgba(255, 255, 255, 0.05);
-  --input-border: rgba(255, 255, 255, 0.1);
-  --input-placeholder: rgba(255, 255, 255, 0.34);
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-border: rgba(15, 23, 42, 0.08);
+  --input-placeholder: rgba(15, 23, 42, 0.34);
 
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --danger-border: rgba(239, 68, 68, 0.22);
-  --danger-text: #fca5a5;
+  --danger-bg: rgba(239, 68, 68, 0.08);
+  --danger-border: rgba(239, 68, 68, 0.18);
+  --danger-text: #b91c1c;
 
-  --sidebar-bg: #050b16;
-  --sidebar-item-bg: #050b16;
-  --sidebar-text: rgba(255, 255, 255, 0.85);
-  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
-  --sidebar-hover-border: rgba(255, 255, 255, 0.08);
-  --sidebar-logo-filter: brightness(0) invert(1);
+  --sidebar-bg: #f4f3f8;
+  --sidebar-item-bg: #f4f3f8;
+  --sidebar-text: #6a7285;
+  --sidebar-hover-bg: #e0e5eb;
+  --sidebar-hover-border: #ffffff;
+  --sidebar-logo-filter: none;
+
+  --loader-border: #0d1e3c;
+  --loader-inner: #2a4076;
 }
 
 html[data-theme="light"] {
