@@ -54,7 +54,7 @@ export function ThemeToggle(): React.JSX.Element {
       <button
         type="button"
         disabled
-        className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border opacity-70"
+        className="inline-flex h-11 w-11 cursor-not-allowed items-center justify-center rounded-2xl border opacity-70"
         style={{
           borderColor: "var(--card-border)",
           background: "rgba(255,255,255,0.04)",
@@ -71,7 +71,7 @@ export function ThemeToggle(): React.JSX.Element {
     <button
       type="button"
       onClick={toggleTheme}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border transition hover:scale-[1.03] active:scale-[0.97]"
+      className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-2xl border transition hover:scale-[1.03] active:scale-[0.97]"
       style={{
         borderColor: "var(--card-border)",
         background: "rgba(255,255,255,0.04)",
