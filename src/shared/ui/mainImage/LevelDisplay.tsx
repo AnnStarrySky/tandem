@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { useTranslations } from "next-intl";
+
+import { useTheme } from "@/src/shared/lib/theme";
 
 import { cn } from "../../lib";
 import { IconLogo } from "../icon";
@@ -12,33 +12,9 @@ type Props = {
   className?: string;
 };
 
-type ThemeMode = "light" | "dark";
-
 export const LevelDisplay = ({ levelNumber, className }: Props) => {
   const translation = useTranslations("Dashboard");
-  const [theme, setTheme] = useState<ThemeMode>("light");
-
-  useEffect(() => {
-    const readTheme = () => {
-      const nextTheme =
-        document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-
-      setTheme(nextTheme);
-    };
-
-    readTheme();
-
-    const observer = new MutationObserver(() => {
-      readTheme();
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const { theme } = useTheme();
 
   const isDark = theme === "dark";
 
