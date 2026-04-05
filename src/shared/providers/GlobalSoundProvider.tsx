@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 
 import { playUiSoundIfEnabled } from "@/src/shared/lib/sound-client";
 
-export function GlobalSoundProvider(): React.JSX.Element | null {
+export function GlobalSoundProvider({ children }: PropsWithChildren): React.JSX.Element | null {
   useEffect(() => {
     function handleClick(event: MouseEvent) {
       const target = event.target as HTMLElement | null;
@@ -82,5 +82,5 @@ export function GlobalSoundProvider(): React.JSX.Element | null {
     };
   }, []);
 
-  return null;
+  return <>{children}</>;
 }
