@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 
-import { playUiSoundIfEnabled } from "@shared/lib/sound-client";
+import { playUiSoundIfEnabled } from "@shared/lib/sound";
 
 type UseUiSoundReturn = {
   playClickSound: () => void;

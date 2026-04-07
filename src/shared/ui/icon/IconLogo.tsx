@@ -7,7 +7,7 @@ type Props = {
   svgClassName?: string;
 };
 
-export const IconLogo = ({ size = 50, color = "rgb(30,37,46)", svgClassName }: Props) => {
+export const IconLogo = ({ size = 50, svgClassName }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -10,7 +10,8 @@ import type {
   CodeCompletionQuestion,
   CodeCompletionTask,
   PracticeCompleteResult,
-} from "@/src/entities/practice";
+} from "@/entities/practice";
+import { BaseBtn } from "@/shared/ui/button";
 
 import { calculateEarnedPoints, getNextDifficultyHref, getProgressPercent } from "../lib";
 import { PracticeResultModal } from "../resultModal";
@@ -212,27 +213,22 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
         }
         footerContent={
           <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
+            <BaseBtn
               onClick={() => setShowHelp((prev) => !prev)}
-              className="w-full cursor-pointer rounded-2xl bg-gradient-to-r from-[#13b2f6] to-[#84f59b] px-5 py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_rgba(19,178,246,0.22)] transition-transform duration-200 hover:translate-y-[-1px]"
+              className="w-full max-w-none rounded-2xl py-3 text-[15px]"
+              fullWidth
             >
               {showHelp ? t("hideHelp") : t("help")}
-            </button>
+            </BaseBtn>
 
-            <button
-              type="button"
+            <BaseBtn
               onClick={handleNext}
               disabled={!isLocked}
-              className={[
-                "hover:translate-y-[-1px]w-full cursor-pointer rounded-2xl bg-gradient-to-r from-[#13b2f6] to-[#84f59b] px-5 py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_rgba(19,178,246,0.22)] transition-transform duration-200",
-                !isLocked
-                  ? "cursor-not-allowed bg-white/10 text-white/50 shadow-none"
-                  : "bg-gradient-to-r from-[#13b2f6] to-[#84f59b] shadow-[0_10px_22px_rgba(19,178,246,0.22)] hover:translate-y-[-1px]",
-              ].join(" ")}
+              className="w-full max-w-none rounded-2xl py-3 text-[15px]"
+              fullWidth
             >
               {currentQuestionIndex === total - 1 ? t("finish") : t("next")}
-            </button>
+            </BaseBtn>
           </div>
         }
       />

@@ -11,13 +11,6 @@
       "email": "anna@mail.ru",
       "password": "Anna1234",
       "name": "Anna"
-    },
-    {
-      "id": 3,
-      "email": "mama@mama.ru",
-      "passwordHash": "$2b$12$veDjDkIY7L/KxFKCZUhAGOkPYGvcZTrvxBFuXwc0cKdx/qFmTbLre",
-      "name": "Mama"
     }
-  ],
-  "lastId": 3
+  ]
 }

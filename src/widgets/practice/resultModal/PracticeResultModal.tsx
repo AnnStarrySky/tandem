@@ -6,6 +6,8 @@ import confetti from "canvas-confetti";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
+import { BaseBtn } from "@/shared/ui/button";
+
 type Props = {
   open?: boolean;
   score: number;
@@ -183,22 +185,19 @@ export function PracticeResultModal({
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <button
-                    type="button"
+                  <BaseBtn
+                    variant="outline"
                     onClick={onRetry}
-                    className="flex-1 rounded-2xl border border-white/15 bg-white/10 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-white/15"
+                    className="max-w-none flex-1 border-white/15 bg-white/10 text-white hover:bg-white/15"
+                    fullWidth
                   >
                     {t("tryAgain")}
-                  </button>
+                  </BaseBtn>
 
                   {onNextLevel ? (
-                    <button
-                      type="button"
-                      onClick={onNextLevel}
-                      className="flex-1 rounded-2xl bg-gradient-to-r from-[#13b2f6] to-[#84f59b] px-5 py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_rgba(19,178,246,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
-                    >
+                    <BaseBtn onClick={onNextLevel} className="max-w-none flex-1" fullWidth>
                       {t("nextLevel")}
-                    </button>
+                    </BaseBtn>
                   ) : null}
                 </div>
               </div>

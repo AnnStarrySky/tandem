@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { mockRegister } from "@shared/config/auth-mocks";
+import { createDevMockUser } from "@shared/api/auth";
+import { AUTH_ENV } from "@shared/config/auth";
 
 type RegisterBody = {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   name?: string;
 };
-
-const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
-const BACKEND_URL = process.env.BACKEND_URL;
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -31,9 +29,9 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body = (await req.json()) as RegisterBody;
 
-    const email = body.email?.trim().toLowerCase();
+    const email = body.email?.trim().toLowerCase() ?? "";
     const password = body.password ?? "";
-    const name = body.name?.trim() || undefined;
+    const name = body.name?.trim() || "CodeCat User";
 
     if (!email || !password) {
       return NextResponse.json(
@@ -45,8 +43,18 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    if (USE_MOCK) {
-      await mockRegister({
+    if (password.length < 6) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Password must contain at least 6 characters",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (AUTH_ENV.useMock) {
+      await createDevMockUser({
         email,
         password,
         name,
@@ -55,11 +63,11 @@ export async function POST(req: Request): Promise<Response> {
       return NextResponse.json({ success: true });
     }
 
-    if (!BACKEND_URL) {
-      throw new Error("No backend URL");
+    if (!AUTH_ENV.backendUrl) {
+      throw new Error("BACKEND_URL is not configured");
     }
 
-    const url = new URL("/api/register", BACKEND_URL);
+    const url = new URL("/api/register", AUTH_ENV.backendUrl);
 
     const backendResult = await fetch(url, {
       method: "POST",
@@ -70,15 +78,24 @@ export async function POST(req: Request): Promise<Response> {
       body: JSON.stringify({
         email,
         password,
-        name: name || "User",
+        name,
       }),
     });
 
     if (!backendResult.ok) {
+      let message = backendResult.statusText;
+
+      try {
+        const data = (await backendResult.json()) as { message?: string };
+        message = data.message ?? message;
+      } catch {
+        // ignore
+      }
+
       return NextResponse.json(
         {
           success: false,
-          message: backendResult.statusText,
+          message,
         },
         { status: backendResult.status },
       );

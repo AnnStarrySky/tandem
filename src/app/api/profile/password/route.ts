@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { updateMockUserPassword } from "@shared/lib/auth";
+import { updateDevMockUserPassword } from "@shared/api/auth";
+import { AUTH_ENV } from "@shared/config/auth";
 
 type PasswordBody = {
   email?: string;
   currentPassword?: string;
   nextPassword?: string;
 };
-
-const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -59,14 +58,54 @@ export async function PATCH(req: Request): Promise<Response> {
       );
     }
 
-    if (USE_MOCK) {
-      await updateMockUserPassword({
+    if (AUTH_ENV.useMock) {
+      await updateDevMockUserPassword({
         email,
         currentPassword,
         nextPassword,
       });
-    } else {
+
+      return NextResponse.json({
+        success: true,
+      });
+    }
+
+    if (!AUTH_ENV.backendUrl) {
       throw new Error("Backend password change is not connected yet");
+    }
+
+    const url = new URL("/api/profile/password", AUTH_ENV.backendUrl);
+
+    const backendResult = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        currentPassword,
+        nextPassword,
+      }),
+    });
+
+    if (!backendResult.ok) {
+      let message = backendResult.statusText;
+
+      try {
+        const data = (await backendResult.json()) as { message?: string };
+        message = data.message ?? message;
+      } catch {
+        // ignore parse error
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          message,
+        },
+        { status: backendResult.status },
+      );
     }
 
     return NextResponse.json({

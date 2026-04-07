@@ -3,12 +3,10 @@
 import { use, useEffect, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
-
 import { useLocale, useTranslations } from "next-intl";
 
-import type { PracticeTopic } from "@/src/entities/practice";
-import { getPracticeTopic } from "@/src/entities/practice";
-import { TopicDifficultyCards } from "@/src/features/practice-runner";
+import { getPracticeTopic, type PracticeTopic } from "@entities/practice";
+import { TopicDifficultyCards } from "@features/practice-runner";
 
 type Props = {
   params: Promise<{
@@ -38,9 +36,7 @@ export default function PracticeTopicPage({ params }: Props) {
       try {
         const data = await getPracticeTopic(topicId, locale, "easy");
 
-        if (!mounted) {
-          return;
-        }
+        if (!mounted) return;
 
         setTopic(data);
       } finally {
@@ -68,21 +64,13 @@ export default function PracticeTopicPage({ params }: Props) {
   return (
     <div className="grid gap-8">
       <section>
-        <div
-          className="mb-2 text-sm tracking-[0.2em] uppercase"
-          style={{ color: "var(--text-main)", opacity: 0.7 }}
-        >
+        <div className="mb-2 text-sm tracking-[0.2em] text-(--text-main) uppercase opacity-70">
           {t("lesson")} {topic.order}
         </div>
 
-        <h1 className="text-4xl font-semibold md:text-5xl" style={{ color: "var(--text-main)" }}>
-          {topic.title}
-        </h1>
+        <h1 className="text-4xl font-semibold text-(--text-main) md:text-5xl">{topic.title}</h1>
 
-        <p
-          className="mt-3 max-w-3xl text-base md:text-lg"
-          style={{ color: "var(--text-main)", opacity: 0.82 }}
-        >
+        <p className="mt-3 max-w-3xl text-base text-(--text-main) opacity-82 md:text-lg">
           {topic.description}
         </p>
       </section>

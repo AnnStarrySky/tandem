@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { useLocale, useTranslations } from "next-intl";
 
-import { cn } from "@/src/shared/lib";
+import { cn } from "@/shared/lib";
 
 type Props = {
   lessonNumber: number;

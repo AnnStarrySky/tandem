@@ -3,20 +3,19 @@
 import { use, useEffect, useMemo, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
-
 import { useLocale, useTranslations } from "next-intl";
 
 import {
   getPracticeTask,
   getPracticeTopic,
-  savePracticeResultApi,
+  savePracticeResult,
   type PracticeCompleteResult,
   type PracticeDifficulty,
   type PracticeTask,
   type PracticeTopic,
-} from "@/src/entities/practice";
-import { PracticeGameScreen } from "@/src/features/practice-runner";
-import { CodeCompletionWidget, CodeEditorWidget, QuizWidget } from "@/src/widgets/practice";
+} from "@entities/practice";
+import { PracticeGameScreen } from "@features/practice-runner";
+import { CodeCompletionWidget, CodeEditorWidget, QuizWidget } from "@widgets/practice";
 
 const VALID_DIFFICULTIES: PracticeDifficulty[] = ["easy", "medium", "hard"];
 
@@ -59,7 +58,7 @@ export default function PracticeDifficultyPage({ params }: Props) {
       };
     }
 
-    const difficultyValue = resolvedDifficulty;
+    const difficultyValue: PracticeDifficulty = resolvedDifficulty;
 
     setLoading(true);
     setTopic(null);
@@ -93,13 +92,14 @@ export default function PracticeDifficultyPage({ params }: Props) {
   async function handleComplete(result: PracticeCompleteResult) {
     if (!resolvedDifficulty || !task) return;
 
+    const difficultyValue: PracticeDifficulty = resolvedDifficulty;
     const earnedPoints =
       result.total > 0 ? Math.round((result.score / result.total) * task.points) : 0;
 
     try {
-      await savePracticeResultApi({
+      await savePracticeResult({
         topicId,
-        difficulty: resolvedDifficulty,
+        difficulty: difficultyValue,
         locale,
         result,
         earnedPoints,

@@ -2,7 +2,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import { mockLogin, mockOAuth } from "./auth-mocks";
+import {
+  createDevMockUser,
+  findDevMockUserByEmail,
+  validateDevMockCredentials,
+} from "@shared/api/auth";
 
 import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
 import type { NextAuthOptions } from "next-auth";
@@ -21,6 +25,22 @@ export const AUTH_ENV = {
   backendUrl: process.env.BACKEND_URL,
 } as const;
 
+function buildMockAuthResponse(data: {
+  id: number | string;
+  email: string;
+  name: string;
+}): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.id),
+      email: data.email,
+      name: data.name,
+    },
+    accessToken: "mock-access-token",
+    refreshToken: "mock-refresh-token",
+  };
+}
+
 const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
     name: "Email & Password",
@@ -35,11 +55,15 @@ const providers: NextAuthOptions["providers"] = [
 
       if (AUTH_ENV.useMock) {
         try {
-          let data: BackendAuthResponse;
-
-          data = await mockLogin({
+          const user = await validateDevMockCredentials({
             email: credentials.email.trim(),
             password: credentials.password,
+          });
+
+          const data = buildMockAuthResponse({
+            id: user.id,
+            email: user.email,
+            name: user.name,
           });
 
           return {
@@ -51,49 +75,48 @@ const providers: NextAuthOptions["providers"] = [
         } catch {
           return null;
         }
-      } else {
-        try {
-          if (!AUTH_ENV.backendUrl) {
-            throw Error("No backend URL");
-          }
-          const backendResult = await fetch(
-            new URL(AUTH_ROUTES.backendLogin, AUTH_ENV.backendUrl),
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              body: JSON.stringify({
-                email: credentials.email.trim(),
-                password: credentials.password,
-              }),
-            },
-          );
+      }
 
-          if (backendResult.ok) {
-            const data: BackendLoginResponse = await backendResult.json();
+      try {
+        if (!AUTH_ENV.backendUrl) {
+          throw new Error("BACKEND_URL is not configured");
+        }
 
-            let backendUser: BackendAuthResponse = {
-              user: {
-                id: 1,
-                email: credentials.email.trim(),
-                name: data.name,
-              },
-              accessToken: data.jwtToken,
-            };
-            return {
-              id: 1,
-              email: credentials.email.trim(),
-              name: data.name,
-              __backend: backendUser,
-            };
-          } else {
-            return null;
-          }
-        } catch {
+        const backendResult = await fetch(new URL(AUTH_ROUTES.backendLogin, AUTH_ENV.backendUrl), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email.trim(),
+            password: credentials.password,
+          }),
+        });
+
+        if (!backendResult.ok) {
           return null;
         }
+
+        const data = (await backendResult.json()) as BackendLoginResponse;
+
+        const backendUser: BackendAuthResponse = {
+          user: {
+            id: String(data.id),
+            email: credentials.email.trim(),
+            name: data.name,
+          },
+          accessToken: data.JWTToken,
+        };
+
+        return {
+          id: backendUser.user.id,
+          email: backendUser.user.email ?? undefined,
+          name: backendUser.user.name ?? undefined,
+          __backend: backendUser,
+        };
+      } catch {
+        return null;
       }
     },
   }),
@@ -119,13 +142,13 @@ if (AUTH_ENV.googleEnabled) {
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  session: { strategy: "jwt" },
+  session: { strategy: "JWT" },
   pages: {
     signIn: AUTH_ROUTES.signIn,
   },
   providers,
   callbacks: {
-    async jwt({ token, user, account, trigger, session }) {
+    async JWT({ token, user, account, trigger, session }) {
       if (trigger === "update" && session?.user) {
         token.user = {
           ...token.user,
@@ -146,20 +169,36 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account && (account.provider === "github" || account.provider === "google")) {
-        let data: BackendAuthResponse;
-
         if (AUTH_ENV.useMock) {
-          data = await mockOAuth({
-            provider: account.provider,
+          const email =
+            account.provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev";
+          const name = account.provider === "github" ? "GitHub User" : "Google User";
+
+          let existing = await findDevMockUserByEmail(email);
+
+          if (!existing) {
+            existing = await createDevMockUser({
+              email,
+              password: "oauth-user-password",
+              name,
+            });
+          }
+
+          const data = buildMockAuthResponse({
+            id: existing.id,
+            email: existing.email,
+            name: existing.name,
           });
-        } else {
-          throw new Error("Backend OAuth is not connected yet");
+
+          token.user = data.user;
+          token.accessToken = data.accessToken;
+          token.refreshToken = data.refreshToken;
+          token.provider = account.provider;
+
+          return token;
         }
 
-        token.user = data.user;
-        token.accessToken = data.accessToken;
-        token.refreshToken = data.refreshToken;
-        token.provider = account.provider;
+        throw new Error("Backend OAuth is not connected yet");
       }
 
       return token;

@@ -2,7 +2,7 @@
 
 import React, { PropsWithChildren, useEffect } from "react";
 
-import { playUiSoundIfEnabled } from "@/src/shared/lib/sound-client";
+import { playUiSoundIfEnabled } from "@shared/lib/sound";
 
 export function GlobalSoundProvider({ children }: PropsWithChildren): React.JSX.Element | null {
   useEffect(() => {

@@ -2,11 +2,12 @@
 
 import type { ReactNode } from "react";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
-import { useLocale, useTranslations } from "next-intl";
+import type { PracticeDifficulty, PracticeTopic } from "@/entities/practice";
+import { BaseBtn } from "@/shared/ui/button";
 
-import type { PracticeDifficulty, PracticeTopic } from "@/src/entities/practice";
+import { useRouter } from "../../../i18n";
 
 type Props = {
   topic: PracticeTopic;
@@ -17,57 +18,47 @@ type Props = {
 
 export function PracticeGameScreen({ topic, difficulty, page, children }: Props) {
   const t = useTranslations("Practice");
-  const locale = useLocale();
+  const router = useRouter();
 
   const topicHref =
-    page && page > 1
-      ? `/${locale}/practice/${topic.id}?page=${page}`
-      : `/${locale}/practice/${topic.id}`;
+    page && page > 1 ? `/practice/${topic.id}?page=${page}` : `/practice/${topic.id}`;
 
-  const allTopicsHref =
-    page && page > 1 ? `/${locale}/practice?page=${page}` : `/${locale}/practice`;
+  const allTopicsHref = page && page > 1 ? `/practice?page=${page}` : `/practice`;
 
   return (
     <div className="grid gap-6">
       <section className="grid gap-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
-            <div
-              className="mb-2 text-sm tracking-[0.2em] uppercase"
-              style={{ color: "var(--text-main)", opacity: 0.7 }}
-            >
+            <div className="mb-2 text-sm tracking-[0.2em] text-[var(--text-main)] uppercase opacity-70">
               {t("lesson")} {topic.order} • {t(difficulty)}
             </div>
 
-            <h1
-              className="text-3xl font-semibold md:text-4xl"
-              style={{ color: "var(--text-main)" }}
-            >
+            <h1 className="text-3xl font-semibold text-[var(--text-main)] md:text-4xl">
               {topic.title}
             </h1>
 
-            <p
-              className="mt-3 max-w-3xl text-base md:text-lg"
-              style={{ color: "var(--text-main)", opacity: 0.82 }}
-            >
+            <p className="mt-3 max-w-3xl text-base text-[var(--text-main)] opacity-82 md:text-lg">
               {topic.description}
             </p>
           </div>
 
           <div className="ml-auto flex flex-wrap items-center gap-3 p-2">
-            <Link
-              href={topicHref}
-              className="inline-flex h-11 items-center justify-center rounded-2xl border border-[#38bdf8] bg-white/70 px-6 text-[15px] font-medium text-slate-800 shadow-[0_0_0_1px_rgba(56,189,248,0.18)] transition hover:bg-sky-50 hover:shadow-[0_0_0_1px_rgba(56,189,248,0.32)] dark:border-[#38bdf8] dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            <BaseBtn
+              variant="outline"
+              className="max-w-none text-[15px]"
+              onClick={() => router.push(topicHref)}
             >
               {t("backToTopic")}
-            </Link>
+            </BaseBtn>
 
-            <Link
-              href={allTopicsHref}
-              className="inline-flex h-11 items-center justify-center rounded-2xl border border-[#38bdf8] bg-white/70 px-6 text-[15px] font-medium text-slate-800 shadow-[0_0_0_1px_rgba(56,189,248,0.18)] transition hover:bg-sky-50 hover:shadow-[0_0_0_1px_rgba(56,189,248,0.32)] dark:border-[#38bdf8] dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            <BaseBtn
+              variant="outline"
+              className="max-w-none text-[15px]"
+              onClick={() => router.push(allTopicsHref)}
             >
               {t("allTopics")}
-            </Link>
+            </BaseBtn>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { cn } from "@/src/shared/lib";
+import { cn } from "@/shared/lib";
 
 import { CompletedTasks } from "./CompletedTasks";
 import { RatingScore } from "./RatingScore";
