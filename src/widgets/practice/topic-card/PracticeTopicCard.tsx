@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 
 import { Link } from "@i18n";
+import { BaseBtn } from "@shared/ui/button";
 
 import type { PracticeTopic } from "@entities/practice";
-import { BaseBtn } from "@shared/ui/button";
 
 type Props = {
   topic: PracticeTopic;

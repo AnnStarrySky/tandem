@@ -9,11 +9,13 @@ import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 import { RegisterPageClient } from "./page-client";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{
+    locale: string;
+  }>;
 };
 
 export default async function RegisterPage({ params }: Props): Promise<React.JSX.Element> {
-  const { locale } = params;
+  const { locale } = await params;
   const session = await getServerSession(authOptions);
 
   if (session?.user) {

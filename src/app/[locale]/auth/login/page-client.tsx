@@ -7,11 +7,11 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { cn } from "@shared/lib";
+import { Link, useRouter } from "@i18n";
+import { cn, encryptText } from "@shared/lib";
 import { ThemeToggle } from "@shared/ui";
 import { BaseBtn } from "@shared/ui/button";
 
-import { Link, useRouter } from "../../../../i18n";
 import { LanguageToggle } from "../ui";
 
 type LoginFormState = {
@@ -41,17 +41,25 @@ export function LoginPageClient(): React.JSX.Element {
     return `/${locale}/dashboard`;
   }, [locale]);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setLoading(true);
     setErrorText(null);
 
     try {
+      const normalizedEmail = form.email.trim().toLowerCase();
+
+      console.log("Password before encryption:", form.password);
+
+      const encryptedPassword = await encryptText(form.password);
+
+      console.log("Password after encryption:", encryptedPassword);
+
       const result = await signIn("credentials", {
         redirect: false,
-        email: form.email.trim(),
-        password: form.password,
+        email: normalizedEmail,
+        password: encryptedPassword,
         callbackUrl,
       });
 

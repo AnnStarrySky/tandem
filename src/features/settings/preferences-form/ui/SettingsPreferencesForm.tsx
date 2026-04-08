@@ -11,6 +11,31 @@ const cardClass =
 
 const innerCardClass = "rounded-3xl border border-[var(--card-border)] bg-[var(--input-bg)] p-5";
 
+type RenderToggleButtonProps = {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+  soundIgnore?: boolean;
+};
+
+function RenderToggleButton({
+  label,
+  active,
+  onClick,
+  soundIgnore = false,
+}: RenderToggleButtonProps) {
+  return (
+    <BaseBtn
+      variant={active ? "primary" : "outline"}
+      onClick={onClick}
+      data-sound-ignore={soundIgnore ? "true" : undefined}
+      className="flex-1 text-base"
+    >
+      {label}
+    </BaseBtn>
+  );
+}
+
 export function SettingsPreferencesForm() {
   const t = useTranslations("Settings");
   const {
@@ -22,24 +47,6 @@ export function SettingsPreferencesForm() {
     handleSoundChange,
     handleReset,
   } = usePreferencesForm();
-
-  function renderToggleButton(
-    label: string,
-    active: boolean,
-    onClick: () => void,
-    soundIgnore = false,
-  ) {
-    return (
-      <BaseBtn
-        variant={active ? "primary" : "outline"}
-        onClick={onClick}
-        data-sound-ignore={soundIgnore ? "true" : undefined}
-        className="max-w-none min-w-28 text-base"
-      >
-        {label}
-      </BaseBtn>
-    );
-  }
 
   if (!mounted) {
     return <div className={`${cardClass} min-h-60 animate-pulse`} />;
@@ -62,18 +69,19 @@ export function SettingsPreferencesForm() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            {renderToggleButton(
-              "EN",
-              settings.language === "en",
-              () => handleLanguageChange("en"),
-              true,
-            )}
-            {renderToggleButton(
-              "RU",
-              settings.language === "ru",
-              () => handleLanguageChange("ru"),
-              true,
-            )}
+            <RenderToggleButton
+              label="EN"
+              active={settings.language === "en"}
+              onClick={() => handleLanguageChange("en")}
+              soundIgnore
+            />
+
+            <RenderToggleButton
+              label="RU"
+              active={settings.language === "ru"}
+              onClick={() => handleLanguageChange("ru")}
+              soundIgnore
+            />
           </div>
         </div>
 
@@ -81,18 +89,19 @@ export function SettingsPreferencesForm() {
           <div className="mb-3 text-sm font-medium text-[var(--text-muted)]">{t("themeTitle")}</div>
 
           <div className="flex flex-wrap gap-3">
-            {renderToggleButton(
-              t("lightTheme"),
-              theme === "light",
-              () => handleThemeChange("light"),
-              true,
-            )}
-            {renderToggleButton(
-              t("darkTheme"),
-              theme === "dark",
-              () => handleThemeChange("dark"),
-              true,
-            )}
+            <RenderToggleButton
+              label={t("lightTheme")}
+              active={theme === "light"}
+              onClick={() => handleThemeChange("light")}
+              soundIgnore
+            />
+
+            <RenderToggleButton
+              label={t("darkTheme")}
+              active={theme === "dark"}
+              onClick={() => handleThemeChange("dark")}
+              soundIgnore
+            />
           </div>
         </div>
 
@@ -100,18 +109,19 @@ export function SettingsPreferencesForm() {
           <div className="mb-3 text-sm font-medium text-[var(--text-muted)]">{t("soundTitle")}</div>
 
           <div className="flex flex-wrap gap-3">
-            {renderToggleButton(
-              t("soundOn"),
-              settings.soundEnabled,
-              () => handleSoundChange(true),
-              true,
-            )}
-            {renderToggleButton(
-              t("soundOff"),
-              !settings.soundEnabled,
-              () => handleSoundChange(false),
-              true,
-            )}
+            <RenderToggleButton
+              label={t("soundOn")}
+              active={settings.soundEnabled}
+              onClick={() => handleSoundChange(true)}
+              soundIgnore
+            />
+
+            <RenderToggleButton
+              label={t("soundOff")}
+              active={!settings.soundEnabled}
+              onClick={() => handleSoundChange(false)}
+              soundIgnore
+            />
           </div>
         </div>
       </div>

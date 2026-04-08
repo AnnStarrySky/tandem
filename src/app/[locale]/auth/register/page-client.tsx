@@ -7,11 +7,11 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { cn } from "@shared/lib";
+import { Link, useRouter } from "@i18n";
+import { cn, encryptText } from "@shared/lib";
 import { ThemeToggle } from "@shared/ui";
 import { BaseBtn } from "@shared/ui/button";
 
-import { Link, useRouter } from "../../../../i18n";
 import { LanguageToggle } from "../ui";
 
 type RegisterFormState = {
@@ -57,14 +57,20 @@ export function RegisterPageClient(): React.JSX.Element {
     setLoading(true);
 
     try {
+      const normalizedEmail = form.email.trim().toLowerCase();
+      const encryptedPassword = await encryptText(form.password);
+
+      console.log("Register password before encryption:", form.password);
+      console.log("Register password after encryption:", encryptedPassword);
+
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          email: form.email.trim(),
-          password: form.password,
+          email: normalizedEmail,
+          password: encryptedPassword,
           name: form.name.trim() || undefined,
         }),
       });
@@ -81,8 +87,8 @@ export function RegisterPageClient(): React.JSX.Element {
 
       const signInResult = await signIn("credentials", {
         redirect: false,
-        email: form.email.trim(),
-        password: form.password,
+        email: normalizedEmail,
+        password: encryptedPassword,
         callbackUrl,
       });
 

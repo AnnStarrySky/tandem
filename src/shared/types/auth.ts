@@ -1,15 +1,17 @@
 export type BackendLoginResponse = {
+  Id: string;
+  Name: string;
+  JWTToken: string;
+};
+
+export type BackendUser = {
   id: string;
-  name: string;
-  jwtToken: string;
+  email?: string | null;
+  name?: string | null;
 };
 
 export type BackendAuthResponse = {
-  user: {
-    id: string;
-    email?: string | null;
-    name?: string | null;
-  };
+  user: BackendUser;
   accessToken: string;
   refreshToken?: string;
 };

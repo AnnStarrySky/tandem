@@ -6,14 +6,12 @@ import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
 import { useRouter } from "@i18n";
-
+import { BaseBtn } from "@shared/ui/button";
 import { LevelImage } from "@shared/ui/mainImage";
 import { LessonWrapper } from "@shared/ui/paragraph";
-import { BaseBtn } from "@shared/ui/button";
+import { LessonBoard } from "@widgets/LessonsPlan";
 import { ProgressBar } from "@widgets/progress";
 import { ResultBar } from "@widgets/result";
-
-import { LessonBoard } from "../../../../widgets/LessonsPlan";
 
 export default function Dashboard() {
   const t = useTranslations("Dashboard");

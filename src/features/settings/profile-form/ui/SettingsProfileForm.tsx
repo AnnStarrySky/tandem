@@ -128,11 +128,12 @@ export function SettingsProfileForm() {
               placeholder={t("emailPlaceholder")}
               type="email"
             />
+
             <BaseBtn
               variant="outline"
               className="inline-flex h-11 w-11 max-w-none items-center justify-center rounded-2xl p-0 leading-none"
               data-sound-ignore="true"
-              onClick={startEditName}
+              onClick={startEditEmail}
               aria-label={t("editEmail")}
               title={t("editEmail")}
             >
@@ -167,7 +168,7 @@ export function SettingsProfileForm() {
 
         <BaseBtn
           variant="outline"
-          className="w-60 max-w-full border-[rgba(220,38,38,0.25)] text-[18px] text-red-600 dark:text-red-300"
+          className="w-60 max-w-full border-[rgba(220,38,38,0.25)] text-[18px] text-red-600 transition-all duration-200 hover:border-[rgba(220,38,38,0.45)] hover:bg-red-50 hover:text-red-700 dark:text-red-300 dark:hover:bg-red-500/10 dark:hover:text-red-200"
           data-sound-ignore="true"
           onClick={logout}
         >

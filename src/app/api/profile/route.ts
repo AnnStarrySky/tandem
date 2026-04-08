@@ -59,7 +59,7 @@ export async function PATCH(req: Request): Promise<Response> {
       return NextResponse.json({
         success: true,
         user: {
-          id: user.id,
+          id: String(user.id),
           email: user.email,
           name: user.name,
         },
@@ -67,7 +67,7 @@ export async function PATCH(req: Request): Promise<Response> {
     }
 
     if (!AUTH_ENV.backendUrl) {
-      throw new Error("Backend profile update is not connected yet");
+      throw new Error("BACKEND_URL is not configured");
     }
 
     const url = new URL("/api/profile", AUTH_ENV.backendUrl);
@@ -106,7 +106,7 @@ export async function PATCH(req: Request): Promise<Response> {
 
     const data = (await backendResult.json()) as {
       user?: {
-        id: number;
+        id: string;
         email?: string | null;
         name?: string | null;
       };

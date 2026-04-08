@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
+
 import { useLocale, useTranslations } from "next-intl";
 
 import { getPracticeTopic, type PracticeTopic } from "@entities/practice";

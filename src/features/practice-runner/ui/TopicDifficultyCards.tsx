@@ -4,8 +4,7 @@ import { useTranslations } from "next-intl";
 
 import type { PracticeDifficulty, PracticeTopic } from "@/entities/practice";
 import { BaseBtn } from "@/shared/ui/button";
-
-import { useRouter } from "../../../i18n";
+import { useRouter } from "@i18n";
 
 type Props = {
   topic: PracticeTopic;

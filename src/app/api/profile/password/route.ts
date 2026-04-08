@@ -48,11 +48,11 @@ export async function PATCH(req: Request): Promise<Response> {
       );
     }
 
-    if (nextPassword.length < 6) {
+    if (currentPassword.length < 64 || nextPassword.length < 64) {
       return NextResponse.json(
         {
           success: false,
-          message: "Новый пароль должен содержать минимум 6 символов",
+          message: "Password hashes are required",
         },
         { status: 400 },
       );
@@ -71,7 +71,7 @@ export async function PATCH(req: Request): Promise<Response> {
     }
 
     if (!AUTH_ENV.backendUrl) {
-      throw new Error("Backend password change is not connected yet");
+      throw new Error("BACKEND_URL is not configured");
     }
 
     const url = new URL("/api/profile/password", AUTH_ENV.backendUrl);

@@ -7,8 +7,9 @@ import {
   findDevMockUserByEmail,
   validateDevMockCredentials,
 } from "@shared/api/auth";
+import { decryptText } from "@shared/lib";
 
-import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
+import type { BackendAuthResponse, BackendLoginResponse, ProviderName } from "@shared/types";
 import type { NextAuthOptions } from "next-auth";
 
 export const AUTH_ROUTES = {
@@ -41,6 +42,20 @@ function buildMockAuthResponse(data: {
   };
 }
 
+function mapBackendLoginResponseToAuthResponse(
+  data: BackendLoginResponse,
+  email: string,
+): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.Id),
+      email,
+      name: data.Name,
+    },
+    accessToken: data.JWTToken,
+  };
+}
+
 const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
     name: "Email & Password",
@@ -53,11 +68,25 @@ const providers: NextAuthOptions["providers"] = [
         return null;
       }
 
+      const normalizedEmail = credentials.email.trim().toLowerCase();
+
+      let decryptedPassword = "";
+
+      try {
+        decryptedPassword = await decryptText(credentials.password);
+      } catch {
+        return null;
+      }
+
+      if (!decryptedPassword) {
+        return null;
+      }
+
       if (AUTH_ENV.useMock) {
         try {
           const user = await validateDevMockCredentials({
-            email: credentials.email.trim(),
-            password: credentials.password,
+            email: normalizedEmail,
+            password: decryptedPassword,
           });
 
           const data = buildMockAuthResponse({
@@ -89,8 +118,8 @@ const providers: NextAuthOptions["providers"] = [
             Accept: "application/json",
           },
           body: JSON.stringify({
-            email: credentials.email.trim(),
-            password: credentials.password,
+            email: normalizedEmail,
+            password: decryptedPassword,
           }),
         });
 
@@ -99,15 +128,7 @@ const providers: NextAuthOptions["providers"] = [
         }
 
         const data = (await backendResult.json()) as BackendLoginResponse;
-
-        const backendUser: BackendAuthResponse = {
-          user: {
-            id: String(data.id),
-            email: credentials.email.trim(),
-            name: data.name,
-          },
-          accessToken: data.JWTToken,
-        };
+        const backendUser = mapBackendLoginResponseToAuthResponse(data, normalizedEmail);
 
         return {
           id: backendUser.user.id,
@@ -142,18 +163,19 @@ if (AUTH_ENV.googleEnabled) {
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  session: { strategy: "JWT" },
+  session: { strategy: "jwt" },
   pages: {
     signIn: AUTH_ROUTES.signIn,
   },
   providers,
   callbacks: {
-    async JWT({ token, user, account, trigger, session }) {
+    async jwt({ token, user, account, trigger, session }) {
       if (trigger === "update" && session?.user) {
         token.user = {
           ...token.user,
           ...session.user,
         };
+
         return token;
       }
 
@@ -170,9 +192,10 @@ export const authOptions: NextAuthOptions = {
 
       if (account && (account.provider === "github" || account.provider === "google")) {
         if (AUTH_ENV.useMock) {
+          const provider = account.provider as Extract<ProviderName, "github" | "google">;
           const email =
-            account.provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev";
-          const name = account.provider === "github" ? "GitHub User" : "Google User";
+            provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev";
+          const name = provider === "github" ? "GitHub User" : "Google User";
 
           let existing = await findDevMockUserByEmail(email);
 
@@ -193,7 +216,7 @@ export const authOptions: NextAuthOptions = {
           token.user = data.user;
           token.accessToken = data.accessToken;
           token.refreshToken = data.refreshToken;
-          token.provider = account.provider;
+          token.provider = provider;
 
           return token;
         }

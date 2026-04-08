@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 
 import { createDevMockUser } from "@shared/api/auth";
 import { AUTH_ENV } from "@shared/config/auth";
+import { decryptText } from "@shared/lib";
+
+import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
 
 type RegisterBody = {
   email?: string;
@@ -9,20 +12,18 @@ type RegisterBody = {
   name?: string;
 };
 
-function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-
-  return "Registration failed";
-}
-
-function getStatusCode(error: unknown): number {
-  if (error instanceof Error && error.message.includes("уже существует")) {
-    return 409;
-  }
-
-  return 400;
+function mapBackendLoginResponseToAuthResponse(
+  data: BackendLoginResponse,
+  email: string,
+): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.Id),
+      email,
+      name: data.Name,
+    },
+    accessToken: data.JWTToken,
+  };
 }
 
 export async function POST(req: Request): Promise<Response> {
@@ -30,10 +31,10 @@ export async function POST(req: Request): Promise<Response> {
     const body = (await req.json()) as RegisterBody;
 
     const email = body.email?.trim().toLowerCase() ?? "";
-    const password = body.password ?? "";
+    const encryptedPassword = body.password ?? "";
     const name = body.name?.trim() || "CodeCat User";
 
-    if (!email || !password) {
+    if (!email || !encryptedPassword) {
       return NextResponse.json(
         {
           success: false,
@@ -43,28 +44,49 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    if (password.length < 6) {
+    const password = await decryptText(encryptedPassword);
+
+    if (!password) {
       return NextResponse.json(
         {
           success: false,
-          message: "Password must contain at least 6 characters",
+          message: "Password is required",
         },
         { status: 400 },
       );
     }
 
     if (AUTH_ENV.useMock) {
-      await createDevMockUser({
+      const user = await createDevMockUser({
         email,
         password,
         name,
       });
 
-      return NextResponse.json({ success: true });
+      const auth: BackendAuthResponse = {
+        user: {
+          id: String(user.id),
+          email: user.email,
+          name: user.name,
+        },
+        accessToken: "mock-access-token",
+        refreshToken: "mock-refresh-token",
+      };
+
+      return NextResponse.json({
+        success: true,
+        auth,
+      });
     }
 
     if (!AUTH_ENV.backendUrl) {
-      throw new Error("BACKEND_URL is not configured");
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Internal server error",
+        },
+        { status: 500 },
+      );
     }
 
     const url = new URL("/api/register", AUTH_ENV.backendUrl);
@@ -89,7 +111,7 @@ export async function POST(req: Request): Promise<Response> {
         const data = (await backendResult.json()) as { message?: string };
         message = data.message ?? message;
       } catch {
-        // ignore
+        // empty
       }
 
       return NextResponse.json(
@@ -101,14 +123,20 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
+    const data = (await backendResult.json()) as BackendLoginResponse;
+    const auth = mapBackendLoginResponseToAuthResponse(data, email);
+
+    return NextResponse.json({
+      success: true,
+      auth,
+    });
+  } catch {
     return NextResponse.json(
       {
         success: false,
-        message: getErrorMessage(error),
+        message: "Internal server error",
       },
-      { status: getStatusCode(error) },
+      { status: 500 },
     );
   }
 }

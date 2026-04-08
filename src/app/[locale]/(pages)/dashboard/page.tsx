@@ -9,11 +9,13 @@ import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 import Dashboard from "./dashboard-client";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{
+    locale: string;
+  }>;
 };
 
 export default async function DashboardPage({ params }: Props): Promise<React.JSX.Element> {
-  const { locale } = params;
+  const { locale } = await params;
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {

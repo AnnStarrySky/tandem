@@ -5,7 +5,6 @@ import React from "react";
 import { useTranslations } from "next-intl";
 
 import { useRouter } from "@i18n";
-
 import { BaseBtn } from "@shared/ui/button";
 import { LanguageToggle, ThemeToggle } from "@shared/ui/controls";
 import { IconLogoMain } from "@shared/ui/icon";

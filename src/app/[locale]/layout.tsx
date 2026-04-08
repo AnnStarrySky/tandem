@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-
 import React from "react";
 
-import { ConfigProvider } from "antd";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+
+import { ConfigProvider } from "antd";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+import { routing } from "@i18n";
 import { AuthProvider, ThemeProvider } from "@shared/providers";
 
-import { routing } from "../../i18n";
+import type { Metadata } from "next";
 
 import "../globals.css";
 
