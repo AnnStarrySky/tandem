@@ -4,26 +4,19 @@ import { useState } from "react";
 
 import { useMessages, useTranslations } from "next-intl";
 
-import { getPracticeTopicIdByLessonNumber } from "@/src/entities/practice";
-import { cn } from "@/src/shared/lib";
-import { BaseBtn } from "@/src/shared/ui/button";
-import { Icon } from "@/src/shared/ui/icon";
+import { getPracticeTopicIdByLessonNumber } from "@/entities/practice";
+import { cn } from "@/shared/lib";
+import { BaseBtn } from "@/shared/ui/button";
+import { Icon } from "@/shared/ui/icon";
 
 import { LessonCard } from "./LessonCard";
 
 const PAGE_SIZE = 9;
 
-type Topic = {
-  id: number;
-  title: string;
-  completed?: boolean;
-};
-
 export const LessonBoard = ({ className }: { className?: string }) => {
   const [page, setPage] = useState(1);
   const messages = useMessages();
   const translate = useTranslations("Dashboard");
-  const completedLessonIds = [1, 3, 5];
 
   const topics = (messages.Glossary.topics as any[]).map((t) => ({
     ...t,

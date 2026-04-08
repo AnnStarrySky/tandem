@@ -46,13 +46,9 @@ export function PracticeTaskLayout({
         </div>
 
         {headerContent}
-
         {mainContent}
-
         {helperContent ? <div className="mt-4">{helperContent}</div> : null}
-
         {statusContent ? <div className="mt-4">{statusContent}</div> : null}
-
         <div className="mt-5">{footerContent}</div>
       </div>
     </section>

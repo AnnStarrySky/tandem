@@ -5,3 +5,5 @@ export const messages = {
   en,
   ru,
 };
+
+export type AppMessages = typeof en;

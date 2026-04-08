@@ -1,8 +1,8 @@
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
-import { cn } from "@/src/shared/lib";
-import { Icon } from "@/src/shared/ui/icon";
+import { cn } from "@/shared/lib";
+import { Icon } from "@/shared/ui/icon";
 
 type Props = {
   rating: number;

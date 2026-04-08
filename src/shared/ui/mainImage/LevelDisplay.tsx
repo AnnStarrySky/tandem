@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { useTheme } from "@/src/shared/lib/theme";
+import { useTheme } from "@shared/providers";
 
 import { cn } from "../../lib";
 import { IconLogo } from "../icon";

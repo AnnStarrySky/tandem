@@ -7,10 +7,11 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { cn } from "@shared/lib";
+import { Link, useRouter } from "@i18n";
+import { cn, encryptText } from "@shared/lib";
 import { ThemeToggle } from "@shared/ui";
+import { BaseBtn } from "@shared/ui/button";
 
-import { Link, useRouter } from "../../../../i18n";
 import { LanguageToggle } from "../ui";
 
 type RegisterFormState = {
@@ -56,14 +57,20 @@ export function RegisterPageClient(): React.JSX.Element {
     setLoading(true);
 
     try {
+      const normalizedEmail = form.email.trim().toLowerCase();
+      const encryptedPassword = await encryptText(form.password);
+
+      console.log("Register password before encryption:", form.password);
+      console.log("Register password after encryption:", encryptedPassword);
+
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          email: form.email.trim(),
-          password: form.password,
+          email: normalizedEmail,
+          password: encryptedPassword,
           name: form.name.trim() || undefined,
         }),
       });
@@ -80,8 +87,8 @@ export function RegisterPageClient(): React.JSX.Element {
 
       const signInResult = await signIn("credentials", {
         redirect: false,
-        email: form.email.trim(),
-        password: form.password,
+        email: normalizedEmail,
+        password: encryptedPassword,
         callbackUrl,
       });
 
@@ -121,50 +128,28 @@ export function RegisterPageClient(): React.JSX.Element {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-[1200px] items-center justify-center px-4 py-4 md:py-6">
-        <div
-          className="relative z-10 grid w-full max-w-[980px] overflow-hidden rounded-[32px] border backdrop-blur-2xl md:grid-cols-[0.95fr_1.05fr]"
-          style={{
-            borderColor: "var(--card-border)",
-            background: "var(--card-bg)",
-            boxShadow: "var(--card-shadow)",
-          }}
-        >
+        <div className="relative z-10 grid w-full max-w-[980px] overflow-hidden rounded-[32px] border border-[var(--card-border)] bg-[var(--card-bg)] shadow-[var(--card-shadow)] backdrop-blur-2xl md:grid-cols-[0.95fr_1.05fr]">
           <section className="flex min-h-[620px] items-center justify-center p-5 sm:p-8">
             <div className="w-full max-w-[420px]">
               <div className="mb-6 flex items-center justify-between gap-3">
-                <div
-                  className="inline-flex rounded-full border px-4 py-2 text-sm font-medium md:hidden"
-                  style={{
-                    borderColor: "var(--card-border)",
-                    background: "rgba(255,255,255,0.04)",
-                    color: "var(--text-main)",
-                  }}
-                >
+                <div className="inline-flex rounded-full border border-[var(--card-border)] px-4 py-2 text-sm font-medium text-[var(--text-main)] md:hidden">
                   {tCommon("brand")}
                 </div>
 
                 <div className="ml-auto flex items-center gap-2">
-                  <LanguageToggle />
+                  <LanguageToggle variant="segmented" />
                   <ThemeToggle />
                 </div>
               </div>
 
-              <h2
-                className="text-3xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
+              <h2 className="text-3xl leading-tight font-semibold text-[var(--text-main)]">
                 {t("title")}
               </h2>
-              <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
-                {t("subtitle")}
-              </p>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">{t("subtitle")}</p>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
                     {t("name")}
                   </label>
                   <input
@@ -179,22 +164,15 @@ export function RegisterPageClient(): React.JSX.Element {
                     }
                     placeholder={t("namePlaceholder")}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
-                    style={{
-                      borderColor: "var(--input-border)",
-                      background: "var(--input-bg)",
-                      color: "var(--text-main)",
-                    }}
                   />
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
                     {t("email")}
                   </label>
                   <input
@@ -210,22 +188,15 @@ export function RegisterPageClient(): React.JSX.Element {
                     placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
-                    style={{
-                      borderColor: "var(--input-border)",
-                      background: "var(--input-bg)",
-                      color: "var(--text-main)",
-                    }}
                   />
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
                     {t("password")}
                   </label>
                   <input
@@ -242,22 +213,15 @@ export function RegisterPageClient(): React.JSX.Element {
                     required
                     minLength={6}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
-                    style={{
-                      borderColor: "var(--input-border)",
-                      background: "var(--input-bg)",
-                      color: "var(--text-main)",
-                    }}
                   />
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-sm font-medium"
-                    style={{ color: "var(--text-main)" }}
-                  >
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
                     {t("confirmPassword")}
                   </label>
                   <input
@@ -274,61 +238,39 @@ export function RegisterPageClient(): React.JSX.Element {
                     required
                     minLength={6}
                     className={cn(
-                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
                       "focus:ring-4 focus:ring-fuchsia-400/15",
                     )}
-                    style={{
-                      borderColor: "var(--input-border)",
-                      background: "var(--input-bg)",
-                      color: "var(--text-main)",
-                    }}
                   />
                 </div>
 
                 {errorText ? (
-                  <div
-                    className="rounded-2xl border px-4 py-3 text-sm"
-                    style={{
-                      borderColor: "var(--danger-border)",
-                      background: "var(--danger-bg)",
-                      color: "var(--danger-text)",
-                    }}
-                  >
+                  <div className="rounded-2xl border border-[var(--danger-border)] bg-[var(--danger-bg)] px-4 py-3 text-sm text-[var(--danger-text)]">
                     {errorText}
                   </div>
                 ) : null}
 
-                <button
+                <BaseBtn
                   type="submit"
-                  disabled={loading || oauthLoading !== null}
-                  className={cn(
-                    "h-12 w-full cursor-pointer rounded-2xl px-5 text-base font-semibold text-white shadow-lg transition",
-                    "hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60",
-                  )}
-                  style={{
-                    background: "linear-gradient(90deg, #d946ef 0%, #0ea5e9 100%)",
-                    boxShadow: "0 12px 30px rgba(217,70,239,0.22)",
-                  }}
+                  loading={loading}
+                  disabled={oauthLoading !== null}
+                  className="h-12 w-full max-w-none text-base"
                 >
                   {loading ? t("submitting") : t("submit")}
-                </button>
+                </BaseBtn>
 
-                <button
-                  type="button"
+                <BaseBtn
+                  variant="outline"
                   onClick={handleGitHubSignIn}
                   disabled={!githubEnabled || loading || oauthLoading !== null}
-                  className="h-12 w-full cursor-pointer rounded-2xl border px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
-                  style={{
-                    borderColor: "var(--card-border)",
-                    background: "var(--input-bg)",
-                    color: "var(--text-main)",
-                  }}
+                  className="h-12 w-full max-w-none text-sm"
                 >
                   {oauthLoading === "github" ? tCommon("loadingGithub") : tCommon("oauthGithub")}
-                </button>
+                </BaseBtn>
               </form>
 
-              <p className="mt-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+              <p className="mt-8 text-center text-sm text-[var(--text-muted)]">
                 {t("hasAccount")}{" "}
                 <Link href="/auth/login" className="font-medium underline underline-offset-4">
                   {t("loginLink")}
@@ -339,25 +281,15 @@ export function RegisterPageClient(): React.JSX.Element {
 
           <section className="relative hidden min-h-[620px] overflow-hidden p-8 md:flex md:flex-col md:justify-between">
             <div>
-              <div
-                className="inline-flex rounded-full border px-4 py-2 text-sm font-medium"
-                style={{
-                  borderColor: "var(--card-border)",
-                  background: "rgba(255,255,255,0.04)",
-                  color: "var(--text-main)",
-                }}
-              >
+              <div className="inline-flex rounded-full border border-[var(--card-border)] px-4 py-2 text-sm font-medium text-[var(--text-main)]">
                 {tCommon("brand")}
               </div>
 
-              <h1
-                className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold"
-                style={{ color: "var(--text-main)" }}
-              >
+              <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold text-[var(--text-main)]">
                 {t("heroTitle")}
               </h1>
 
-              <p className="mt-4 max-w-[430px] text-base" style={{ color: "var(--text-muted)" }}>
+              <p className="mt-4 max-w-[430px] text-base text-[var(--text-muted)]">
                 {t("heroText")}
               </p>
             </div>
@@ -374,11 +306,6 @@ export function RegisterPageClient(): React.JSX.Element {
                   height={380}
                   priority
                   className="relative z-10 h-auto w-auto object-contain opacity-95 drop-shadow-[0_24px_48px_rgba(0,0,0,0.20)]"
-                  style={{
-                    maskImage: "radial-gradient(circle at center, black 70%, transparent 98%)",
-                    WebkitMaskImage:
-                      "radial-gradient(circle at center, black 70%, transparent 98%)",
-                  }}
                 />
               </div>
             </div>

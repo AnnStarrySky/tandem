@@ -25,14 +25,7 @@
   --danger-text: #b91c1c;
 
   --sidebar-bg: #f4f3f8;
-  --sidebar-item-bg: #f4f3f8;
   --sidebar-text: #6a7285;
-  --sidebar-hover-bg: #e0e5eb;
-  --sidebar-hover-border: #ffffff;
-  --sidebar-logo-filter: none;
-
-  --loader-border: #0d1e3c;
-  --loader-inner: #2a4076;
 }
 
 html[data-theme="light"] {
@@ -58,14 +51,7 @@ html[data-theme="light"] {
   --danger-text: #b91c1c;
 
   --sidebar-bg: #f4f3f8;
-  --sidebar-item-bg: #f4f3f8;
   --sidebar-text: #6a7285;
-  --sidebar-hover-bg: #e0e5eb;
-  --sidebar-hover-border: #ffffff;
-  --sidebar-logo-filter: none;
-
-  --loader-border: #0d1e3c;
-  --loader-inner: #2a4076;
 }
 
 html[data-theme="dark"] {
@@ -91,14 +77,7 @@ html[data-theme="dark"] {
   --danger-text: #fca5a5;
 
   --sidebar-bg: #050b16;
-  --sidebar-item-bg: #050b16;
   --sidebar-text: rgba(255, 255, 255, 0.85);
-  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
-  --sidebar-hover-border: rgba(255, 255, 255, 0.08);
-  --sidebar-logo-filter: brightness(0) invert(1);
-
-  --loader-border: #f8fafc;
-  --loader-inner: #93aed8;
 }
 
 html,
@@ -153,52 +132,8 @@ input:-webkit-autofill:focus {
   transition: background-color 9999s ease-in-out 0s;
 }
 
-.creators-link {
-  padding: 4px 16px;
-  text-align: center;
-}
-
-.app-sidebar {
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.app-sidebar-logo {
-  transition: filter 0.25s ease;
-  filter: var(--sidebar-logo-filter);
-}
-
-.app-sidebar-link {
-  background: var(--sidebar-item-bg);
-}
-
-.app-sidebar-link:hover {
-  background: var(--sidebar-hover-bg) !important;
-  border-color: var(--sidebar-hover-border) !important;
-}
-
-.app-sidebar-text {
-  color: var(--sidebar-text) !important;
-}
-
-.app-sidebar-icon {
-  color: var(--sidebar-text) !important;
-}
-
-.app-dashboard-page {
-  color: var(--text-main);
-}
-
-.app-dashboard-page .ant-typography {
-  color: var(--text-main) !important;
-}
-
-.app-dashboard-lesson .ant-typography {
-  color: var(--text-main) !important;
-}
-
+.app-dashboard-page .ant-typography,
+.app-dashboard-lesson .ant-typography,
 .app-dashboard-result .ant-typography {
   color: var(--text-main) !important;
 }

@@ -3,7 +3,7 @@
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
-import { LevelImage } from "@/src/shared/ui/mainImage";
+import { LevelImage } from "@/shared/ui/mainImage";
 
 const LEVELS = [
   { level: 1, cat: "newbie" as const },

@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { updateMockUserProfile } from "@shared/lib/auth";
+import { updateDevMockUserProfile } from "@shared/api/auth";
+import { AUTH_ENV } from "@shared/config/auth";
 
 type ProfileBody = {
   currentEmail?: string;
   email?: string;
   name?: string;
 };
-
-const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -50,8 +49,8 @@ export async function PATCH(req: Request): Promise<Response> {
       );
     }
 
-    if (USE_MOCK) {
-      const user = await updateMockUserProfile({
+    if (AUTH_ENV.useMock) {
+      const user = await updateDevMockUserProfile({
         currentEmail,
         nextEmail,
         nextName,
@@ -60,14 +59,63 @@ export async function PATCH(req: Request): Promise<Response> {
       return NextResponse.json({
         success: true,
         user: {
-          id: user.id,
+          id: String(user.id),
           email: user.email,
           name: user.name,
         },
       });
     }
 
-    throw new Error("Backend profile update is not connected yet");
+    if (!AUTH_ENV.backendUrl) {
+      throw new Error("BACKEND_URL is not configured");
+    }
+
+    const url = new URL("/api/profile", AUTH_ENV.backendUrl);
+
+    const backendResult = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        currentEmail,
+        email: nextEmail,
+        name: nextName,
+      }),
+    });
+
+    if (!backendResult.ok) {
+      let message = backendResult.statusText;
+
+      try {
+        const data = (await backendResult.json()) as { message?: string };
+        message = data.message ?? message;
+      } catch {
+        // ignore parse error
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          message,
+        },
+        { status: backendResult.status },
+      );
+    }
+
+    const data = (await backendResult.json()) as {
+      user?: {
+        id: string;
+        email?: string | null;
+        name?: string | null;
+      };
+    };
+
+    return NextResponse.json({
+      success: true,
+      user: data.user,
+    });
   } catch (error) {
     return NextResponse.json(
       {

@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 
 import { useLocale } from "next-intl";
 
-import { usePathname, useRouter } from "../../../i18n";
+import { usePathname, useRouter } from "@i18n";
 
 import type { AppLanguage } from "@shared/types";
 

@@ -7,10 +7,8 @@ import { ConfigProvider } from "antd";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-import { ThemeProvider } from "@shared/lib/theme";
-
-import { routing } from "../../i18n";
-import { AuthProvider } from "../providers/auth-provider";
+import { routing } from "@i18n";
+import { AuthProvider, ThemeProvider } from "@shared/providers";
 
 import type { Metadata } from "next";
 
@@ -28,13 +26,37 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CodeCat",
-  description: "Is a platform for beginner programmers.",
+  description: "Platform for beginner programmers.",
 };
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{
+    locale: string;
+  }>;
 };
+
+function ThemeScript() {
+  const script = `
+    (function() {
+      try {
+        var raw = localStorage.getItem('codecat:user-settings');
+        var parsed = raw ? JSON.parse(raw) : {};
+        var theme = parsed.theme;
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.style.colorScheme = 'dark';
+      }
+    })();
+  `;
+
+  return <script dangerouslySetInnerHTML={{ __html: script }} />;
+}
 
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -46,14 +68,15 @@ export default async function RootLayout({ children, params }: Props) {
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ThemeScript />
         <ThemeProvider>
           <AuthProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              <div className="min-h-screen overflow-x-hidden">
-                <ConfigProvider>{children}</ConfigProvider>
-              </div>
+              <ConfigProvider>
+                <div className="min-h-screen overflow-x-hidden">{children}</div>
+              </ConfigProvider>
             </NextIntlClientProvider>
           </AuthProvider>
         </ThemeProvider>

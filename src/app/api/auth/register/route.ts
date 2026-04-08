@@ -1,41 +1,40 @@
 import { NextResponse } from "next/server";
 
-import { mockRegister } from "@shared/config/auth-mocks";
+import { createDevMockUser } from "@shared/api/auth";
+import { AUTH_ENV } from "@shared/config/auth";
+import { decryptText } from "@shared/lib";
+
+import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
 
 type RegisterBody = {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   name?: string;
 };
 
-const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
-const BACKEND_URL = process.env.BACKEND_URL;
-
-function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-
-  return "Registration failed";
-}
-
-function getStatusCode(error: unknown): number {
-  if (error instanceof Error && error.message.includes("уже существует")) {
-    return 409;
-  }
-
-  return 400;
+function mapBackendLoginResponseToAuthResponse(
+  data: BackendLoginResponse,
+  email: string,
+): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.Id),
+      email,
+      name: data.Name,
+    },
+    accessToken: data.JWTToken,
+  };
 }
 
 export async function POST(req: Request): Promise<Response> {
   try {
     const body = (await req.json()) as RegisterBody;
 
-    const email = body.email?.trim().toLowerCase();
-    const password = body.password ?? "";
-    const name = body.name?.trim() || undefined;
+    const email = body.email?.trim().toLowerCase() ?? "";
+    const encryptedPassword = body.password ?? "";
+    const name = body.name?.trim() || "CodeCat User";
 
-    if (!email || !password) {
+    if (!email || !encryptedPassword) {
       return NextResponse.json(
         {
           success: false,
@@ -45,21 +44,52 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    if (USE_MOCK) {
-      await mockRegister({
+    const password = await decryptText(encryptedPassword);
+
+    if (!password) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Password is required",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (AUTH_ENV.useMock) {
+      const user = await createDevMockUser({
         email,
         password,
         name,
       });
 
-      return NextResponse.json({ success: true });
+      const auth: BackendAuthResponse = {
+        user: {
+          id: String(user.id),
+          email: user.email,
+          name: user.name,
+        },
+        accessToken: "mock-access-token",
+        refreshToken: "mock-refresh-token",
+      };
+
+      return NextResponse.json({
+        success: true,
+        auth,
+      });
     }
 
-    if (!BACKEND_URL) {
-      throw new Error("No backend URL");
+    if (!AUTH_ENV.backendUrl) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Internal server error",
+        },
+        { status: 500 },
+      );
     }
 
-    const url = new URL("/api/register", BACKEND_URL);
+    const url = new URL("/api/register", AUTH_ENV.backendUrl);
 
     const backendResult = await fetch(url, {
       method: "POST",
@@ -70,28 +100,43 @@ export async function POST(req: Request): Promise<Response> {
       body: JSON.stringify({
         email,
         password,
-        name: name || "User",
+        name,
       }),
     });
 
     if (!backendResult.ok) {
+      let message = backendResult.statusText;
+
+      try {
+        const data = (await backendResult.json()) as { message?: string };
+        message = data.message ?? message;
+      } catch {
+        // empty
+      }
+
       return NextResponse.json(
         {
           success: false,
-          message: backendResult.statusText,
+          message,
         },
         { status: backendResult.status },
       );
     }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
+    const data = (await backendResult.json()) as BackendLoginResponse;
+    const auth = mapBackendLoginResponseToAuthResponse(data, email);
+
+    return NextResponse.json({
+      success: true,
+      auth,
+    });
+  } catch {
     return NextResponse.json(
       {
         success: false,
-        message: getErrorMessage(error),
+        message: "Internal server error",
       },
-      { status: getStatusCode(error) },
+      { status: 500 },
     );
   }
 }
