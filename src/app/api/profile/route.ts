@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
 
-import { getServerSession } from "next-auth";
+import { updateDevMockUserProfile } from "@shared/api/auth";
+import { AUTH_ENV } from "@shared/config/auth";
 
-import { authOptions } from "@shared/config/auth";
-import { updateMockUserProfile } from "@shared/lib/auth";
-
-const USE_MOCK = process.env.AUTH_USE_MOCK === "true";
-
-type UpdateProfileBody = {
-  name: string;
-  email: string;
+type ProfileBody = {
+  currentEmail?: string;
+  email?: string;
+  name?: string;
 };
 
 function getErrorMessage(error: unknown): string {
@@ -21,8 +18,14 @@ function getErrorMessage(error: unknown): string {
 }
 
 function getStatusCode(error: unknown): number {
-  if (error instanceof Error && error.message.includes("уже существует")) {
-    return 409;
+  if (error instanceof Error) {
+    if (error.message.includes("Пользователь не найден")) {
+      return 404;
+    }
+
+    if (error.message.includes("уже существует")) {
+      return 409;
+    }
   }
 
   return 400;
@@ -30,31 +33,88 @@ function getStatusCode(error: unknown): number {
 
 export async function PATCH(req: Request): Promise<Response> {
   try {
-    const session = await getServerSession(authOptions);
+    const body = (await req.json()) as ProfileBody;
 
-    if (!session?.user?.email) {
-      return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+    const currentEmail = body.currentEmail?.trim().toLowerCase() ?? "";
+    const nextEmail = body.email?.trim().toLowerCase() ?? "";
+    const nextName = body.name?.trim() ?? "";
+
+    if (!currentEmail || !nextEmail || !nextName) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Current email, next email and name are required",
+        },
+        { status: 400 },
+      );
     }
 
-    const body = (await req.json()) as UpdateProfileBody;
+    if (AUTH_ENV.useMock) {
+      const user = await updateDevMockUserProfile({
+        currentEmail,
+        nextEmail,
+        nextName,
+      });
 
-    if (!USE_MOCK) {
-      throw new Error("Backend profile update is not connected yet");
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: String(user.id),
+          email: user.email,
+          name: user.name,
+        },
+      });
     }
 
-    const updatedUser = await updateMockUserProfile({
-      currentEmail: session.user.email,
-      nextEmail: body.email,
-      nextName: body.name,
+    if (!AUTH_ENV.backendUrl) {
+      throw new Error("BACKEND_URL is not configured");
+    }
+
+    const url = new URL("/api/profile", AUTH_ENV.backendUrl);
+
+    const backendResult = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        currentEmail,
+        email: nextEmail,
+        name: nextName,
+      }),
     });
+
+    if (!backendResult.ok) {
+      let message = backendResult.statusText;
+
+      try {
+        const data = (await backendResult.json()) as { message?: string };
+        message = data.message ?? message;
+      } catch {
+        // ignore parse error
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          message,
+        },
+        { status: backendResult.status },
+      );
+    }
+
+    const data = (await backendResult.json()) as {
+      user?: {
+        id: string;
+        email?: string | null;
+        name?: string | null;
+      };
+    };
 
     return NextResponse.json({
       success: true,
-      user: {
-        id: updatedUser.id,
-        email: updatedUser.email,
-        name: updatedUser.name,
-      },
+      user: data.user,
     });
   } catch (error) {
     return NextResponse.json(

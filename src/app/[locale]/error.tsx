@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 
-function Error(statusCode?: { codeNumber: number; message?: string }) {
+import { BaseBtn } from "@shared/ui/button";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Image
@@ -17,14 +25,11 @@ function Error(statusCode?: { codeNumber: number; message?: string }) {
           WebkitMaskImage: "radial-gradient(circle at center, black 70%, transparent 98%)",
         }}
       />
-      <h1 className="text-center text-4xl font-semibold">
-        {statusCode
-          ? `An error "${statusCode.codeNumber}" occurred on server`
-          : "An error occurred on client"}
-      </h1>
-      {statusCode && statusCode.message ? <p className="text-center">{statusCode.message}</p> : ""}
+      <h1 className="text-center text-4xl font-semibold">An error occurred </h1>
+      {<p className="text-center">{error.message}</p>}
+      <BaseBtn variant="primary" className="w-[200px]" onClick={reset}>
+        Try Again
+      </BaseBtn>
     </div>
   );
 }
-
-export default Error;

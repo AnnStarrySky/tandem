@@ -9,7 +9,9 @@ import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 import { LoginPageClient } from "./page-client";
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{
+    locale: string;
+  }>;
 };
 
 export default async function LoginPage({ params }: Props): Promise<React.JSX.Element> {

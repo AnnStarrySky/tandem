@@ -1,0 +1,3025 @@
+{
+  "topics": [
+    {
+      "id": "variables",
+      "order": 1,
+      "title": "Переменные",
+      "description": "Хранение и использование значений в именованных контейнерах.",
+      "keywords": ["let", "const", "var"],
+      "task": {
+        "type": "code-completion",
+        "title": "Вывести значение переменной",
+        "description": "Выберите правильный недостающий фрагмент.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "variables-medium-1",
+            "title": "Вывести значение переменной",
+            "description": "Выберите правильный недостающий фрагмент.",
+            "code": "const userName = \"CodeCat\";\nconsole.log(___);",
+            "options": ["\"userName\"", "userName", "console", "const"],
+            "correctAnswer": "userName",
+            "hint": "Используй имя переменной, а не строку."
+          },
+          {
+            "id": "variables-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const courseName = ___;\nconsole.log(courseName);",
+            "options": ["\"RS School\"", "console.log", "const", "courseName"],
+            "correctAnswer": "\"RS School\"",
+            "hint": "Используй точное имя переменной `courseName`."
+          },
+          {
+            "id": "variables-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const courseName = \"RS School\";\n___;",
+            "options": ["console.log(courseName)", "\"RS School\"", "console.log", "const"],
+            "correctAnswer": "console.log(courseName)",
+            "hint": "Используй точное имя переменной `courseName`."
+          },
+          {
+            "id": "variables-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const courseName = \"RS School\";\n___(courseName);",
+            "options": ["console.log", "\"RS School\"", "const", "courseName"],
+            "correctAnswer": "console.log",
+            "hint": "Используй точное имя переменной `courseName`."
+          },
+          {
+            "id": "variables-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ courseName = \"RS School\";\nconsole.log(courseName);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const",
+            "hint": "Используй точное имя переменной `courseName`."
+          },
+          {
+            "id": "variables-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = \"RS School\";\nconsole.log(courseName);",
+            "options": ["courseName", "\"RS School\"", "console.log", "const"],
+            "correctAnswer": "courseName",
+            "hint": "Используй точное имя переменной `courseName`."
+          },
+          {
+            "id": "variables-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Переменные».",
+            "code": "// Переменные\nconst fragment = ___;",
+            "options": ["let", "const", "var", "function"],
+            "correctAnswer": "let"
+          },
+          {
+            "id": "variables-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Переменные».",
+            "code": "// Переменные\nconst fragment = ___;",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "variables-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Переменные».",
+            "code": "// Переменные\nconst fragment = ___;",
+            "options": ["var", "const", "let", "function"],
+            "correctAnswer": "var"
+          },
+          {
+            "id": "variables-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Переменные\nconst value = ___;",
+            "options": ["var", "const", "let", "function"],
+            "correctAnswer": "var"
+          }
+        ]
+      }
+    },
+    {
+      "id": "number-methods",
+      "order": 2,
+      "title": "Методы чисел",
+      "description": "Работа с числами, форматированием и преобразованием.",
+      "keywords": ["Number()", "toFixed()", "parseInt()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Преобразовать в число",
+        "description": "Вставьте недостающее выражение.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "number-methods-medium-1",
+            "title": "Преобразовать в число",
+            "description": "Вставьте недостающее выражение.",
+            "code": "const value = \"15\";\nconst result = ___;\nconsole.log(result);",
+            "options": ["Number(value)", "value.toUpperCase()", "\"15\"", "value + value"],
+            "correctAnswer": "Number(value)"
+          },
+          {
+            "id": "number-methods-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const price = 12.345;\nconsole.log(___);",
+            "options": ["price.toFixed(2)", "console.log", "price.toFixed", "const"],
+            "correctAnswer": "price.toFixed(2)"
+          },
+          {
+            "id": "number-methods-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const price = 12.345;\n___(price.toFixed(2));",
+            "options": ["console.log", "price.toFixed(2)", "price.toFixed", "const"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "number-methods-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const price = 12.345;\nconsole.log(___(2));",
+            "options": ["price.toFixed", "price.toFixed(2)", "console.log", "const"],
+            "correctAnswer": "price.toFixed"
+          },
+          {
+            "id": "number-methods-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ price = 12.345;\nconsole.log(price.toFixed(2));",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "number-methods-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = 12.345;\nconsole.log(price.toFixed(2));",
+            "options": ["price", "price.toFixed(2)", "console.log", "price.toFixed"],
+            "correctAnswer": "price"
+          },
+          {
+            "id": "number-methods-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const price = 12.345;\nconsole.log(price.___(2));",
+            "options": ["toFixed", "price.toFixed(2)", "console.log", "price.toFixed"],
+            "correctAnswer": "toFixed"
+          },
+          {
+            "id": "number-methods-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Методы чисел».",
+            "code": "// Методы чисел\nconst fragment = ___;",
+            "options": ["Number()", "toFixed()", "parseInt()", "undefined"],
+            "correctAnswer": "Number()"
+          },
+          {
+            "id": "number-methods-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Методы чисел».",
+            "code": "// Методы чисел\nconst fragment = ___;",
+            "options": ["toFixed()", "Number()", "parseInt()", "undefined"],
+            "correctAnswer": "toFixed()"
+          },
+          {
+            "id": "number-methods-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Методы чисел».",
+            "code": "// Методы чисел\nconst fragment = ___;",
+            "options": ["parseInt()", "Number()", "toFixed()", "undefined"],
+            "correctAnswer": "parseInt()"
+          }
+        ]
+      }
+    },
+    {
+      "id": "string-methods",
+      "order": 3,
+      "title": "Методы строк",
+      "description": "Преобразование и проверка строк с помощью встроенных методов.",
+      "keywords": ["trim()", "toUpperCase()", "length"],
+      "task": {
+        "type": "code-completion",
+        "title": "Перевести строку в верхний регистр",
+        "description": "Выберите правильный вызов метода.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "string-methods-medium-1",
+            "title": "Перевести строку в верхний регистр",
+            "description": "Выберите правильный вызов метода.",
+            "code": "const title = \"codecat\";\nconsole.log(title.___);",
+            "options": ["toUpperCase()", "toFixed(2)", "trim", "push()"],
+            "correctAnswer": "toUpperCase()"
+          },
+          {
+            "id": "string-methods-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = ___;\nconsole.log(name.trim().toUpperCase());",
+            "options": ["\"  codecat  \"", "name.trim()", "trim()", "toUpperCase()"],
+            "correctAnswer": "\"  codecat  \""
+          },
+          {
+            "id": "string-methods-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  codecat  \";\nconsole.log(___.toUpperCase());",
+            "options": ["name.trim()", "\"  codecat  \"", "trim()", "toUpperCase()"],
+            "correctAnswer": "name.trim()"
+          },
+          {
+            "id": "string-methods-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  codecat  \";\nconsole.log(name.___.toUpperCase());",
+            "options": ["trim()", "\"  codecat  \"", "name.trim()", "toUpperCase()"],
+            "correctAnswer": "trim()"
+          },
+          {
+            "id": "string-methods-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  codecat  \";\nconsole.log(name.trim().___);",
+            "options": ["toUpperCase()", "\"  codecat  \"", "name.trim()", "trim()"],
+            "correctAnswer": "toUpperCase()"
+          },
+          {
+            "id": "string-methods-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  codecat  \";\n___(name.trim().toUpperCase());",
+            "options": ["console.log", "\"  codecat  \"", "name.trim()", "trim()"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "string-methods-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  codecat  \";\nconsole.log(___().toUpperCase());",
+            "options": ["name.trim", "\"  codecat  \"", "name.trim()", "trim()"],
+            "correctAnswer": "name.trim"
+          },
+          {
+            "id": "string-methods-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ name = \"  codecat  \";\nconsole.log(name.trim().toUpperCase());",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "string-methods-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = \"  codecat  \";\nconsole.log(name.trim().toUpperCase());",
+            "options": ["name", "\"  codecat  \"", "name.trim()", "trim()"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "string-methods-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const name = \"  ___  \";\nconsole.log(name.trim().toUpperCase());",
+            "options": ["codecat", "\"  codecat  \"", "name.trim()", "trim()"],
+            "correctAnswer": "codecat"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ternary-logical-operators",
+      "order": 4,
+      "title": "Тернарный и логические операторы",
+      "description": "Используйте булеву логику и краткие условные выражения.",
+      "keywords": ["&&", "||", "?:"],
+      "task": {
+        "type": "code-completion",
+        "title": "Дополнить тернарное выражение",
+        "description": "Вставьте недостающую ветку.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "ternary-logical-operators-medium-1",
+            "title": "Дополнить тернарное выражение",
+            "description": "Вставьте недостающую ветку.",
+            "code": "const age = 20;\nconst access = age >= 18 ? \"allowed\" : ___;",
+            "options": ["\"denied\"", "\"allowed\"", "18", "true"],
+            "correctAnswer": "\"denied\""
+          },
+          {
+            "id": "ternary-logical-operators-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? ___ : \"minor\";\nconsole.log(message);",
+            "options": ["\"adult\"", "\"minor\"", "console.log(message)", "console.log"],
+            "correctAnswer": "\"adult\""
+          },
+          {
+            "id": "ternary-logical-operators-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? \"adult\" : ___;\nconsole.log(message);",
+            "options": ["\"minor\"", "\"adult\"", "console.log(message)", "console.log"],
+            "correctAnswer": "\"minor\""
+          },
+          {
+            "id": "ternary-logical-operators-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\n___;",
+            "options": ["console.log(message)", "\"adult\"", "\"minor\"", "console.log"],
+            "correctAnswer": "console.log(message)"
+          },
+          {
+            "id": "ternary-logical-operators-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\n___(message);",
+            "options": ["console.log", "\"adult\"", "\"minor\"", "console.log(message)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "ternary-logical-operators-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ age = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\nconsole.log(message);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "ternary-logical-operators-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = 17;\nconst message = age >= 18 ? \"adult\" : \"minor\";\nconsole.log(message);",
+            "options": ["age", "\"adult\"", "\"minor\"", "console.log(message)"],
+            "correctAnswer": "age"
+          },
+          {
+            "id": "ternary-logical-operators-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst ___ = age >= 18 ? \"adult\" : \"minor\";\nconsole.log(message);",
+            "options": ["message", "\"adult\"", "\"minor\"", "console.log(message)"],
+            "correctAnswer": "message"
+          },
+          {
+            "id": "ternary-logical-operators-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? \"___\" : \"minor\";\nconsole.log(message);",
+            "options": ["adult", "\"adult\"", "\"minor\"", "console.log(message)"],
+            "correctAnswer": "adult"
+          },
+          {
+            "id": "ternary-logical-operators-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 17;\nconst message = age >= 18 ? \"adult\" : \"___\";\nconsole.log(message);",
+            "options": ["minor", "\"adult\"", "\"minor\"", "console.log(message)"],
+            "correctAnswer": "minor"
+          }
+        ]
+      }
+    },
+    {
+      "id": "switch-case",
+      "order": 5,
+      "title": "Switch Case",
+      "description": "Выполняйте разные ветки кода в зависимости от одного значения.",
+      "keywords": ["switch", "case", "default"],
+      "task": {
+        "type": "code-completion",
+        "title": "Default в switch",
+        "description": "Вставьте недостающее ключевое слово.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "switch-case-medium-1",
+            "title": "Default в switch",
+            "description": "Вставьте недостающее ключевое слово.",
+            "code": "switch (role) {\n  case \"admin\":\n    console.log(\"full access\");\n    break;\n  ___:\n    console.log(\"guest\");\n}",
+            "options": ["default", "else", "fallback", "finally"],
+            "correctAnswer": "default"
+          },
+          {
+            "id": "switch-case-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = ___;\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["\"monday\"", "\"Start\"", "\"Other\"", "console.log(\"Start\")"],
+            "correctAnswer": "\"monday\""
+          },
+          {
+            "id": "switch-case-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(___);\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["\"Start\"", "\"monday\"", "\"Other\"", "console.log(\"Start\")"],
+            "correctAnswer": "\"Start\""
+          },
+          {
+            "id": "switch-case-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    console.log(___);\n}",
+            "options": ["\"Other\"", "\"monday\"", "\"Start\"", "console.log(\"Start\")"],
+            "correctAnswer": "\"Other\""
+          },
+          {
+            "id": "switch-case-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    ___;\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["console.log(\"Start\")", "\"monday\"", "\"Start\"", "\"Other\""],
+            "correctAnswer": "console.log(\"Start\")"
+          },
+          {
+            "id": "switch-case-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    ___;\n}",
+            "options": ["console.log(\"Other\")", "\"monday\"", "\"Start\"", "\"Other\""],
+            "correctAnswer": "console.log(\"Other\")"
+          },
+          {
+            "id": "switch-case-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.___;\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["log(\"Start\")", "\"monday\"", "\"Start\"", "\"Other\""],
+            "correctAnswer": "log(\"Start\")"
+          },
+          {
+            "id": "switch-case-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    console.___;\n}",
+            "options": ["log(\"Other\")", "\"monday\"", "\"Start\"", "\"Other\""],
+            "correctAnswer": "log(\"Other\")"
+          },
+          {
+            "id": "switch-case-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    ___(\"Start\");\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["console.log", "\"monday\"", "\"Start\"", "\"Other\""],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "switch-case-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ day = \"monday\";\nswitch (day) {\n  case \"monday\":\n    console.log(\"Start\");\n    break;\n  default:\n    console.log(\"Other\");\n}",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          }
+        ]
+      }
+    },
+    {
+      "id": "loops",
+      "order": 6,
+      "title": "Циклы",
+      "description": "Повторяйте действия с помощью циклов.",
+      "keywords": ["for", "while", "break"],
+      "task": {
+        "type": "code-completion",
+        "title": "Инкремент в for",
+        "description": "Выберите недостающую часть цикла.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "loops-medium-1",
+            "title": "Инкремент в for",
+            "description": "Выберите недостающую часть цикла.",
+            "code": "for (let i = 0; i < 3; ___) {\n  console.log(i);\n}",
+            "options": ["i++", "i--", "console.log(i)", "return i"],
+            "correctAnswer": "i++"
+          },
+          {
+            "id": "loops-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "for (let i = 1; i <= 3; i++) {\n  ___;\n}",
+            "options": ["console.log(i)", "console.log", "for", "let"],
+            "correctAnswer": "console.log(i)"
+          },
+          {
+            "id": "loops-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "for (let i = 1; i <= 3; i++) {\n  ___(i);\n}",
+            "options": ["console.log", "console.log(i)", "for", "let"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "loops-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+            "options": ["for", "console.log(i)", "console.log", "let"],
+            "correctAnswer": "for"
+          },
+          {
+            "id": "loops-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "for (___ i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+            "options": ["let", "const", "var", "function"],
+            "correctAnswer": "let"
+          },
+          {
+            "id": "loops-medium-6",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Циклы».",
+            "code": "// Циклы\nconst fragment = ___;",
+            "options": ["for", "while", "break", "undefined"],
+            "correctAnswer": "for"
+          },
+          {
+            "id": "loops-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Циклы».",
+            "code": "// Циклы\nconst fragment = ___;",
+            "options": ["while", "for", "break", "undefined"],
+            "correctAnswer": "while"
+          },
+          {
+            "id": "loops-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Циклы».",
+            "code": "// Циклы\nconst fragment = ___;",
+            "options": ["break", "continue", "default", "return"],
+            "correctAnswer": "break"
+          },
+          {
+            "id": "loops-medium-9",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Циклы\nconst value = ___;",
+            "options": ["while", "for", "break", "undefined"],
+            "correctAnswer": "while"
+          },
+          {
+            "id": "loops-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Циклы\nconst value = ___;",
+            "options": ["break", "continue", "default", "return"],
+            "correctAnswer": "break"
+          }
+        ]
+      }
+    },
+    {
+      "id": "type-conversions",
+      "order": 7,
+      "title": "Преобразование типов",
+      "description": "Преобразование значений между string, number и boolean.",
+      "keywords": ["Number()", "String()", "Boolean()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Преобразовать в boolean",
+        "description": "Выберите правильное преобразование.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "type-conversions-medium-1",
+            "title": "Преобразовать в boolean",
+            "description": "Выберите правильное преобразование.",
+            "code": "const value = 1;\nconst result = ___;\nconsole.log(result);",
+            "options": ["Boolean(value)", "String(value)", "value.trim()", "Number(result)"],
+            "correctAnswer": "Boolean(value)"
+          },
+          {
+            "id": "type-conversions-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const value = ___;\nconsole.log(Number(value));",
+            "options": ["\"99\"", "console.log", "const", "value"],
+            "correctAnswer": "\"99\""
+          },
+          {
+            "id": "type-conversions-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const value = \"99\";\n___(Number(value));",
+            "options": ["console.log", "\"99\"", "const", "value"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "type-conversions-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ value = \"99\";\nconsole.log(Number(value));",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "type-conversions-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = \"99\";\nconsole.log(Number(value));",
+            "options": ["value", "\"99\"", "console.log", "const"],
+            "correctAnswer": "value"
+          },
+          {
+            "id": "type-conversions-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const value = \"99\";\nconsole.log(___(value));",
+            "options": ["Number", "\"99\"", "console.log", "const"],
+            "correctAnswer": "Number"
+          },
+          {
+            "id": "type-conversions-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Преобразование типов».",
+            "code": "// Преобразование типов\nconst fragment = ___;",
+            "options": ["Number()", "String()", "Boolean()", "undefined"],
+            "correctAnswer": "Number()"
+          },
+          {
+            "id": "type-conversions-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Преобразование типов».",
+            "code": "// Преобразование типов\nconst fragment = ___;",
+            "options": ["String()", "Number()", "Boolean()", "undefined"],
+            "correctAnswer": "String()"
+          },
+          {
+            "id": "type-conversions-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Преобразование типов».",
+            "code": "// Преобразование типов\nconst fragment = ___;",
+            "options": ["Boolean()", "Number()", "String()", "undefined"],
+            "correctAnswer": "Boolean()"
+          },
+          {
+            "id": "type-conversions-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Преобразование типов\nconst value = ___;",
+            "options": ["Boolean()", "Number()", "String()", "undefined"],
+            "correctAnswer": "Boolean()"
+          }
+        ]
+      }
+    },
+    {
+      "id": "strict-comparison",
+      "order": 8,
+      "title": "Строгое сравнение",
+      "description": "Сравнивайте значения и по типу, и по значению.",
+      "keywords": ["===", "!=="],
+      "task": {
+        "type": "code-completion",
+        "title": "Выбрать строгое равенство",
+        "description": "Вставьте правильный оператор.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "strict-comparison-medium-1",
+            "title": "Выбрать строгое равенство",
+            "description": "Вставьте правильный оператор.",
+            "code": "const result = 10 ___ \"10\";\nconsole.log(result);",
+            "options": ["===", "==", "=", "!=="],
+            "correctAnswer": "==="
+          },
+          {
+            "id": "strict-comparison-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const a = 5;\nconst b = ___;\nconsole.log(a === b);",
+            "options": ["\"5\"", "console.log(a === b)", "console.log", "const"],
+            "correctAnswer": "\"5\""
+          },
+          {
+            "id": "strict-comparison-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const a = 5;\nconst b = \"5\";\n___;",
+            "options": ["console.log(a === b)", "\"5\"", "console.log", "const"],
+            "correctAnswer": "console.log(a === b)"
+          },
+          {
+            "id": "strict-comparison-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const a = 5;\nconst b = \"5\";\n___(a === b);",
+            "options": ["console.log", "\"5\"", "console.log(a === b)", "const"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "strict-comparison-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ a = 5;\nconst b = \"5\";\nconsole.log(a === b);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "strict-comparison-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const a = 5;\nconst b = \"5\";\nconsole.log(a ___ b);",
+            "options": ["===", "==", "!==", "="],
+            "correctAnswer": "==="
+          },
+          {
+            "id": "strict-comparison-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Строгое сравнение».",
+            "code": "// Строгое сравнение\nconst fragment = ___;",
+            "options": ["===", "==", "!==", "="],
+            "correctAnswer": "==="
+          },
+          {
+            "id": "strict-comparison-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Строгое сравнение».",
+            "code": "// Строгое сравнение\nconst fragment = ___;",
+            "options": ["!==", "===", "==", "="],
+            "correctAnswer": "!=="
+          },
+          {
+            "id": "strict-comparison-medium-9",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Строгое сравнение\nconst value = ___;",
+            "options": ["!==", "===", "==", "="],
+            "correctAnswer": "!=="
+          },
+          {
+            "id": "strict-comparison-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Строгое сравнение\nconst value = ___;",
+            "options": ["===", "==", "!==", "="],
+            "correctAnswer": "==="
+          }
+        ]
+      }
+    },
+    {
+      "id": "let-var-const",
+      "order": 9,
+      "title": "Let, Var, Const",
+      "description": "Выбирайте правильное ключевое слово для объявления.",
+      "keywords": ["let", "var", "const"],
+      "task": {
+        "type": "code-completion",
+        "title": "Выбрать правильное объявление",
+        "description": "Выберите правильное ключевое слово.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "let-var-const-medium-1",
+            "title": "Выбрать правильное объявление",
+            "description": "Выберите правильное ключевое слово.",
+            "code": "___ count = 0;\ncount += 1;\nconsole.log(count);",
+            "options": ["let", "const", "static", "case"],
+            "correctAnswer": "let"
+          },
+          {
+            "id": "let-var-const-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = ___;\nlet score = 0;\nconsole.log(appName, score);",
+            "options": ["\"CodeCat\"", "console.log", "const", "let"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "let-var-const-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = \"CodeCat\";\nlet score = 0;\n___;",
+            "options": ["console.log(appName, score)", "\"CodeCat\"", "console.log", "const"],
+            "correctAnswer": "console.log(appName, score)"
+          },
+          {
+            "id": "let-var-const-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = \"CodeCat\";\nlet score = 0;\n___(appName, score);",
+            "options": ["console.log", "\"CodeCat\"", "const", "let"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "let-var-const-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ appName = \"CodeCat\";\nlet score = 0;\nconsole.log(appName, score);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "let-var-const-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = \"CodeCat\";\n___ score = 0;\nconsole.log(appName, score);",
+            "options": ["let", "const", "var", "function"],
+            "correctAnswer": "let"
+          },
+          {
+            "id": "let-var-const-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = \"CodeCat\";\nlet score = 0;\nconsole.log(appName, score);",
+            "options": ["appName", "\"CodeCat\"", "console.log", "const"],
+            "correctAnswer": "appName"
+          },
+          {
+            "id": "let-var-const-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = \"___\";\nlet score = 0;\nconsole.log(appName, score);",
+            "options": ["CodeCat", "\"CodeCat\"", "console.log", "const"],
+            "correctAnswer": "CodeCat"
+          },
+          {
+            "id": "let-var-const-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const appName = \"CodeCat\";\nlet ___ = 0;\nconsole.log(appName, score);",
+            "options": ["score", "\"CodeCat\"", "console.log", "const"],
+            "correctAnswer": "score"
+          },
+          {
+            "id": "let-var-const-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Let, Var, Const».",
+            "code": "// Let, Var, Const\nconst fragment = ___;",
+            "options": ["let", "const", "var", "function"],
+            "correctAnswer": "let"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hoisting-temporal-dead-zone",
+      "order": 10,
+      "title": "Hoisting и временная мёртвая зона",
+      "description": "Поймите, как работают поднятие объявлений и инициализация.",
+      "keywords": ["hoisting", "TDZ", "undefined"],
+      "task": {
+        "type": "code-completion",
+        "title": "Var до присваивания",
+        "description": "Выберите правильный вывод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "hoisting-temporal-dead-zone-medium-1",
+            "title": "Var до присваивания",
+            "description": "Выберите правильный вывод.",
+            "code": "console.log(value);\nvar value = 5;\n\n// output: ___",
+            "options": ["undefined", "5", "null", "ReferenceError"],
+            "correctAnswer": "undefined"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 18;\n___;",
+            "options": ["console.log(age)", "console.log", "const", "age"],
+            "correctAnswer": "console.log(age)"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const age = 18;\n___(age);",
+            "options": ["console.log", "console.log(age)", "const", "age"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ age = 18;\nconsole.log(age);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = 18;\nconsole.log(age);",
+            "options": ["age", "console.log(age)", "console.log", "const"],
+            "correctAnswer": "age"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-6",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Hoisting и временная мёртвая зона».",
+            "code": "// Hoisting и временная мёртвая зона\nconst fragment = ___;",
+            "options": ["hoisting", "TDZ", "undefined", "null"],
+            "correctAnswer": "hoisting"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Hoisting и временная мёртвая зона».",
+            "code": "// Hoisting и временная мёртвая зона\nconst fragment = ___;",
+            "options": ["TDZ", "hoisting", "undefined", "null"],
+            "correctAnswer": "TDZ"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Hoisting и временная мёртвая зона».",
+            "code": "// Hoisting и временная мёртвая зона\nconst fragment = ___;",
+            "options": ["undefined", "hoisting", "TDZ", "null"],
+            "correctAnswer": "undefined"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-9",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Hoisting и временная мёртвая зона\nconst value = ___;",
+            "options": ["TDZ", "hoisting", "undefined", "null"],
+            "correctAnswer": "TDZ"
+          },
+          {
+            "id": "hoisting-temporal-dead-zone-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Hoisting и временная мёртвая зона\nconst value = ___;",
+            "options": ["undefined", "hoisting", "TDZ", "null"],
+            "correctAnswer": "undefined"
+          }
+        ]
+      }
+    },
+    {
+      "id": "functions",
+      "order": 11,
+      "title": "Функции",
+      "description": "Создавайте переиспользуемые блоки логики.",
+      "keywords": ["function", "return", "parameters"],
+      "task": {
+        "type": "code-completion",
+        "title": "Вернуть сумму",
+        "description": "Вставьте недостающее выражение.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "functions-medium-1",
+            "title": "Вернуть сумму",
+            "description": "Вставьте недостающее выражение.",
+            "code": "function sum(a, b) {\n  return ___;\n}",
+            "options": ["a + b", "a - b", "a * b", "\"a + b\""],
+            "correctAnswer": "a + b"
+          },
+          {
+            "id": "functions-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function sum(a, b) {\n  return a + b;\n}\n___(sum(2, 3));",
+            "options": ["console.log", "function", "return", "sum"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "functions-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ sum(a, b) {\n  return a + b;\n}\nconsole.log(sum(2, 3));",
+            "options": ["function", "console.log", "return", "sum"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "functions-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function sum(a, b) {\n  ___ a + b;\n}\nconsole.log(sum(2, 3));",
+            "options": ["return", "break", "continue", "default"],
+            "correctAnswer": "return"
+          },
+          {
+            "id": "functions-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function ___(a, b) {\n  return a + b;\n}\nconsole.log(sum(2, 3));",
+            "options": ["sum", "console.log", "function", "return"],
+            "correctAnswer": "sum"
+          },
+          {
+            "id": "functions-medium-6",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Функции».",
+            "code": "// Функции\nconst fragment = ___;",
+            "options": ["function", "return", "parameters", "undefined"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "functions-medium-7",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Функции».",
+            "code": "// Функции\nconst fragment = ___;",
+            "options": ["return", "break", "continue", "default"],
+            "correctAnswer": "return"
+          },
+          {
+            "id": "functions-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Функции».",
+            "code": "// Функции\nconst fragment = ___;",
+            "options": ["parameters", "function", "return", "undefined"],
+            "correctAnswer": "parameters"
+          },
+          {
+            "id": "functions-medium-9",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Функции\nconst value = ___;",
+            "options": ["return", "break", "continue", "default"],
+            "correctAnswer": "return"
+          },
+          {
+            "id": "functions-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Функции\nconst value = ___;",
+            "options": ["parameters", "function", "return", "undefined"],
+            "correctAnswer": "parameters"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope",
+      "order": 12,
+      "title": "Область видимости",
+      "description": "Управляйте тем, где значения видны и доступны.",
+      "keywords": ["block scope", "function scope"],
+      "task": {
+        "type": "code-completion",
+        "title": "Переменная с блочной областью видимости",
+        "description": "Выберите правильное объявление.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "scope-medium-1",
+            "title": "Переменная с блочной областью видимости",
+            "description": "Выберите правильное объявление.",
+            "code": "if (true) {\n  ___ count = 1;\n  console.log(count);\n}",
+            "options": ["let", "var", "return", "class"],
+            "correctAnswer": "let"
+          },
+          {
+            "id": "scope-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  const name = ___;\n  console.log(name);\n}\nprintName();",
+            "options": ["\"CodeCat\"", "console.log(name)", "console.log", "function"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "scope-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  const name = \"CodeCat\";\n  ___;\n}\nprintName();",
+            "options": ["console.log(name)", "\"CodeCat\"", "console.log", "function"],
+            "correctAnswer": "console.log(name)"
+          },
+          {
+            "id": "scope-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  const name = \"CodeCat\";\n  ___(name);\n}\nprintName();",
+            "options": ["console.log", "\"CodeCat\"", "console.log(name)", "function"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "scope-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ printName() {\n  const name = \"CodeCat\";\n  console.log(name);\n}\nprintName();",
+            "options": ["function", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "scope-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  ___ name = \"CodeCat\";\n  console.log(name);\n}\nprintName();",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "scope-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function ___() {\n  const name = \"CodeCat\";\n  console.log(name);\n}\nprintName();",
+            "options": ["printName", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "printName"
+          },
+          {
+            "id": "scope-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  const ___ = \"CodeCat\";\n  console.log(name);\n}\nprintName();",
+            "options": ["name", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "scope-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  const name = \"___\";\n  console.log(name);\n}\nprintName();",
+            "options": ["CodeCat", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "CodeCat"
+          },
+          {
+            "id": "scope-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Область видимости».",
+            "code": "// Область видимости\nconst fragment = ___;",
+            "options": ["block scope", "function scope", "undefined", "null"],
+            "correctAnswer": "block scope"
+          }
+        ]
+      }
+    },
+    {
+      "id": "closures",
+      "order": 13,
+      "title": "Замыкания",
+      "description": "Используйте внутренние функции, которые помнят внешнее состояние.",
+      "keywords": ["inner function", "outer scope"],
+      "task": {
+        "type": "code-completion",
+        "title": "Возврат из замыкания",
+        "description": "Выберите, что возвращает внутренняя функция.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "closures-medium-1",
+            "title": "Возврат из замыкания",
+            "description": "Выберите, что возвращает внутренняя функция.",
+            "code": "function outer() {\n  const name = \"CodeCat\";\n  return function inner() {\n    return ___;\n  };\n}",
+            "options": ["name", "\"name\"", "inner", "outer"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "closures-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  const value = 10;\n  return function inner() {\n    ___;\n  };\n}\nouter()();",
+            "options": ["console.log(value)", "console.log", "function", "const"],
+            "correctAnswer": "console.log(value)"
+          },
+          {
+            "id": "closures-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  const value = 10;\n  return function inner() {\n    ___(value);\n  };\n}\nouter()();",
+            "options": ["console.log", "console.log(value)", "function", "const"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "closures-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ outer() {\n  const value = 10;\n  return function inner() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["function", "console.log(value)", "console.log", "const"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "closures-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  ___ value = 10;\n  return function inner() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "closures-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  const value = 10;\n  ___ function inner() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["return", "break", "continue", "default"],
+            "correctAnswer": "return"
+          },
+          {
+            "id": "closures-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function ___() {\n  const value = 10;\n  return function inner() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["outer", "console.log(value)", "console.log", "function"],
+            "correctAnswer": "outer"
+          },
+          {
+            "id": "closures-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  const ___ = 10;\n  return function inner() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["value", "console.log(value)", "console.log", "function"],
+            "correctAnswer": "value"
+          },
+          {
+            "id": "closures-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function outer() {\n  const value = 10;\n  return function ___() {\n    console.log(value);\n  };\n}\nouter()();",
+            "options": ["inner", "console.log(value)", "console.log", "function"],
+            "correctAnswer": "inner"
+          },
+          {
+            "id": "closures-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Замыкания».",
+            "code": "// Замыкания\nconst fragment = ___;",
+            "options": ["inner function", "outer scope", "undefined", "null"],
+            "correctAnswer": "inner function"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-this",
+      "order": 14,
+      "title": "Контекст и this",
+      "description": "Поймите, как `this` зависит от контекста вызова.",
+      "keywords": ["this", "object method", "arrow function"],
+      "task": {
+        "type": "code-completion",
+        "title": "Контекст метода объекта",
+        "description": "Заполните недостающий доступ к свойству.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "context-this-medium-1",
+            "title": "Контекст метода объекта",
+            "description": "Заполните недостающий доступ к свойству.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.___);\n  },\n};",
+            "options": ["name", "user", "this", "printName"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "context-this-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: ___,\n  printName() {\n    console.log(this.name);\n  },\n};\nuser.printName();",
+            "options": ["\"CodeCat\"", "user.printName()", "log(this.name)", "console.log"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "context-this-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    ___;\n  },\n};\nuser.printName();",
+            "options": [
+              "console.log(this.name)",
+              "\"CodeCat\"",
+              "user.printName()",
+              "log(this.name)"
+            ],
+            "correctAnswer": "console.log(this.name)"
+          },
+          {
+            "id": "context-this-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.name);\n  },\n};\n___;",
+            "options": [
+              "user.printName()",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "log(this.name)"
+            ],
+            "correctAnswer": "user.printName()"
+          },
+          {
+            "id": "context-this-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.___;\n  },\n};\nuser.printName();",
+            "options": [
+              "log(this.name)",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "user.printName()"
+            ],
+            "correctAnswer": "log(this.name)"
+          },
+          {
+            "id": "context-this-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    ___(this.name);\n  },\n};\nuser.printName();",
+            "options": ["console.log", "\"CodeCat\"", "user.printName()", "log(this.name)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "context-this-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(___);\n  },\n};\nuser.printName();",
+            "options": ["this.name", "\"CodeCat\"", "user.printName()", "log(this.name)"],
+            "correctAnswer": "this.name"
+          },
+          {
+            "id": "context-this-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.name);\n  },\n};\n___();",
+            "options": [
+              "user.printName",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "user.printName()"
+            ],
+            "correctAnswer": "user.printName"
+          },
+          {
+            "id": "context-this-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ user = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.name);\n  },\n};\nuser.printName();",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "context-this-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = {\n  name: \"CodeCat\",\n  printName() {\n    console.log(this.name);\n  },\n};\nuser.printName();",
+            "options": ["user", "\"CodeCat\"", "user.printName()", "log(this.name)"],
+            "correctAnswer": "user"
+          }
+        ]
+      }
+    },
+    {
+      "id": "call-apply-bind",
+      "order": 15,
+      "title": "Call, Apply, Bind",
+      "description": "Явно управляйте контекстом функции.",
+      "keywords": ["call()", "apply()", "bind()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Выбрать call",
+        "description": "Выберите правильное имя метода.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "call-apply-bind-medium-1",
+            "title": "Выбрать call",
+            "description": "Выберите правильное имя метода.",
+            "code": "function greet() {\n  console.log(this.name);\n}\n\ngreet.___({ name: \"CodeCat\" });",
+            "options": ["call", "bind", "map", "filter"],
+            "correctAnswer": "call"
+          },
+          {
+            "id": "call-apply-bind-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.log(this.name);\n}\nconst user = { name: ___ };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": ["\"CodeCat\"", "printName.bind(user)", "log(this.name)", "console.log"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "call-apply-bind-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  ___;\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": [
+              "console.log(this.name)",
+              "\"CodeCat\"",
+              "printName.bind(user)",
+              "log(this.name)"
+            ],
+            "correctAnswer": "console.log(this.name)"
+          },
+          {
+            "id": "call-apply-bind-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.log(this.name);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = ___;\nboundPrintName();",
+            "options": [
+              "printName.bind(user)",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "log(this.name)"
+            ],
+            "correctAnswer": "printName.bind(user)"
+          },
+          {
+            "id": "call-apply-bind-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.___;\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": [
+              "log(this.name)",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "printName.bind(user)"
+            ],
+            "correctAnswer": "log(this.name)"
+          },
+          {
+            "id": "call-apply-bind-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  ___(this.name);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": ["console.log", "\"CodeCat\"", "printName.bind(user)", "log(this.name)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "call-apply-bind-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.log(___);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": ["this.name", "\"CodeCat\"", "printName.bind(user)", "log(this.name)"],
+            "correctAnswer": "this.name"
+          },
+          {
+            "id": "call-apply-bind-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.log(this.name);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = ___(user);\nboundPrintName();",
+            "options": [
+              "printName.bind",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "printName.bind(user)"
+            ],
+            "correctAnswer": "printName.bind"
+          },
+          {
+            "id": "call-apply-bind-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ printName() {\n  console.log(this.name);\n}\nconst user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": ["function", "\"CodeCat\"", "printName.bind(user)", "log(this.name)"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "call-apply-bind-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printName() {\n  console.log(this.name);\n}\n___ user = { name: \"CodeCat\" };\nconst boundPrintName = printName.bind(user);\nboundPrintName();",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          }
+        ]
+      }
+    },
+    {
+      "id": "default-parameters-rest",
+      "order": 16,
+      "title": "Параметры по умолчанию и rest",
+      "description": "Используйте более безопасные сигнатуры функций и гибкие аргументы.",
+      "keywords": ["default params", "...args"],
+      "task": {
+        "type": "code-completion",
+        "title": "Имя по умолчанию",
+        "description": "Дополните сигнатуру функции.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "default-parameters-rest-medium-1",
+            "title": "Имя по умолчанию",
+            "description": "Дополните сигнатуру функции.",
+            "code": "function greet(name = ___) {\n  console.log(name);\n}",
+            "options": ["\"Guest\"", "\"CodeCat\"", "Guest", "undefined"],
+            "correctAnswer": "\"Guest\""
+          },
+          {
+            "id": "default-parameters-rest-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printArgs(...args) {\n  ___;\n}\nprintArgs(1, 2, 3);",
+            "options": ["console.log(args)", "printArgs(...args)", "console.log", "function"],
+            "correctAnswer": "console.log(args)"
+          },
+          {
+            "id": "default-parameters-rest-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function ___ {\n  console.log(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["printArgs(...args)", "console.log(args)", "console.log", "function"],
+            "correctAnswer": "printArgs(...args)"
+          },
+          {
+            "id": "default-parameters-rest-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printArgs(...args) {\n  ___(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["console.log", "console.log(args)", "printArgs(...args)", "function"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "default-parameters-rest-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ printArgs(...args) {\n  console.log(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["function", "console.log(args)", "printArgs(...args)", "console.log"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "default-parameters-rest-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function ___(...args) {\n  console.log(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["printArgs", "console.log(args)", "printArgs(...args)", "console.log"],
+            "correctAnswer": "printArgs"
+          },
+          {
+            "id": "default-parameters-rest-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printArgs(...___) {\n  console.log(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["args", "console.log(args)", "printArgs(...args)", "console.log"],
+            "correctAnswer": "args"
+          },
+          {
+            "id": "default-parameters-rest-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function printArgs(___args) {\n  console.log(args);\n}\nprintArgs(1, 2, 3);",
+            "options": ["...", "console.log(args)", "printArgs(...args)", "console.log"],
+            "correctAnswer": "..."
+          },
+          {
+            "id": "default-parameters-rest-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Параметры по умолчанию и rest».",
+            "code": "// Параметры по умолчанию и rest\nconst fragment = ___;",
+            "options": ["default params", "...args", "undefined", "null"],
+            "correctAnswer": "default params"
+          },
+          {
+            "id": "default-parameters-rest-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Параметры по умолчанию и rest».",
+            "code": "// Параметры по умолчанию и rest\nconst fragment = ___;",
+            "options": ["...args", "default params", "undefined", "null"],
+            "correctAnswer": "...args"
+          }
+        ]
+      }
+    },
+    {
+      "id": "spread-operator",
+      "order": 17,
+      "title": "Оператор spread",
+      "description": "Раскрывайте массивы и объекты.",
+      "keywords": ["...", "clone", "merge"],
+      "task": {
+        "type": "code-completion",
+        "title": "Клонировать массив",
+        "description": "Выберите правильное выражение.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "spread-operator-medium-1",
+            "title": "Клонировать массив",
+            "description": "Выберите правильное выражение.",
+            "code": "const numbers = [1, 2, 3];\nconst copy = [___numbers];",
+            "options": ["...", "&&", "::", "=>"],
+            "correctAnswer": "..."
+          },
+          {
+            "id": "spread-operator-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const first = [1, 2];\nconst second = [3, 4];\nconst merged = [...first, ...second];\n___;",
+            "options": ["console.log(merged)", "console.log", "const", "first"],
+            "correctAnswer": "console.log(merged)"
+          },
+          {
+            "id": "spread-operator-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const first = [1, 2];\nconst second = [3, 4];\nconst merged = [...first, ...second];\n___(merged);",
+            "options": ["console.log", "console.log(merged)", "const", "first"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "spread-operator-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ first = [1, 2];\nconst second = [3, 4];\nconst merged = [...first, ...second];\nconsole.log(merged);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "spread-operator-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = [1, 2];\nconst second = [3, 4];\nconst merged = [...first, ...second];\nconsole.log(merged);",
+            "options": ["first", "console.log(merged)", "console.log", "const"],
+            "correctAnswer": "first"
+          },
+          {
+            "id": "spread-operator-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const first = [1, 2];\nconst ___ = [3, 4];\nconst merged = [...first, ...second];\nconsole.log(merged);",
+            "options": ["second", "console.log(merged)", "console.log", "const"],
+            "correctAnswer": "second"
+          },
+          {
+            "id": "spread-operator-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const first = [1, 2];\nconst second = [3, 4];\nconst ___ = [...first, ...second];\nconsole.log(merged);",
+            "options": ["merged", "console.log(merged)", "console.log", "const"],
+            "correctAnswer": "merged"
+          },
+          {
+            "id": "spread-operator-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const first = [1, 2];\nconst second = [3, 4];\nconst merged = [___first, ...second];\nconsole.log(merged);",
+            "options": ["...", "console.log(merged)", "console.log", "const"],
+            "correctAnswer": "..."
+          },
+          {
+            "id": "spread-operator-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Оператор spread».",
+            "code": "// Оператор spread\nconst fragment = ___;",
+            "options": ["...", "clone", "merge", "undefined"],
+            "correctAnswer": "..."
+          },
+          {
+            "id": "spread-operator-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Оператор spread».",
+            "code": "// Оператор spread\nconst fragment = ___;",
+            "options": ["clone", "...", "merge", "undefined"],
+            "correctAnswer": "clone"
+          }
+        ]
+      }
+    },
+    {
+      "id": "destructuring",
+      "order": 18,
+      "title": "Деструктуризация",
+      "description": "Удобно извлекайте значения из массивов и объектов.",
+      "keywords": ["{ name }", "[first]"],
+      "task": {
+        "type": "code-completion",
+        "title": "Деструктуризация объекта",
+        "description": "Выберите правильный синтаксис.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "destructuring-medium-1",
+            "title": "Деструктуризация объекта",
+            "description": "Выберите правильный синтаксис.",
+            "code": "const user = { name: \"CodeCat\" };\nconst ___ = user;\nconsole.log(name);",
+            "options": ["{ name }", "[name]", "(name)", "name"],
+            "correctAnswer": "{ name }"
+          },
+          {
+            "id": "destructuring-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: ___, level: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["\"CodeCat\"", "console.log(name)", "console.log", "const"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "destructuring-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\nconst { name } = user;\n___;",
+            "options": ["console.log(name)", "\"CodeCat\"", "console.log", "const"],
+            "correctAnswer": "console.log(name)"
+          },
+          {
+            "id": "destructuring-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\nconst { name } = user;\n___(name);",
+            "options": ["console.log", "\"CodeCat\"", "console.log(name)", "const"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "destructuring-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ user = { name: \"CodeCat\", level: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "destructuring-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = { name: \"CodeCat\", level: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["user", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "user"
+          },
+          {
+            "id": "destructuring-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { ___: \"CodeCat\", level: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["name", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "destructuring-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"___\", level: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["CodeCat", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "CodeCat"
+          },
+          {
+            "id": "destructuring-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", ___: 5 };\nconst { name } = user;\nconsole.log(name);",
+            "options": ["level", "\"CodeCat\"", "console.log(name)", "console.log"],
+            "correctAnswer": "level"
+          },
+          {
+            "id": "destructuring-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Деструктуризация».",
+            "code": "// Деструктуризация\nconst fragment = ___;",
+            "options": ["{ name }", "[first]", "undefined", "null"],
+            "correctAnswer": "{ name }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "object-methods",
+      "order": 19,
+      "title": "Методы объектов",
+      "description": "Используйте встроенные помощники для ключей, значений и пар.",
+      "keywords": ["Object.keys()", "Object.values()", "Object.entries()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Получить ключи объекта",
+        "description": "Вставьте правильный метод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "object-methods-medium-1",
+            "title": "Получить ключи объекта",
+            "description": "Вставьте правильный метод.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\nconsole.log(___(user));",
+            "options": ["Object.keys", "Object.values", "Object.entries", "Object.assign"],
+            "correctAnswer": "Object.keys"
+          },
+          {
+            "id": "object-methods-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: ___, level: 5 };\nconsole.log(Object.values(user));",
+            "options": ["\"CodeCat\"", "Object.values(user)", "console.log", "Object.values"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "object-methods-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\nconsole.log(___);",
+            "options": ["Object.values(user)", "\"CodeCat\"", "console.log", "Object.values"],
+            "correctAnswer": "Object.values(user)"
+          },
+          {
+            "id": "object-methods-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\n___(Object.values(user));",
+            "options": ["console.log", "\"CodeCat\"", "Object.values(user)", "Object.values"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "object-methods-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", level: 5 };\nconsole.log(___(user));",
+            "options": ["Object.values", "\"CodeCat\"", "Object.values(user)", "console.log"],
+            "correctAnswer": "Object.values"
+          },
+          {
+            "id": "object-methods-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ user = { name: \"CodeCat\", level: 5 };\nconsole.log(Object.values(user));",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "object-methods-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = { name: \"CodeCat\", level: 5 };\nconsole.log(Object.values(user));",
+            "options": ["user", "\"CodeCat\"", "Object.values(user)", "console.log"],
+            "correctAnswer": "user"
+          },
+          {
+            "id": "object-methods-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { ___: \"CodeCat\", level: 5 };\nconsole.log(Object.values(user));",
+            "options": ["name", "\"CodeCat\"", "Object.values(user)", "console.log"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "object-methods-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"___\", level: 5 };\nconsole.log(Object.values(user));",
+            "options": ["CodeCat", "\"CodeCat\"", "Object.values(user)", "console.log"],
+            "correctAnswer": "CodeCat"
+          },
+          {
+            "id": "object-methods-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const user = { name: \"CodeCat\", ___: 5 };\nconsole.log(Object.values(user));",
+            "options": ["level", "\"CodeCat\"", "Object.values(user)", "console.log"],
+            "correctAnswer": "level"
+          }
+        ]
+      }
+    },
+    {
+      "id": "array-methods",
+      "order": 20,
+      "title": "Методы массивов",
+      "description": "Преобразовывайте массивы с помощью map, filter, reduce и других методов.",
+      "keywords": ["map()", "filter()", "reduce()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Преобразовать массив",
+        "description": "Выберите правильный метод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "array-methods-medium-1",
+            "title": "Преобразовать массив",
+            "description": "Выберите правильный метод.",
+            "code": "const numbers = [1, 2, 3];\nconst doubled = numbers.___((item) => item * 2);",
+            "options": ["map", "filter", "find", "join"],
+            "correctAnswer": "map"
+          },
+          {
+            "id": "array-methods-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((item) => item % 2 === 0);\n___;",
+            "options": ["console.log(evenNumbers)", "numbers.filter", "console.log", "const"],
+            "correctAnswer": "console.log(evenNumbers)"
+          },
+          {
+            "id": "array-methods-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst evenNumbers = ___((item) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["numbers.filter", "console.log", "const", "numbers"],
+            "correctAnswer": "numbers.filter"
+          },
+          {
+            "id": "array-methods-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((item) => item % 2 === 0);\n___(evenNumbers);",
+            "options": ["console.log", "numbers.filter", "const", "numbers"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "array-methods-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((item) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "array-methods-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((item) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["numbers", "numbers.filter", "console.log", "const"],
+            "correctAnswer": "numbers"
+          },
+          {
+            "id": "array-methods-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst ___ = numbers.filter((item) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["evenNumbers", "numbers.filter", "console.log", "const"],
+            "correctAnswer": "evenNumbers"
+          },
+          {
+            "id": "array-methods-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.___((item) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["filter", "break", "continue", "default"],
+            "correctAnswer": "filter"
+          },
+          {
+            "id": "array-methods-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const numbers = [1, 2, 3, 4];\nconst evenNumbers = numbers.filter((___) => item % 2 === 0);\nconsole.log(evenNumbers);",
+            "options": ["item", "numbers.filter", "console.log", "const"],
+            "correctAnswer": "item"
+          },
+          {
+            "id": "array-methods-medium-10",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Методы массивов».",
+            "code": "// Методы массивов\nconst fragment = ___;",
+            "options": ["map()", "filter()", "reduce()", "undefined"],
+            "correctAnswer": "map()"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dom-basics",
+      "order": 21,
+      "title": "Основы DOM",
+      "description": "Выбирайте и изменяйте элементы страницы.",
+      "keywords": ["querySelector()", "textContent"],
+      "task": {
+        "type": "code-completion",
+        "title": "Выбрать элемент",
+        "description": "Выберите правильный DOM-метод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "dom-basics-medium-1",
+            "title": "Выбрать элемент",
+            "description": "Выберите правильный DOM-метод.",
+            "code": "const button = document.___(\".btn\");",
+            "options": ["querySelector", "createElement", "addEventListener", "appendChild"],
+            "correctAnswer": "querySelector"
+          },
+          {
+            "id": "dom-basics-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = document.querySelector(___);\ntitle.textContent = \"Hello\";",
+            "options": ["\".title\"", "\"Hello\"", "title.textContent", "const"],
+            "correctAnswer": "\".title\""
+          },
+          {
+            "id": "dom-basics-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = document.querySelector(\".title\");\ntitle.textContent = ___;",
+            "options": ["\"Hello\"", "\".title\"", "title.textContent", "const"],
+            "correctAnswer": "\"Hello\""
+          },
+          {
+            "id": "dom-basics-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = ___;\ntitle.textContent = \"Hello\";",
+            "options": [
+              "document.querySelector(\".title\")",
+              "\".title\"",
+              "\"Hello\"",
+              "querySelector(\".title\")"
+            ],
+            "correctAnswer": "document.querySelector(\".title\")"
+          },
+          {
+            "id": "dom-basics-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = document.___;\ntitle.textContent = \"Hello\";",
+            "options": [
+              "querySelector(\".title\")",
+              "\".title\"",
+              "\"Hello\"",
+              "document.querySelector"
+            ],
+            "correctAnswer": "querySelector(\".title\")"
+          },
+          {
+            "id": "dom-basics-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = ___(\".title\");\ntitle.textContent = \"Hello\";",
+            "options": [
+              "document.querySelector",
+              "\".title\"",
+              "\"Hello\"",
+              "querySelector(\".title\")"
+            ],
+            "correctAnswer": "document.querySelector"
+          },
+          {
+            "id": "dom-basics-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = document.querySelector(\".title\");\n___ = \"Hello\";",
+            "options": [
+              "title.textContent",
+              "\".title\"",
+              "\"Hello\"",
+              "querySelector(\".title\")"
+            ],
+            "correctAnswer": "title.textContent"
+          },
+          {
+            "id": "dom-basics-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ title = document.querySelector(\".title\");\ntitle.textContent = \"Hello\";",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "dom-basics-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const ___ = document.querySelector(\".title\");\ntitle.textContent = \"Hello\";",
+            "options": ["title", "\".title\"", "\"Hello\"", "title.textContent"],
+            "correctAnswer": "title"
+          },
+          {
+            "id": "dom-basics-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const title = ___.querySelector(\".title\");\ntitle.textContent = \"Hello\";",
+            "options": ["document", "\".title\"", "\"Hello\"", "title.textContent"],
+            "correctAnswer": "document"
+          }
+        ]
+      }
+    },
+    {
+      "id": "events",
+      "order": 22,
+      "title": "События",
+      "description": "Реагируйте на действия пользователя с помощью обработчиков.",
+      "keywords": ["click", "addEventListener()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Отслеживать клик",
+        "description": "Вставьте правильное имя события.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "events-medium-1",
+            "title": "Отслеживать клик",
+            "description": "Вставьте правильное имя события.",
+            "code": "button.addEventListener(\"___\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["click", "hover", "focusout", "resize"],
+            "correctAnswer": "click"
+          },
+          {
+            "id": "events-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(___);\nbutton.addEventListener(\"click\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["\".btn\"", "\"click\"", "\"clicked\"", "log(\"clicked\")"],
+            "correctAnswer": "\".btn\""
+          },
+          {
+            "id": "events-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(\".btn\");\nbutton.addEventListener(___, () => {\n  console.log(\"clicked\");\n});",
+            "options": ["\"click\"", "\".btn\"", "\"clicked\"", "log(\"clicked\")"],
+            "correctAnswer": "\"click\""
+          },
+          {
+            "id": "events-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(\".btn\");\nbutton.addEventListener(\"click\", () => {\n  console.log(___);\n});",
+            "options": ["\"clicked\"", "\".btn\"", "\"click\"", "log(\"clicked\")"],
+            "correctAnswer": "\"clicked\""
+          },
+          {
+            "id": "events-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = ___;\nbutton.addEventListener(\"click\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["document.querySelector(\".btn\")", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "document.querySelector(\".btn\")"
+          },
+          {
+            "id": "events-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(\".btn\");\nbutton.addEventListener(\"click\", () => {\n  ___;\n});",
+            "options": ["console.log(\"clicked\")", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "console.log(\"clicked\")"
+          },
+          {
+            "id": "events-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.___;\nbutton.addEventListener(\"click\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["querySelector(\".btn\")", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "querySelector(\".btn\")"
+          },
+          {
+            "id": "events-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(\".btn\");\nbutton.addEventListener(\"click\", () => {\n  console.___;\n});",
+            "options": ["log(\"clicked\")", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "log(\"clicked\")"
+          },
+          {
+            "id": "events-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = ___(\".btn\");\nbutton.addEventListener(\"click\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["document.querySelector", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "document.querySelector"
+          },
+          {
+            "id": "events-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "const button = document.querySelector(\".btn\");\n___(\"click\", () => {\n  console.log(\"clicked\");\n});",
+            "options": ["button.addEventListener", "\".btn\"", "\"click\"", "\"clicked\""],
+            "correctAnswer": "button.addEventListener"
+          }
+        ]
+      }
+    },
+    {
+      "id": "event-propagation",
+      "order": 23,
+      "title": "Всплытие и распространение событий",
+      "description": "Поймите bubbling, capturing и управление распространением.",
+      "keywords": ["bubbling", "stopPropagation()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Остановить распространение",
+        "description": "Выберите правильный метод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "event-propagation-medium-1",
+            "title": "Остановить распространение",
+            "description": "Выберите правильный метод.",
+            "code": "button.addEventListener(\"click\", (event) => {\n  event.___();\n});",
+            "options": ["stopPropagation", "preventRender", "cancel", "bubbleStop"],
+            "correctAnswer": "stopPropagation"
+          },
+          {
+            "id": "event-propagation-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(___, (event) => {\n  event.stopPropagation();\n});",
+            "options": ["\"click\"", "stopPropagation()", "button", "addEventListener"],
+            "correctAnswer": "\"click\""
+          },
+          {
+            "id": "event-propagation-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(\"click\", (event) => {\n  ___;\n});",
+            "options": [
+              "event.stopPropagation()",
+              "\"click\"",
+              "stopPropagation()",
+              "button.addEventListener"
+            ],
+            "correctAnswer": "event.stopPropagation()"
+          },
+          {
+            "id": "event-propagation-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(\"click\", (event) => {\n  event.___;\n});",
+            "options": [
+              "stopPropagation()",
+              "\"click\"",
+              "event.stopPropagation()",
+              "button.addEventListener"
+            ],
+            "correctAnswer": "stopPropagation()"
+          },
+          {
+            "id": "event-propagation-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___(\"click\", (event) => {\n  event.stopPropagation();\n});",
+            "options": [
+              "button.addEventListener",
+              "\"click\"",
+              "event.stopPropagation()",
+              "stopPropagation()"
+            ],
+            "correctAnswer": "button.addEventListener"
+          },
+          {
+            "id": "event-propagation-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(\"click\", (event) => {\n  ___();\n});",
+            "options": [
+              "event.stopPropagation",
+              "\"click\"",
+              "event.stopPropagation()",
+              "stopPropagation()"
+            ],
+            "correctAnswer": "event.stopPropagation"
+          },
+          {
+            "id": "event-propagation-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___.addEventListener(\"click\", (event) => {\n  event.stopPropagation();\n});",
+            "options": ["button", "\"click\"", "stopPropagation()", "addEventListener"],
+            "correctAnswer": "button"
+          },
+          {
+            "id": "event-propagation-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.___(\"click\", (event) => {\n  event.stopPropagation();\n});",
+            "options": ["addEventListener", "break", "continue", "default"],
+            "correctAnswer": "addEventListener"
+          },
+          {
+            "id": "event-propagation-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(\"___\", (event) => {\n  event.stopPropagation();\n});",
+            "options": ["click", "\"click\"", "stopPropagation()", "button"],
+            "correctAnswer": "click"
+          },
+          {
+            "id": "event-propagation-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "button.addEventListener(\"click\", (___) => {\n  event.stopPropagation();\n});",
+            "options": ["event", "\"click\"", "stopPropagation()", "button"],
+            "correctAnswer": "event"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timers",
+      "order": 24,
+      "title": "Таймеры",
+      "description": "Планируйте отложенное и повторяющееся выполнение кода.",
+      "keywords": ["setTimeout()", "setInterval()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Отложенный вывод",
+        "description": "Выберите правильную функцию таймера.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "timers-medium-1",
+            "title": "Отложенный вывод",
+            "description": "Выберите правильную функцию таймера.",
+            "code": "___(() => {\n  console.log(\"Hello\");\n}, 1000);",
+            "options": ["setTimeout", "setInterval", "clearTimeout", "clearInterval"],
+            "correctAnswer": "setTimeout"
+          },
+          {
+            "id": "timers-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "setTimeout(() => {\n  console.log(___);\n}, 1000);",
+            "options": ["\"Hello\"", "console.log(\"Hello\")", "log(\"Hello\")", "console.log"],
+            "correctAnswer": "\"Hello\""
+          },
+          {
+            "id": "timers-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "setTimeout(() => {\n  ___;\n}, 1000);",
+            "options": ["console.log(\"Hello\")", "\"Hello\"", "log(\"Hello\")", "console.log"],
+            "correctAnswer": "console.log(\"Hello\")"
+          },
+          {
+            "id": "timers-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "setTimeout(() => {\n  console.___;\n}, 1000);",
+            "options": ["log(\"Hello\")", "\"Hello\"", "console.log(\"Hello\")", "console.log"],
+            "correctAnswer": "log(\"Hello\")"
+          },
+          {
+            "id": "timers-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "setTimeout(() => {\n  ___(\"Hello\");\n}, 1000);",
+            "options": ["console.log", "\"Hello\"", "console.log(\"Hello\")", "log(\"Hello\")"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "timers-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___(() => {\n  console.log(\"Hello\");\n}, 1000);",
+            "options": ["setTimeout", "break", "continue", "default"],
+            "correctAnswer": "setTimeout"
+          },
+          {
+            "id": "timers-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "setTimeout(() => {\n  console.log(\"___\");\n}, 1000);",
+            "options": ["Hello", "\"Hello\"", "console.log(\"Hello\")", "log(\"Hello\")"],
+            "correctAnswer": "Hello"
+          },
+          {
+            "id": "timers-medium-8",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Таймеры».",
+            "code": "// Таймеры\nconst fragment = ___;",
+            "options": ["setTimeout()", "setInterval()", "undefined", "null"],
+            "correctAnswer": "setTimeout()"
+          },
+          {
+            "id": "timers-medium-9",
+            "title": "Выберите ключевое слово темы",
+            "description": "Вставьте фрагмент, относящийся к теме «Таймеры».",
+            "code": "// Таймеры\nconst fragment = ___;",
+            "options": ["setInterval()", "setTimeout()", "undefined", "null"],
+            "correctAnswer": "setInterval()"
+          },
+          {
+            "id": "timers-medium-10",
+            "title": "Выберите правильный фрагмент",
+            "description": "Дополните фрагмент практики.",
+            "code": "// Таймеры\nconst value = ___;",
+            "options": ["setTimeout()", "setInterval()", "undefined", "null"],
+            "correctAnswer": "setTimeout()"
+          }
+        ]
+      }
+    },
+    {
+      "id": "web-storage",
+      "order": 25,
+      "title": "Web Storage",
+      "description": "Сохраняйте и получайте простые данные в браузере.",
+      "keywords": ["localStorage", "setItem()", "getItem()"],
+      "task": {
+        "type": "code-completion",
+        "title": "Сохранить в localStorage",
+        "description": "Выберите правильный метод.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "web-storage-medium-1",
+            "title": "Сохранить в localStorage",
+            "description": "Выберите правильный метод.",
+            "code": "localStorage.___(\"theme\", \"dark\");",
+            "options": ["setItem", "getItem", "removeItem", "parseItem"],
+            "correctAnswer": "setItem"
+          },
+          {
+            "id": "web-storage-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(___, \"dark\");\nconsole.log(localStorage.getItem(\"theme\"));",
+            "options": ["\"theme\"", "\"dark\"", "getItem(\"theme\")", "localStorage.setItem"],
+            "correctAnswer": "\"theme\""
+          },
+          {
+            "id": "web-storage-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(\"theme\", ___);\nconsole.log(localStorage.getItem(\"theme\"));",
+            "options": ["\"dark\"", "\"theme\"", "getItem(\"theme\")", "localStorage.setItem"],
+            "correctAnswer": "\"dark\""
+          },
+          {
+            "id": "web-storage-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___;\nconsole.log(localStorage.getItem(\"theme\"));",
+            "options": [
+              "localStorage.setItem(\"theme\", \"dark\")",
+              "\"theme\"",
+              "\"dark\"",
+              "localStorage.getItem(\"theme\")"
+            ],
+            "correctAnswer": "localStorage.setItem(\"theme\", \"dark\")"
+          },
+          {
+            "id": "web-storage-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(\"theme\", \"dark\");\nconsole.log(___);",
+            "options": [
+              "localStorage.getItem(\"theme\")",
+              "\"theme\"",
+              "\"dark\"",
+              "localStorage.setItem(\"theme\", \"dark\")"
+            ],
+            "correctAnswer": "localStorage.getItem(\"theme\")"
+          },
+          {
+            "id": "web-storage-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.___;\nconsole.log(localStorage.getItem(\"theme\"));",
+            "options": [
+              "setItem(\"theme\", \"dark\")",
+              "\"theme\"",
+              "\"dark\"",
+              "localStorage.getItem(\"theme\")"
+            ],
+            "correctAnswer": "setItem(\"theme\", \"dark\")"
+          },
+          {
+            "id": "web-storage-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(\"theme\", \"dark\");\nconsole.log(localStorage.___);",
+            "options": [
+              "getItem(\"theme\")",
+              "\"theme\"",
+              "\"dark\"",
+              "setItem(\"theme\", \"dark\")"
+            ],
+            "correctAnswer": "getItem(\"theme\")"
+          },
+          {
+            "id": "web-storage-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___(\"theme\", \"dark\");\nconsole.log(localStorage.getItem(\"theme\"));",
+            "options": [
+              "localStorage.setItem",
+              "\"theme\"",
+              "\"dark\"",
+              "setItem(\"theme\", \"dark\")"
+            ],
+            "correctAnswer": "localStorage.setItem"
+          },
+          {
+            "id": "web-storage-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(\"theme\", \"dark\");\n___(localStorage.getItem(\"theme\"));",
+            "options": ["console.log", "\"theme\"", "\"dark\"", "getItem(\"theme\")"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "web-storage-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "localStorage.setItem(\"theme\", \"dark\");\nconsole.log(___(\"theme\"));",
+            "options": [
+              "localStorage.getItem",
+              "\"theme\"",
+              "\"dark\"",
+              "setItem(\"theme\", \"dark\")"
+            ],
+            "correctAnswer": "localStorage.getItem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "constructor-functions",
+      "order": 26,
+      "title": "Функции-конструкторы",
+      "description": "Создавайте объекты с помощью функций-конструкторов.",
+      "keywords": ["function User()", "new"],
+      "task": {
+        "type": "code-completion",
+        "title": "Дополнить присваивание в конструкторе",
+        "description": "Вставьте недостающее имя свойства.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "constructor-functions-medium-1",
+            "title": "Дополнить присваивание в конструкторе",
+            "description": "Вставьте недостающее имя свойства.",
+            "code": "function User(name) {\n  this.___ = name;\n}",
+            "options": ["name", "user", "value", "title"],
+            "correctAnswer": "name"
+          },
+          {
+            "id": "constructor-functions-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new User(___);\nconsole.log(user.name);",
+            "options": ["\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)", "this.name"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "constructor-functions-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\n___;",
+            "options": [
+              "console.log(user.name)",
+              "\"CodeCat\"",
+              "User(\"CodeCat\")",
+              "log(user.name)"
+            ],
+            "correctAnswer": "console.log(user.name)"
+          },
+          {
+            "id": "constructor-functions-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new ___;\nconsole.log(user.name);",
+            "options": [
+              "User(\"CodeCat\")",
+              "\"CodeCat\"",
+              "console.log(user.name)",
+              "log(user.name)"
+            ],
+            "correctAnswer": "User(\"CodeCat\")"
+          },
+          {
+            "id": "constructor-functions-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\nconsole.___;",
+            "options": [
+              "log(user.name)",
+              "\"CodeCat\"",
+              "console.log(user.name)",
+              "User(\"CodeCat\")"
+            ],
+            "correctAnswer": "log(user.name)"
+          },
+          {
+            "id": "constructor-functions-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  ___ = name;\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["this.name", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "this.name"
+          },
+          {
+            "id": "constructor-functions-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\n___(user.name);",
+            "options": ["console.log", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "constructor-functions-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\nconsole.log(___);",
+            "options": ["user.name", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "user.name"
+          },
+          {
+            "id": "constructor-functions-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ User(name) {\n  this.name = name;\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["function", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "constructor-functions-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\n___ user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          }
+        ]
+      }
+    },
+    {
+      "id": "classes",
+      "order": 27,
+      "title": "Классы",
+      "description": "Описывайте данные с помощью синтаксиса классов.",
+      "keywords": ["class", "constructor", "new"],
+      "task": {
+        "type": "code-completion",
+        "title": "Конструктор класса",
+        "description": "Вставьте недостающее имя метода.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "classes-medium-1",
+            "title": "Конструктор класса",
+            "description": "Вставьте недостающее имя метода.",
+            "code": "class User {\n  ___(name) {\n    this.name = name;\n  }\n}",
+            "options": ["constructor", "init", "create", "mount"],
+            "correctAnswer": "constructor"
+          },
+          {
+            "id": "classes-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(___);\nconsole.log(user.name);",
+            "options": ["\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)", "this.name"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "classes-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\n___;",
+            "options": [
+              "console.log(user.name)",
+              "\"CodeCat\"",
+              "User(\"CodeCat\")",
+              "log(user.name)"
+            ],
+            "correctAnswer": "console.log(user.name)"
+          },
+          {
+            "id": "classes-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new ___;\nconsole.log(user.name);",
+            "options": [
+              "User(\"CodeCat\")",
+              "\"CodeCat\"",
+              "console.log(user.name)",
+              "log(user.name)"
+            ],
+            "correctAnswer": "User(\"CodeCat\")"
+          },
+          {
+            "id": "classes-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.___;",
+            "options": [
+              "log(user.name)",
+              "\"CodeCat\"",
+              "console.log(user.name)",
+              "User(\"CodeCat\")"
+            ],
+            "correctAnswer": "log(user.name)"
+          },
+          {
+            "id": "classes-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    ___ = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["this.name", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "this.name"
+          },
+          {
+            "id": "classes-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\n___(user.name);",
+            "options": ["console.log", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "classes-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.log(___);",
+            "options": ["user.name", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "user.name"
+          },
+          {
+            "id": "classes-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ User {\n  constructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["class", "\"CodeCat\"", "User(\"CodeCat\")", "log(user.name)"],
+            "correctAnswer": "class"
+          },
+          {
+            "id": "classes-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "class User {\n  ___ructor(name) {\n    this.name = name;\n  }\n}\nconst user = new User(\"CodeCat\");\nconsole.log(user.name);",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prototype-inheritance",
+      "order": 28,
+      "title": "Прототипное наследование",
+      "description": "Поймите, как работают цепочки прототипов.",
+      "keywords": ["prototype", "__proto__"],
+      "task": {
+        "type": "code-completion",
+        "title": "Метод в prototype",
+        "description": "Вставьте недостающее имя свойства.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "prototype-inheritance-medium-1",
+            "title": "Метод в prototype",
+            "description": "Вставьте недостающее имя свойства.",
+            "code": "User.___.sayHi = function () {\n  console.log(\"Hi\");\n};",
+            "options": ["prototype", "constructor", "__proto__", "instance"],
+            "correctAnswer": "prototype"
+          },
+          {
+            "id": "prototype-inheritance-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(___);\nuser.sayHi();",
+            "options": ["\"CodeCat\"", "user.sayHi()", "log(this.name)", "User(\"CodeCat\")"],
+            "correctAnswer": "\"CodeCat\""
+          },
+          {
+            "id": "prototype-inheritance-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  ___;\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+            "options": ["console.log(this.name)", "\"CodeCat\"", "user.sayHi()", "log(this.name)"],
+            "correctAnswer": "console.log(this.name)"
+          },
+          {
+            "id": "prototype-inheritance-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(\"CodeCat\");\n___;",
+            "options": ["user.sayHi()", "\"CodeCat\"", "log(this.name)", "User(\"CodeCat\")"],
+            "correctAnswer": "user.sayHi()"
+          },
+          {
+            "id": "prototype-inheritance-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.___;\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+            "options": ["log(this.name)", "\"CodeCat\"", "console.log(this.name)", "user.sayHi()"],
+            "correctAnswer": "log(this.name)"
+          },
+          {
+            "id": "prototype-inheritance-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new ___;\nuser.sayHi();",
+            "options": [
+              "User(\"CodeCat\")",
+              "\"CodeCat\"",
+              "console.log(this.name)",
+              "user.sayHi()"
+            ],
+            "correctAnswer": "User(\"CodeCat\")"
+          },
+          {
+            "id": "prototype-inheritance-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  ___ = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+            "options": ["this.name", "\"CodeCat\"", "user.sayHi()", "log(this.name)"],
+            "correctAnswer": "this.name"
+          },
+          {
+            "id": "prototype-inheritance-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\n___.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+            "options": ["User.prototype", "\"CodeCat\"", "console.log(this.name)", "user.sayHi()"],
+            "correctAnswer": "User.prototype"
+          },
+          {
+            "id": "prototype-inheritance-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  ___(this.name);\n};\nconst user = new User(\"CodeCat\");\nuser.sayHi();",
+            "options": ["console.log", "\"CodeCat\"", "user.sayHi()", "log(this.name)"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "prototype-inheritance-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "function User(name) {\n  this.name = name;\n}\nUser.prototype.sayHi = function () {\n  console.log(this.name);\n};\nconst user = new User(\"CodeCat\");\n___();",
+            "options": ["user.sayHi", "\"CodeCat\"", "user.sayHi()", "log(this.name)"],
+            "correctAnswer": "user.sayHi"
+          }
+        ]
+      }
+    },
+    {
+      "id": "promises-async-await",
+      "order": 29,
+      "title": "Промисы и Async/Await",
+      "description": "Работайте с асинхронным кодом и результатами.",
+      "keywords": ["Promise", "async", "await"],
+      "task": {
+        "type": "code-completion",
+        "title": "Дождаться результата Promise",
+        "description": "Вставьте правильное ключевое слово.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "promises-async-await-medium-1",
+            "title": "Дождаться результата Promise",
+            "description": "Вставьте правильное ключевое слово.",
+            "code": "async function loadData() {\n  const result = ___ fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["await", "return", "yield", "const"],
+            "correctAnswer": "await"
+          },
+          {
+            "id": "promises-async-await-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  const result = await fetch(___);\n  console.log(result);\n}",
+            "options": [
+              "\"/api/data\"",
+              "console.log(result)",
+              "fetch(\"/api/data\")",
+              "console.log"
+            ],
+            "correctAnswer": "\"/api/data\""
+          },
+          {
+            "id": "promises-async-await-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  const result = await fetch(\"/api/data\");\n  ___;\n}",
+            "options": [
+              "console.log(result)",
+              "\"/api/data\"",
+              "fetch(\"/api/data\")",
+              "console.log"
+            ],
+            "correctAnswer": "console.log(result)"
+          },
+          {
+            "id": "promises-async-await-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  const result = await ___;\n  console.log(result);\n}",
+            "options": [
+              "fetch(\"/api/data\")",
+              "\"/api/data\"",
+              "console.log(result)",
+              "console.log"
+            ],
+            "correctAnswer": "fetch(\"/api/data\")"
+          },
+          {
+            "id": "promises-async-await-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  const result = await fetch(\"/api/data\");\n  ___(result);\n}",
+            "options": [
+              "console.log",
+              "\"/api/data\"",
+              "console.log(result)",
+              "fetch(\"/api/data\")"
+            ],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "promises-async-await-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ function loadData() {\n  const result = await fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["async", "break", "continue", "default"],
+            "correctAnswer": "async"
+          },
+          {
+            "id": "promises-async-await-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async ___ loadData() {\n  const result = await fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["function", "\"/api/data\"", "console.log(result)", "fetch(\"/api/data\")"],
+            "correctAnswer": "function"
+          },
+          {
+            "id": "promises-async-await-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  ___ result = await fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["const", "let", "var", "function"],
+            "correctAnswer": "const"
+          },
+          {
+            "id": "promises-async-await-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function loadData() {\n  const result = ___ fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["await", "break", "continue", "default"],
+            "correctAnswer": "await"
+          },
+          {
+            "id": "promises-async-await-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "async function ___() {\n  const result = await fetch(\"/api/data\");\n  console.log(result);\n}",
+            "options": ["loadData", "\"/api/data\"", "console.log(result)", "fetch(\"/api/data\")"],
+            "correctAnswer": "loadData"
+          }
+        ]
+      }
+    },
+    {
+      "id": "error-handling",
+      "order": 30,
+      "title": "Обработка ошибок",
+      "description": "Безопасно перехватывайте и обрабатывайте ошибки во время выполнения.",
+      "keywords": ["try", "catch", "throw"],
+      "task": {
+        "type": "code-completion",
+        "title": "Дополнить try/catch",
+        "description": "Выберите недостающее ключевое слово блока.",
+        "points": 20,
+        "questions": [
+          {
+            "id": "error-handling-medium-1",
+            "title": "Дополнить try/catch",
+            "description": "Выберите недостающее ключевое слово блока.",
+            "code": "try {\n  riskyAction();\n} ___ (error) {\n  console.log(error);\n}",
+            "options": ["catch", "finally", "throw", "switch"],
+            "correctAnswer": "catch"
+          },
+          {
+            "id": "error-handling-medium-2",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new Error(___);\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["\"Oops\"", "console.log(error)", "Error(\"Oops\")", "console.log"],
+            "correctAnswer": "\"Oops\""
+          },
+          {
+            "id": "error-handling-medium-3",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new Error(\"Oops\");\n} catch (error) {\n  ___;\n}",
+            "options": ["console.log(error)", "\"Oops\"", "Error(\"Oops\")", "console.log"],
+            "correctAnswer": "console.log(error)"
+          },
+          {
+            "id": "error-handling-medium-4",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new ___;\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["Error(\"Oops\")", "\"Oops\"", "console.log(error)", "console.log"],
+            "correctAnswer": "Error(\"Oops\")"
+          },
+          {
+            "id": "error-handling-medium-5",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new Error(\"Oops\");\n} catch (error) {\n  ___(error);\n}",
+            "options": ["console.log", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "console.log"
+          },
+          {
+            "id": "error-handling-medium-6",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "___ {\n  throw new Error(\"Oops\");\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["try", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "try"
+          },
+          {
+            "id": "error-handling-medium-7",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  ___ new Error(\"Oops\");\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["throw", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "throw"
+          },
+          {
+            "id": "error-handling-medium-8",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw ___ Error(\"Oops\");\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["new", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "new"
+          },
+          {
+            "id": "error-handling-medium-9",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new Error(\"Oops\");\n} ___ (error) {\n  console.log(error);\n}",
+            "options": ["catch", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "catch"
+          },
+          {
+            "id": "error-handling-medium-10",
+            "title": "Дополните код",
+            "description": "Выберите правильный фрагмент.",
+            "code": "try {\n  throw new ___(\"Oops\");\n} catch (error) {\n  console.log(error);\n}",
+            "options": ["Error", "\"Oops\"", "console.log(error)", "Error(\"Oops\")"],
+            "correctAnswer": "Error"
+          }
+        ]
+      }
+    }
+  ]
+}

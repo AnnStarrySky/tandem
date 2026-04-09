@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { cn } from "@/src/shared/lib";
-import { Icon, IconLogoMain } from "@/src/shared/ui/icon";
-import { UserName } from "@/src/shared/ui";
-import { LevelImage } from "@/src/shared/ui/mainImage";
+import { cn } from "@/shared/lib";
+import { Icon, IconLogoMain } from "@/shared/ui";
+import { UserName } from "@/shared/ui";
+import { LevelImage } from "@/shared/ui";
 import { useSession } from "next-auth/react";
 
 type HeaderProps = {

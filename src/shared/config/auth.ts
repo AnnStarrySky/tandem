@@ -2,9 +2,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import { mockLogin, mockOAuth } from "./auth-mocks";
+import {
+  createDevMockUser,
+  findDevMockUserByEmail,
+  validateDevMockCredentials,
+} from "@shared/api/auth";
+import { decryptText } from "@shared/lib";
 
-import type { BackendAuthResponse, BackendLoginResponse } from "@shared/types";
+import type { BackendAuthResponse, BackendLoginResponse, ProviderName } from "@shared/types";
 import type { NextAuthOptions } from "next-auth";
 
 export const AUTH_ROUTES = {
@@ -21,6 +26,36 @@ export const AUTH_ENV = {
   backendUrl: process.env.BACKEND_URL,
 } as const;
 
+function buildMockAuthResponse(data: {
+  id: number | string;
+  email: string;
+  name: string;
+}): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.id),
+      email: data.email,
+      name: data.name,
+    },
+    accessToken: "mock-access-token",
+    refreshToken: "mock-refresh-token",
+  };
+}
+
+function mapBackendLoginResponseToAuthResponse(
+  data: BackendLoginResponse,
+  email: string,
+): BackendAuthResponse {
+  return {
+    user: {
+      id: String(data.Id),
+      email,
+      name: data.Name,
+    },
+    accessToken: data.JWTToken,
+  };
+}
+
 const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
     name: "Email & Password",
@@ -33,13 +68,31 @@ const providers: NextAuthOptions["providers"] = [
         return null;
       }
 
+      const normalizedEmail = credentials.email.trim().toLowerCase();
+
+      let decryptedPassword = "";
+
+      try {
+        decryptedPassword = await decryptText(credentials.password);
+      } catch {
+        return null;
+      }
+
+      if (!decryptedPassword) {
+        return null;
+      }
+
       if (AUTH_ENV.useMock) {
         try {
-          let data: BackendAuthResponse;
+          const user = await validateDevMockCredentials({
+            email: normalizedEmail,
+            password: decryptedPassword,
+          });
 
-          data = await mockLogin({
-            email: credentials.email.trim(),
-            password: credentials.password,
+          const data = buildMockAuthResponse({
+            id: user.id,
+            email: user.email,
+            name: user.name,
           });
 
           return {
@@ -51,49 +104,40 @@ const providers: NextAuthOptions["providers"] = [
         } catch {
           return null;
         }
-      } else {
-        try {
-          if (!AUTH_ENV.backendUrl) {
-            throw Error("No backend URL");
-          }
-          const backendResult = await fetch(
-            new URL(AUTH_ROUTES.backendLogin, AUTH_ENV.backendUrl),
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              body: JSON.stringify({
-                email: credentials.email.trim(),
-                password: credentials.password,
-              }),
-            },
-          );
+      }
 
-          if (backendResult.ok) {
-            const data: BackendLoginResponse = await backendResult.json();
+      try {
+        if (!AUTH_ENV.backendUrl) {
+          throw new Error("BACKEND_URL is not configured");
+        }
 
-            let backendUser: BackendAuthResponse = {
-              user: {
-                id: 1,
-                email: credentials.email.trim(),
-                name: data.name,
-              },
-              accessToken: data.jwtToken,
-            };
-            return {
-              id: 1,
-              email: credentials.email.trim(),
-              name: data.name,
-              __backend: backendUser,
-            };
-          } else {
-            return null;
-          }
-        } catch {
+        const backendResult = await fetch(new URL(AUTH_ROUTES.backendLogin, AUTH_ENV.backendUrl), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: normalizedEmail,
+            password: decryptedPassword,
+          }),
+        });
+
+        if (!backendResult.ok) {
           return null;
         }
+
+        const data = (await backendResult.json()) as BackendLoginResponse;
+        const backendUser = mapBackendLoginResponseToAuthResponse(data, normalizedEmail);
+
+        return {
+          id: backendUser.user.id,
+          email: backendUser.user.email ?? undefined,
+          name: backendUser.user.name ?? undefined,
+          __backend: backendUser,
+        };
+      } catch {
+        return null;
       }
     },
   }),
@@ -131,6 +175,7 @@ export const authOptions: NextAuthOptions = {
           ...token.user,
           ...session.user,
         };
+
         return token;
       }
 
@@ -146,20 +191,37 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account && (account.provider === "github" || account.provider === "google")) {
-        let data: BackendAuthResponse;
-
         if (AUTH_ENV.useMock) {
-          data = await mockOAuth({
-            provider: account.provider,
+          const provider = account.provider as Extract<ProviderName, "github" | "google">;
+          const email =
+            provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev";
+          const name = provider === "github" ? "GitHub User" : "Google User";
+
+          let existing = await findDevMockUserByEmail(email);
+
+          if (!existing) {
+            existing = await createDevMockUser({
+              email,
+              password: "oauth-user-password",
+              name,
+            });
+          }
+
+          const data = buildMockAuthResponse({
+            id: existing.id,
+            email: existing.email,
+            name: existing.name,
           });
-        } else {
-          throw new Error("Backend OAuth is not connected yet");
+
+          token.user = data.user;
+          token.accessToken = data.accessToken;
+          token.refreshToken = data.refreshToken;
+          token.provider = provider;
+
+          return token;
         }
 
-        token.user = data.user;
-        token.accessToken = data.accessToken;
-        token.refreshToken = data.refreshToken;
-        token.provider = account.provider;
+        throw new Error("Backend OAuth is not connected yet");
       }
 
       return token;

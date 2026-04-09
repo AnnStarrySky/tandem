@@ -1,1 +1,1 @@
-export * from "./language-toggle";
+export { LanguageToggle } from "@shared/ui";

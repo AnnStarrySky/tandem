@@ -9,11 +9,11 @@ import { authOptions, AUTH_ROUTES } from "@shared/config/auth";
 import SettingsClient from "./settings-client";
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 };
 
 export default async function SettingsPage({ params }: Props): Promise<React.JSX.Element> {
-  const { locale } = await params;
+  const { locale } = params;
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {

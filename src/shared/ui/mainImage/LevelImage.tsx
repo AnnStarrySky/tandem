@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useTheme } from "@shared/lib/theme";
+
+import { useTheme } from "@shared/providers";
+
 import { LevelDisplay } from "./LevelDisplay";
 
 type Props = {

@@ -1,0 +1,36 @@
+export const PRACTICE_TOPIC_ID_BY_LESSON_NUMBER: Record<number, string> = {
+  1: "variables",
+  2: "number-methods",
+  3: "string-methods",
+  4: "ternary-logical-operators",
+  5: "switch-case",
+  6: "loops",
+  7: "type-conversions",
+  8: "strict-comparison",
+  9: "let-var-const",
+  10: "hoisting-temporal-dead-zone",
+  11: "functions",
+  12: "scope",
+  13: "closures",
+  14: "context-this",
+  15: "call-apply-bind",
+  16: "default-parameters-rest",
+  17: "spread-operator",
+  18: "destructuring",
+  19: "object-methods",
+  20: "array-methods",
+  21: "dom-basics",
+  22: "events",
+  23: "event-propagation",
+  24: "timers",
+  25: "web-storage",
+  26: "constructor-functions",
+  27: "classes",
+  28: "prototype-inheritance",
+  29: "promises-async-await",
+  30: "error-handling",
+};
+
+export function getPracticeTopicIdByLessonNumber(lessonNumber: number): string | null {
+  return PRACTICE_TOPIC_ID_BY_LESSON_NUMBER[lessonNumber] ?? null;
+}

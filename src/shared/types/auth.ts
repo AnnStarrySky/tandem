@@ -1,5 +1,11 @@
+export type BackendLoginResponse = {
+  Id: string;
+  Name: string;
+  JWTToken: string;
+};
+
 export type BackendUser = {
-  id: number;
+  id: string;
   email?: string | null;
   name?: string | null;
 };
@@ -10,9 +16,4 @@ export type BackendAuthResponse = {
   refreshToken?: string;
 };
 
-export type BackendLoginResponse = {
-  id: string;
-  name: string;
-  jwtToken: string;
-  errors?: object;
-};
+export type ProviderName = "credentials" | "github" | "google";
