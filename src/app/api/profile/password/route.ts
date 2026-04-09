@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { getServerSession } from "next-auth";
+
 import { updateDevMockUserPassword } from "@shared/api/auth";
 import { AUTH_ENV, authOptions } from "@shared/config/auth";
-import { getServerSession } from "next-auth";
 
 type PasswordBody = {
   email?: string;
