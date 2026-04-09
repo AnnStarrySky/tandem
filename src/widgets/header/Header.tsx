@@ -3,17 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-
 import { cn } from "@/src/shared/lib";
 import { Icon, IconLogoMain } from "@/src/shared/ui/icon";
 import { UserName } from "@/src/shared/ui";
 import { LevelImage } from "@/src/shared/ui/mainImage";
+import { useSession } from "next-auth/react";
 
 type HeaderProps = {
   className?: string;
 };
 
 export const Header = ({ className }: HeaderProps) => {
+  const { data: session } = useSession();
+  const userName = session?.user?.name || "CodeCat User";
+
   const translation = useTranslations("Header");
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +74,7 @@ export const Header = ({ className }: HeaderProps) => {
           <IconLogoMain />
         </div>
         <UserName
-          userName="Anna"
+          userName={userName}
           className="w-full rounded-lg border-[2px] border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
         />
         {navLinks}
@@ -129,7 +132,7 @@ export const Header = ({ className }: HeaderProps) => {
         >
           <div className="flex flex-col items-center gap-4 p-6 pb-8">
             <UserName
-              userName="Anna"
+              userName={userName}
               className="w-full rounded-lg border-[2px] border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
             />
             {navLinks}

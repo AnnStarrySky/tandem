@@ -31,6 +31,7 @@ export const LevelImage = ({
         src={src}
         alt={alt}
         fill
+        sizes="(max-width: 768px) 150px, 220px"
         className="object-cover"
         style={{ transform: `translateY(${translateY}px)` }}
       />

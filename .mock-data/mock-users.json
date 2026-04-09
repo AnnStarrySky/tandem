@@ -11,7 +11,19 @@
       "email": "anna@mail.ru",
       "password": "Anna1234",
       "name": "Anna"
+    },
+    {
+      "id": 3,
+      "email": "test@mail.ru",
+      "password": "Test1234",
+      "name": "Test"
+    },
+    {
+      "id": 4,
+      "email": "test2@mail.ru",
+      "password": "Test21234",
+      "name": "Test2"
     }
   ],
-  "lastId": 2
+  "lastId": 4
 }
