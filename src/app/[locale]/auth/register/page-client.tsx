@@ -60,9 +60,6 @@ export function RegisterPageClient(): React.JSX.Element {
       const normalizedEmail = form.email.trim().toLowerCase();
       const encryptedPassword = await encryptText(form.password);
 
-      console.log("Register password before encryption:", form.password);
-      console.log("Register password after encryption:", encryptedPassword);
-
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {

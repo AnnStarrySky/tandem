@@ -50,11 +50,7 @@ export function LoginPageClient(): React.JSX.Element {
     try {
       const normalizedEmail = form.email.trim().toLowerCase();
 
-      console.log("Password before encryption:", form.password);
-
       const encryptedPassword = await encryptText(form.password);
-
-      console.log("Password after encryption:", encryptedPassword);
 
       const result = await signIn("credentials", {
         redirect: false,
