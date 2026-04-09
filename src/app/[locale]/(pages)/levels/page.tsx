@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
@@ -8,13 +9,26 @@ import { LevelImage } from "@/shared/ui/mainImage";
 const LEVELS = [
   { level: 1, cat: "newbie" as const },
   { level: 2, cat: "student" as const },
-  { level: 3, cat: "programmer" as const, translateY: 10 },
+  { level: 3, cat: "programmer" as const, translateY: 5 },
   { level: 4, cat: "hacker" as const },
   { level: 5, cat: "legend" as const },
 ];
 
 export default function LevelsPage() {
   const t = useTranslations("LevelTable");
+  const [visible, setVisible] = useState<boolean[]>([false, false, false, false, false]);
+
+  useEffect(() => {
+    LEVELS.forEach((_, i) => {
+      setTimeout(() => {
+        setVisible((prev) => {
+          const next = [...prev];
+          next[i] = true;
+          return next;
+        });
+      }, i * 400);
+    });
+  }, []);
 
   const conditionKey = (level: number) =>
     `level${level}condition` as
@@ -42,16 +56,24 @@ export default function LevelsPage() {
       </div>
 
       {/* Картинки котов */}
-      <div className="flex flex-col items-center gap-6 sm:flex-row sm:flex-wrap sm:justify-center">
-        {LEVELS.map(({ level, cat, translateY }) => (
-          <LevelImage
+      <div className="flex flex-col items-center gap-6 overflow-hidden sm:flex-row sm:flex-wrap sm:justify-center">
+        {LEVELS.map(({ level, cat, translateY }, i) => (
+          <div
             key={level}
-            typeCat={cat}
-            alt={cat}
-            levelNumber={level}
-            size={150}
-            translateY={translateY}
-          />
+            style={{
+              transform: visible[i] ? "translateX(0)" : "translateX(-170px)",
+              opacity: visible[i] ? 1 : 0,
+              transition: "transform 0.5s ease, opacity 0.4s ease",
+            }}
+          >
+            <LevelImage
+              typeCat={cat}
+              alt={cat}
+              levelNumber={level}
+              size={150}
+              translateY={translateY}
+            />
+          </div>
         ))}
       </div>
 
@@ -76,41 +98,29 @@ export default function LevelsPage() {
         </div>
       </div>
 
-      {/* Таблица порогов */}
-      <div className="overflow-hidden rounded-lg border border-[var(--card-border)] bg-[var(--input-bg)] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]">
-        <Typography.Title level={4} style={{ margin: "16px 20px 0", color: "var(--text-main)" }}>
+      {/* Карточки порогов */}
+      <div className="flex flex-col gap-2">
+        <Typography.Title level={4} style={{ margin: "0 0 8px", color: "var(--text-main)" }}>
           {t("levels")}
         </Typography.Title>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-[var(--card-border)]">
-              <th className="px-5 py-3 text-left font-medium text-[var(--text-main)] opacity-60">
-                {t("colLevel")}
-              </th>
-              <th className="px-5 py-3 text-left font-medium text-[var(--text-main)] opacity-60">
-                {t("colCat")}
-              </th>
-              <th className="px-5 py-3 text-left font-medium text-[var(--text-main)] opacity-60">
-                {t("colCondition")}
-              </th>
-              <th className="px-5 py-3 text-left font-medium text-[var(--text-main)] opacity-60">
-                {t("colPoints")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {LEVELS.map(({ level, cat }) => (
-              <tr key={level} className="border-b border-[var(--card-border)] last:border-0">
-                <td className="px-5 py-3 text-[var(--text-main)]">{level}</td>
-                <td className="px-5 py-3 text-[var(--text-main)] capitalize">{cat}</td>
-                <td className="px-5 py-3 text-[var(--text-main)]">{t(conditionKey(level))}</td>
-                <td className="px-5 py-3 font-medium text-[var(--text-main)]">
-                  {t(pointsKey(level))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {LEVELS.map(({ level, cat }) => (
+            <div
+              key={level}
+              className="rounded-lg border border-[var(--card-border)] bg-[var(--input-bg)] p-4 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+            >
+              <div className="mb-2 text-lg font-semibold text-[var(--text-main)]">
+                {t("colLevel")} {level} — {cat}
+              </div>
+              <div className="text-sm text-[var(--text-main)] opacity-70">
+                {t("colCondition")}: {t(conditionKey(level))}
+              </div>
+              <div className="mt-1 text-sm font-medium text-[var(--text-main)]">
+                {t("colPoints")}: {t(pointsKey(level))} XP
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
