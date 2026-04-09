@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@shared/config/auth";
 
 export async function GET(): Promise<Response> {
@@ -26,7 +28,6 @@ export async function GET(): Promise<Response> {
   }
 
   const data = await response.json();
-  console.log("Данные статистики:", data);
 
   return NextResponse.json({ success: true, data });
 }

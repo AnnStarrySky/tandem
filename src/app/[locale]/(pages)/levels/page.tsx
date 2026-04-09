@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
