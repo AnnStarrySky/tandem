@@ -18,11 +18,11 @@ function mapBackendLoginResponseToAuthResponse(
 ): BackendAuthResponse {
   return {
     user: {
-      id: String(data.Id),
+      id: String(data.id),
       email,
-      name: data.Name,
+      name: data.name,
     },
-    accessToken: data.JWTToken,
+    accessToken: data.jwtToken,
   };
 }
 
