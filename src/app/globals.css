@@ -143,3 +143,8 @@ input:-webkit-autofill:focus {
 .app-dashboard-result .ant-typography {
   color: var(--text-main) !important;
 }
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
