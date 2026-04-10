@@ -1,0 +1,270 @@
+"use client";
+
+import React, { useMemo, useState } from "react";
+
+import Image from "next/image";
+
+import { signIn } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
+
+import { Link, useRouter } from "@i18n";
+import { cn, encryptText } from "@shared/lib";
+import { ThemeToggle } from "@shared/ui";
+import { BaseBtn } from "@shared/ui/button";
+
+import { LanguageToggle } from "../ui";
+
+type LoginFormState = {
+  email: string;
+  password: string;
+};
+
+export function LoginPageClient(): React.JSX.Element {
+  const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("AuthLogin");
+  const tCommon = useTranslations("AuthCommon");
+
+  const [form, setForm] = useState<LoginFormState>({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState<"github" | "google" | null>(null);
+  const [errorText, setErrorText] = useState<string | null>(null);
+
+  const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
+  const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+
+  const callbackUrl = useMemo(() => {
+    return `/${locale}/dashboard`;
+  }, [locale]);
+
+  async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setLoading(true);
+    setErrorText(null);
+
+    try {
+      const normalizedEmail = form.email.trim().toLowerCase();
+
+      const encryptedPassword = await encryptText(form.password);
+
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: normalizedEmail,
+        password: encryptedPassword,
+        callbackUrl,
+      });
+
+      if (!result) {
+        setErrorText(t("errors.loginFailed"));
+        return;
+      }
+
+      if (result.error) {
+        setErrorText(t("errors.invalidCredentials"));
+        return;
+      }
+
+      router.replace("/dashboard");
+      router.refresh();
+    } catch (error) {
+      setErrorText(error instanceof Error ? error.message : t("errors.unknown"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleGitHubSignIn() {
+    try {
+      setErrorText(null);
+      setOauthLoading("github");
+
+      await signIn("github", {
+        callbackUrl,
+      });
+    } finally {
+      setOauthLoading(null);
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    try {
+      setErrorText(null);
+      setOauthLoading("google");
+
+      await signIn("google", {
+        callbackUrl,
+      });
+    } finally {
+      setOauthLoading(null);
+    }
+  }
+
+  return (
+    <main className="relative min-h-[100dvh] overflow-hidden">
+      <div className="pointer-events-none fixed inset-0" aria-hidden="true">
+        <div className="absolute top-[-120px] left-1/2 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-cyan-400/15 blur-3xl" />
+        <div className="absolute bottom-[-100px] left-[-20px] h-[260px] w-[260px] rounded-full bg-fuchsia-500/15 blur-3xl" />
+        <div className="absolute top-[28%] right-[-20px] h-[260px] w-[260px] rounded-full bg-emerald-400/15 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-[1200px] items-center justify-center px-4 py-4 md:py-6">
+        <div className="relative z-10 grid w-full max-w-[980px] overflow-hidden rounded-[32px] border border-[var(--card-border)] bg-[var(--card-bg)] shadow-[var(--card-shadow)] backdrop-blur-2xl md:grid-cols-[1.05fr_0.95fr]">
+          <section className="relative hidden min-h-[620px] overflow-hidden p-8 md:flex md:flex-col md:justify-between">
+            <div>
+              <div className="inline-flex rounded-full border border-[var(--card-border)] px-4 py-2 text-sm font-medium text-[var(--text-main)]">
+                {tCommon("brand")}
+              </div>
+
+              <h1 className="mt-8 max-w-[420px] text-4xl leading-tight font-semibold text-[var(--text-main)]">
+                {t("heroTitle")}
+              </h1>
+
+              <p className="mt-4 max-w-[430px] text-base text-[var(--text-muted)]">
+                {t("heroText")}
+              </p>
+            </div>
+
+            <div className="mx-auto flex w-full max-w-[420px] items-center justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 scale-95 rounded-[48px] bg-cyan-300/10 blur-3xl" />
+                <div className="absolute inset-0 scale-90 rounded-[48px] bg-fuchsia-300/10 blur-3xl" />
+
+                <Image
+                  src="/cat.png"
+                  alt="CodeCat"
+                  width={380}
+                  height={380}
+                  priority
+                  className="relative z-10 h-auto w-auto object-contain opacity-95 drop-shadow-[0_24px_48px_rgba(0,0,0,0.20)]"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="flex min-h-[620px] items-center justify-center p-5 sm:p-8">
+            <div className="w-full max-w-[420px]">
+              <div className="mb-6 flex items-center justify-between gap-3">
+                <div className="inline-flex rounded-full border border-[var(--card-border)] px-4 py-2 text-sm font-medium text-[var(--text-main)] md:hidden">
+                  {tCommon("brand")}
+                </div>
+
+                <div className="ml-auto flex items-center gap-2">
+                  <LanguageToggle variant="segmented" />
+                  <ThemeToggle />
+                </div>
+              </div>
+
+              <h2 className="text-3xl leading-tight font-semibold text-[var(--text-main)]">
+                {t("title")}
+              </h2>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">{t("subtitle")}</p>
+
+              <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
+                    {t("email")}
+                  </label>
+                  <input
+                    type="email"
+                    autoComplete="email"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
+                    placeholder={t("emailPlaceholder")}
+                    required
+                    className={cn(
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
+                      "focus:ring-4 focus:ring-cyan-400/15",
+                    )}
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
+                    {t("password")}
+                  </label>
+                  <input
+                    type="password"
+                    autoComplete="current-password"
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        password: e.target.value,
+                      }))
+                    }
+                    placeholder={t("passwordPlaceholder")}
+                    required
+                    className={cn(
+                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
+                      "focus:ring-4 focus:ring-cyan-400/15",
+                    )}
+                  />
+                </div>
+
+                {errorText ? (
+                  <div className="rounded-2xl border border-[var(--danger-border)] bg-[var(--danger-bg)] px-4 py-3 text-sm text-[var(--danger-text)]">
+                    {errorText}
+                  </div>
+                ) : null}
+
+                <BaseBtn
+                  type="submit"
+                  loading={loading}
+                  disabled={oauthLoading !== null}
+                  className="h-12 w-full max-w-none text-base"
+                >
+                  {loading ? t("submitting") : t("submit")}
+                </BaseBtn>
+              </form>
+
+              <div className="mt-6">
+                <div className="relative py-3 text-center text-sm text-[var(--text-muted)]">
+                  <span className="relative z-10 bg-transparent px-3">{tCommon("or")}</span>
+                </div>
+
+                <div className="grid gap-3">
+                  <BaseBtn
+                    variant="outline"
+                    onClick={handleGitHubSignIn}
+                    disabled={!githubEnabled || loading || oauthLoading !== null}
+                    className="h-12 w-full max-w-none text-sm"
+                  >
+                    {oauthLoading === "github" ? tCommon("loadingGithub") : tCommon("oauthGithub")}
+                  </BaseBtn>
+
+                  <BaseBtn
+                    variant="outline"
+                    onClick={handleGoogleSignIn}
+                    disabled={!googleEnabled || loading || oauthLoading !== null}
+                    className="h-12 w-full max-w-none text-sm"
+                  >
+                    {oauthLoading === "google" ? tCommon("loadingGoogle") : tCommon("oauthGoogle")}
+                  </BaseBtn>
+                </div>
+              </div>
+
+              <p className="mt-8 text-center text-sm text-[var(--text-muted)]">
+                {t("noAccount")}{" "}
+                <Link href="/auth/register" className="font-medium underline underline-offset-4">
+                  {t("registerLink")}
+                </Link>
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  );
+}

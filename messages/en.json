@@ -1,5 +1,401 @@
 {
   "HomePage": {
-    "example": "Translation Example!"
+    "descriptionLine1": "Is a platform for beginner programmers.",
+    "descriptionLine2": "It offers levels from easy to advanced, a glossary of terms, gamified practice, and skills for real-world work.",
+    "createdBy": "Created by:",
+    "start": "Start",
+    "register": "Register"
+  },
+  "Header": {
+    "home": "Home",
+    "glossary": "Glossary",
+    "practice": "Practice",
+    "settings": "Settings",
+    "levels": "Level Table"
+  },
+  "Dashboard": {
+    "dashboardTitle": "Dashboard",
+    "lesson": "Lesson",
+    "completed": "completed",
+    "startTraining": "Start training",
+    "rating": "Rating",
+    "completedtasks": "Completed",
+    "levelcat": "lv.",
+    "topics": {
+      "cycles": "Cycle",
+      "arrays": "Array",
+      "functions": "Functions"
+    },
+    "studyplan": "Study Plan"
+  },
+  "Glossary": {
+    "title": "Glossary",
+    "btnBackTopic": "Back to list of topics",
+    "topics": [
+      {
+        "id": 1,
+        "title": "Variables",
+        "description": "<p>Variables are used to store data values. In JavaScript, you can declare variables using <code>let</code>, <code>const</code>, or <code>var</code>.</p>",
+        "example": "let name = 'Alice';\nconst age = 25;"
+      },
+      {
+        "id": 2,
+        "title": "Number Methods",
+        "description": "<p>JavaScript provides built-in methods to work with numbers, such as <code>toFixed()</code>, <code>toString()</code>, <code>parseInt()</code>, and <code>parseFloat()</code>.</p>",
+        "example": "let num = 3.1415;\nconsole.log(num.toFixed(2)); // 3.14"
+      },
+      {
+        "id": 3,
+        "title": "String Methods",
+        "description": "<p>Strings have many useful methods: <code>slice()</code>, <code>substring()</code>, <code>toUpperCase()</code>, <code>toLowerCase()</code>, <code>includes()</code>, and template literals using backticks.</p>",
+        "example": "let text = 'Hello';\nconsole.log(`${text} World!`); // Hello World!"
+      },
+      {
+        "id": 4,
+        "title": "Ternary & Logical Operators",
+        "description": "<p>The ternary operator <code>condition ? expr1 : expr2</code> is a shorthand for if-else. Logical operators <code>&&</code>, <code>||</code>, <code>??</code> (nullish coalescing) are used for conditional evaluation.</p>",
+        "example": "let access = isAdmin ? 'allowed' : 'denied';\nlet name = userName ?? 'Guest';"
+      },
+      {
+        "id": 5,
+        "title": "Switch Case",
+        "description": "<p>The <code>switch</code> statement is used to perform different actions based on different conditions. Useful for replacing multiple if-else statements.</p>",
+        "example": "switch(day) {\n  case 1: console.log('Monday'); break;\n  case 2: console.log('Tuesday'); break;\n  default: console.log('Other day');\n}"
+      },
+      {
+        "id": 6,
+        "title": "Loops",
+        "description": "<p>Loops are used to repeat code: <code>for</code>, <code>while</code>, <code>do...while</code>. Useful for iterating over arrays or performing repeated tasks.</p>",
+        "example": "for(let i = 0; i < 5; i++) {\n  console.log(i);\n}"
+      },
+      {
+        "id": 7,
+        "title": "Type Conversions",
+        "description": "<p>JavaScript can implicitly or explicitly convert data types. Functions like <code>Number()</code>, <code>String()</code>, and <code>Boolean()</code> are used for explicit conversion.</p>",
+        "example": "let x = '5';\nlet num = Number(x); // 5"
+      },
+      {
+        "id": 8,
+        "title": "Strict Comparison",
+        "description": "<p>Use <code>===</code> and <code>!==</code> for strict comparison to avoid implicit type coercion. <code>==</code> performs type conversion before comparison.</p>",
+        "example": "console.log(5 === '5'); // false\nconsole.log(5 == '5'); // true"
+      },
+      {
+        "id": 9,
+        "title": "Let, Var, Const",
+        "description": "<p>Variables declared with <code>var</code> are function-scoped and can be hoisted. <code>let</code> and <code>const</code> are block-scoped. <code>const</code> cannot be reassigned.</p>",
+        "example": "let a = 10;\nconst b = 20;\nvar c = 30;"
+      },
+      {
+        "id": 10,
+        "title": "Hoisting & Temporal Dead Zone",
+        "description": "<p>Hoisting moves variable and function declarations to the top of their scope. Variables declared with <code>let</code> and <code>const</code> are in the Temporal Dead Zone until initialized.</p>",
+        "example": "console.log(a); // ReferenceError\nlet a = 5;"
+      },
+      {
+        "id": 11,
+        "title": "Functions",
+        "description": "<p>Functions are reusable blocks of code that can take parameters and return values. Can be declared as function declarations, function expressions, or arrow functions.</p>",
+        "example": "function greet(name) {\n  return `Hello, ${name}`;\n}\nconst greetArrow = (name) => `Hello, ${name}`;"
+      },
+      {
+        "id": 12,
+        "title": "Scope",
+        "description": "<p>Scope defines where variables are accessible. Global scope is accessible anywhere, function scope is accessible only inside the function, and block scope is accessible inside a block ({...}) with let/const.</p>",
+        "example": "let globalVar = 1;\nfunction test() {\n  let localVar = 2;\n  console.log(globalVar); // 1\n}"
+      },
+      {
+        "id": 13,
+        "title": "Closures",
+        "description": "<p>Closures are functions that remember the variables from the scope where they were created, even after that scope has finished executing.</p>",
+        "example": "function outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    return count;\n  }\n}\nconst counter = outer();\ncounter(); // 1"
+      },
+      {
+        "id": 14,
+        "title": "Context & this",
+        "description": "<p>The value of <code>this</code> depends on how a function is called. Methods, constructors, and arrow functions behave differently regarding <code>this</code>.</p>",
+        "example": "const obj = { a: 10, show() { console.log(this.a); } };\nobj.show(); // 10"
+      },
+      {
+        "id": 15,
+        "title": "Call, Apply, Bind",
+        "description": "<p>Methods <code>call</code>, <code>apply</code>, and <code>bind</code> allow manually setting <code>this</code> for a function and optionally passing arguments.</p>",
+        "example": "function greet(msg) { console.log(msg + ' ' + this.name); }\nconst user = { name: 'Alice' };\ngreet.call(user, 'Hello');"
+      },
+      {
+        "id": 16,
+        "title": "Default Parameters & Rest",
+        "description": "<p>Functions can have default parameter values. The rest parameter <code>...args</code> collects remaining arguments into an array.</p>",
+        "example": "function sum(a, b = 0, ...rest) {\n  return a + b + rest.reduce((x, y) => x + y, 0);\n}"
+      },
+      {
+        "id": 17,
+        "title": "Spread Operator",
+        "description": "<p>The spread operator <code>...</code> allows expanding arrays or objects, e.g., merging arrays, copying arrays, passing arguments to functions.</p>",
+        "example": "const arr1 = [1,2];\nconst arr2 = [...arr1, 3, 4]; // [1,2,3,4]"
+      },
+      {
+        "id": 18,
+        "title": "Destructuring",
+        "description": "<p>Destructuring allows extracting values from arrays or objects into variables in a concise way.</p>",
+        "example": "const [a, b] = [1, 2];\nconst {name, age} = {name: 'Alice', age: 25};"
+      },
+      {
+        "id": 19,
+        "title": "Object Methods",
+        "description": "<p>Objects have methods like <code>Object.keys()</code>, <code>Object.values()</code>, and <code>Object.entries()</code>. Can also define getters, setters, and static methods.</p>",
+        "example": "const obj = { a: 1, b: 2 };\nconsole.log(Object.keys(obj)); // ['a','b']"
+      },
+      {
+        "id": 20,
+        "title": "Array Methods",
+        "description": "<p>Arrays provide built-in methods for iteration, filtering, mapping, sorting, and flattening, such as <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, <code>sort()</code>.</p>",
+        "example": "const arr = [1,2,3];\nconst squares = arr.map(x => x*x); // [1,4,9]"
+      },
+      {
+        "id": 21,
+        "title": "DOM Basics",
+        "description": "<p>The Document Object Model (DOM) represents the HTML structure of a webpage. You can access and modify elements using <code>document.getElementById()</code>, <code>querySelector()</code>, etc.</p>",
+        "example": "const el = document.getElementById('title');\nel.textContent = 'Hello World!';"
+      },
+      {
+        "id": 22,
+        "title": "Events",
+        "description": "<p>Events are actions in the browser, like clicks or keypresses. Use <code>addEventListener</code> to react to events.</p>",
+        "example": "button.addEventListener('click', () => console.log('Clicked!'));"
+      },
+      {
+        "id": 23,
+        "title": "Event Propagation",
+        "description": "<p>Events propagate through three phases: capturing, target, and bubbling. You can stop propagation with <code>stopPropagation()</code> and prevent default behavior with <code>preventDefault()</code>.</p>",
+        "example": "form.addEventListener('submit', e => e.preventDefault());"
+      },
+      {
+        "id": 24,
+        "title": "Timers",
+        "description": "<p>JavaScript provides <code>setTimeout()</code> and <code>setInterval()</code> for delayed and repeated execution. Use <code>clearTimeout()</code> or <code>clearInterval()</code> to stop them.</p>",
+        "example": "const timer = setTimeout(() => console.log('Hello'), 1000);\nclearTimeout(timer);"
+      },
+      {
+        "id": 25,
+        "title": "Web Storage",
+        "description": "<p>LocalStorage and SessionStorage allow storing key-value data in the browser. Cookies are another mechanism for persistent data.</p>",
+        "example": "localStorage.setItem('name', 'Alice');\nconsole.log(localStorage.getItem('name'));"
+      },
+      {
+        "id": 26,
+        "title": "Constructor Functions",
+        "description": "<p>Constructor functions are used to create multiple objects with similar properties and methods using the <code>new</code> keyword.</p>",
+        "example": "function Person(name, age) { this.name = name; this.age = age; }\nconst alice = new Person('Alice', 25);"
+      },
+      {
+        "id": 27,
+        "title": "Classes",
+        "description": "<p>ES6 classes are syntactic sugar over constructor functions. Can define constructors, methods, and use <code>extends</code> for inheritance.</p>",
+        "example": "class Person {\n  constructor(name) { this.name = name; }\n  greet() { return `Hello, ${this.name}`; }\n}"
+      },
+      {
+        "id": 28,
+        "title": "Prototypal Inheritance",
+        "description": "<p>Objects can inherit properties and methods from other objects via the prototype chain. Use <code>Object.create()</code> or <code>__proto__</code>.</p>",
+        "example": "const parent = { greet() { return 'Hi'; } };\nconst child = Object.create(parent);\nconsole.log(child.greet()); // Hi"
+      },
+      {
+        "id": 29,
+        "title": "Promises & Async/Await",
+        "description": "<p>Promises represent asynchronous operations. <code>async/await</code> syntax allows writing asynchronous code in a synchronous style.</p>",
+        "example": "async function fetchData() {\n  const res = await fetch('/api/data');\n  return res.json();\n}"
+      },
+      {
+        "id": 30,
+        "title": "Error Handling",
+        "description": "<p>Use <code>try..catch</code> to handle errors. Can also throw custom errors with <code>throw</code>.</p>",
+        "example": "try {\n  throw new Error('Oops');\n} catch(e) {\n  console.log(e.message);\n}"
+      }
+    ]
+  },
+  "LevelTable": {
+    "title": "Level Table",
+    "subtitle": "Earn XP to unlock new cats and levels",
+    "taskTypes": "Task types",
+    "quiz": "Quiz (easy)",
+    "quizPoints": "10 XP per task",
+    "codeCompletion": "Code Completion (medium)",
+    "codeCompletionPoints": "20 XP per task",
+    "codeWriting": "Code Writing (hard)",
+    "codeWritingPoints": "30 XP per task",
+    "levels": "Level thresholds",
+    "colLevel": "Level",
+    "colCat": "Cat",
+    "colCondition": "Condition",
+    "colPoints": "XP required",
+    "level1condition": "Starting level",
+    "level2condition": "Any topics, min 1/3 of all",
+    "level3condition": "All easy topics completed",
+    "level4condition": "All easy + all medium topics",
+    "level5condition": "All easy + all medium + ≥700 XP from hard",
+    "level1points": "0",
+    "level2points": "100",
+    "level3points": "300",
+    "level4points": "900",
+    "level5points": "1600"
+  },
+  "AuthCommon": {
+    "brand": "CodeCat",
+    "or": "or",
+    "oauthGithub": "Continue with GitHub",
+    "oauthGoogle": "Continue with Google",
+    "oauthGoogleAlt": "Continue with Google",
+    "loadingGithub": "Connecting GitHub...",
+    "loadingGoogle": "Connecting Google..."
+  },
+  "AuthLogin": {
+    "title": "Welcome back!",
+    "subtitle": "Enter your email and password to continue to your profile",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Sign in",
+    "submitting": "Signing in...",
+    "noAccount": "Don’t have an account?",
+    "registerLink": "Create account",
+    "heroTitle": "Sign in and continue learning at your own pace",
+    "heroText": "Practice JS, TS and algorithms in an interactive format. Save your progress and move on to practice.",
+    "errors": {
+      "loginFailed": "Failed to sign in",
+      "invalidCredentials": "Invalid email or password",
+      "unknown": "Sign in error"
+    }
+  },
+  "AuthRegister": {
+    "title": "Welcome!",
+    "subtitle": "Create an account and go straight to your dashboard",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "namePlaceholder": "CodeCat User",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "At least 6 characters",
+    "confirmPasswordPlaceholder": "Repeat password",
+    "submit": "Create account",
+    "submitting": "Creating account...",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "heroTitle": "Start the journey from beginner to confident developer",
+    "heroText": "Save your progress, unlock new topics and move from lessons to practice.",
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "registerFailed": "Failed to register",
+      "unknown": "Registration error"
+    }
+  },
+  "Practice": {
+    "title": "Practice",
+    "subtitle": "Choose a topic and complete one of three difficulty levels: easy, medium or hard.",
+    "loadingTopics": "Loading practice topics...",
+    "loadingTopic": "Loading topic...",
+    "loadingTask": "Loading practice task...",
+    "topicNotFound": "Topic not found.",
+    "taskNotFound": "Practice task not found.",
+    "lesson": "Lesson",
+    "backToTopic": "Back to topic",
+    "allTopics": "All topics",
+    "openTopic": "Open topic",
+    "start": "Start",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "easyDescription": "Quiz format. Fast check of basic theory.",
+    "mediumDescription": "Interactive code completion task.",
+    "hardDescription": "Code challenge with answer validation.",
+    "question": "Question",
+    "quiz": "Quiz",
+    "quizCompleted": "Quiz completed",
+    "greatJob": "Great job",
+    "result": "Result",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer",
+    "help": "Help",
+    "hideHelp": "Hide help",
+    "next": "Next",
+    "finish": "Finish",
+    "checkAnswers": "Check answers",
+    "checkSolution": "Check solution",
+    "checkCode": "Check code",
+    "tryAgain": "Try again",
+    "correctNice": "Correct answer. Nice.",
+    "wrongUseHelp": "Not quite. You can use Help to see the correct answer.",
+    "correctGreatJob": "Correct. Great job.",
+    "wrongAnswer": "Wrong answer.",
+    "solutionAccepted": "Solution accepted.",
+    "solutionMismatch": "Solution does not match expected result yet.",
+    "solutionMismatchHelp": "Solution does not match expected result yet. You can use Help to see the reference solution.",
+    "mediumLabel": "Code completion",
+    "hardLabel": "Code challenge",
+    "hardEditorLabel": "Monaco editor",
+    "expectedSolution": "Expected solution",
+    "hint": "Hint",
+    "loadingEditor": "Loading editor...",
+    "pointsReward": "Reward: {points} points",
+    "gameCompleted": "Game completed",
+    "yourResult": "Your result",
+    "points": "Points",
+    "answers": "Answers",
+    "progress": "Progress",
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "totalQuestions": "Total",
+    "nextLevel": "Next level",
+    "closeModal": "Close modal",
+    "excellent": "Excellent",
+    "good": "Good",
+    "keepGoing": "Keep going"
+  },
+  "Settings": {
+    "profileTitle": "Profile",
+    "profileDescription": "Update your account name and email.",
+    "profileValidation": "Please fill in your name and email.",
+    "profileSaveSuccess": "Profile updated successfully.",
+    "profileSaveError": "Failed to update profile.",
+    "saveProfile": "Save profile",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "logout": "Logout",
+    "securityTitle": "Security",
+    "securityDescription": "Change your password and keep your account secure.",
+    "passwordValidationRequired": "Please fill in all password fields.",
+    "passwordValidationLength": "Password must contain at least 6 characters.",
+    "passwordValidationMatch": "Passwords do not match.",
+    "passwordChangeSuccess": "Password changed successfully.",
+    "passwordChangeError": "Failed to change password.",
+    "changingPassword": "Changing...",
+    "changePassword": "Change password",
+
+    "preferencesTitle": "Preferences",
+    "preferencesDescription": "Manage interface language, theme and sound settings.",
+    "languageTitle": "Language",
+    "themeTitle": "Theme",
+    "soundTitle": "Sound",
+    "soundOn": "On",
+    "soundOff": "Off",
+    "resetSettings": "Reset settings",
+
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "currentPasswordLabel": "Current password",
+    "currentPasswordPlaceholder": "Enter current password",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPasswordLabel": "Confirm password",
+    "confirmPasswordPlaceholder": "Repeat new password",
+    "lightTheme": "Light",
+    "darkTheme": "Dark",
+    "editName": "Edit name",
+    "editEmail": "Edit email",
+    "editSecurity": "Edit security"
   }
 }

@@ -1,0 +1,26 @@
+import { Typography } from "antd";
+import { useTranslations } from "next-intl";
+
+import { cn } from "../../shared/lib";
+
+type Props = {
+  progress: number;
+  className?: string;
+};
+
+export const ProgressBar = ({ progress, className }: Props) => {
+  const translation = useTranslations("Dashboard");
+  return (
+    <div className={cn("w-full", className)}>
+      <div className="mb-2 h-3 w-full rounded-full bg-[var(--input-bg)] shadow-lg">
+        <div
+          className="h-3 rounded-full bg-gradient-to-r from-[#13b2f6] to-[#84f59b]"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+      <Typography.Text style={{ fontSize: "16px" }}>
+        {progress} % {translation("completed")}
+      </Typography.Text>
+    </div>
+  );
+};
