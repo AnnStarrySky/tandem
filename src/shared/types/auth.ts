@@ -1,7 +1,7 @@
 export type BackendLoginResponse = {
-  Id: string;
-  Name: string;
-  JWTToken: string;
+  id: string;
+  name: string;
+  jwtToken: string;
 };
 
 export type BackendUser = {

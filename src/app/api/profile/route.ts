@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { getServerSession } from "next-auth";
+
 import { updateDevMockUserProfile } from "@shared/api/auth";
-import { AUTH_ENV } from "@shared/config/auth";
+import { AUTH_ENV, authOptions } from "@shared/config/auth";
 
 type ProfileBody = {
   currentEmail?: string;
@@ -70,13 +72,15 @@ export async function PATCH(req: Request): Promise<Response> {
       throw new Error("BACKEND_URL is not configured");
     }
 
-    const url = new URL("/api/profile", AUTH_ENV.backendUrl);
+    const session = await getServerSession(authOptions);
+
+    const url = new URL("/api/user/profile", AUTH_ENV.backendUrl);
 
     const backendResult = await fetch(url, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Authorization: `Bearer ${session?.accessToken}`,
       },
       body: JSON.stringify({
         currentEmail,
@@ -84,7 +88,6 @@ export async function PATCH(req: Request): Promise<Response> {
         name: nextName,
       }),
     });
-
     if (!backendResult.ok) {
       let message = backendResult.statusText;
 
@@ -106,7 +109,6 @@ export async function PATCH(req: Request): Promise<Response> {
 
     const data = (await backendResult.json()) as {
       user?: {
-        id: string;
         email?: string | null;
         name?: string | null;
       };
@@ -114,7 +116,7 @@ export async function PATCH(req: Request): Promise<Response> {
 
     return NextResponse.json({
       success: true,
-      user: data.user,
+      user: data,
     });
   } catch (error) {
     return NextResponse.json(

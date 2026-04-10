@@ -13,7 +13,6 @@ type ProfileResponse = {
   success: boolean;
   message?: string;
   user?: {
-    id: number;
     name?: string | null;
     email?: string | null;
   };

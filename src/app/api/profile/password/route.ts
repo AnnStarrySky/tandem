@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { getServerSession } from "next-auth";
+
 import { updateDevMockUserPassword } from "@shared/api/auth";
-import { AUTH_ENV } from "@shared/config/auth";
+import { AUTH_ENV, authOptions } from "@shared/config/auth";
 
 type PasswordBody = {
   email?: string;
@@ -48,15 +50,17 @@ export async function PATCH(req: Request): Promise<Response> {
       );
     }
 
-    if (currentPassword.length < 64 || nextPassword.length < 64) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Password hashes are required",
-        },
-        { status: 400 },
-      );
-    }
+    // This check is pointless and breaks the app because the passwords are not encrypted here.
+    //
+    // if (currentPassword.length < 64 || nextPassword.length < 64) {
+    //   return NextResponse.json(
+    //     {
+    //       success: false,
+    //       message: "Password hashes are required",
+    //     },
+    //     { status: 400 },
+    //   );
+    // }
 
     if (AUTH_ENV.useMock) {
       await updateDevMockUserPassword({
@@ -74,18 +78,19 @@ export async function PATCH(req: Request): Promise<Response> {
       throw new Error("BACKEND_URL is not configured");
     }
 
-    const url = new URL("/api/profile/password", AUTH_ENV.backendUrl);
+    const session = await getServerSession(authOptions);
+
+    const url = new URL("/api/user/profile/password", AUTH_ENV.backendUrl);
 
     const backendResult = await fetch(url, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Authorization: `Bearer ${session?.accessToken}`,
       },
       body: JSON.stringify({
-        email,
-        currentPassword,
-        nextPassword,
+        previousPassword: currentPassword,
+        newPassword: nextPassword,
       }),
     });
 
