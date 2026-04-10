@@ -19,6 +19,44 @@ type LoginFormState = {
   password: string;
 };
 
+function EyeOpenIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function EyeClosedIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 3l18 18" />
+      <path d="M10.58 10.58A2 2 0 0 0 13.42 13.42" />
+      <path d="M9.88 5.09A10.94 10.94 0 0 1 12 4.9c6 0 9.5 7.1 9.5 7.1a14.76 14.76 0 0 1-3.16 4.19" />
+      <path d="M6.61 6.61A14.12 14.12 0 0 0 2.5 12s3.5 7.1 9.5 7.1a10.5 10.5 0 0 0 4.06-.8" />
+    </svg>
+  );
+}
+
 export function LoginPageClient(): React.JSX.Element {
   const router = useRouter();
   const locale = useLocale();
@@ -33,6 +71,7 @@ export function LoginPageClient(): React.JSX.Element {
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<"github" | "google" | null>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_AUTH_ENABLED === "true";
   const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
@@ -49,7 +88,6 @@ export function LoginPageClient(): React.JSX.Element {
 
     try {
       const normalizedEmail = form.email.trim().toLowerCase();
-
       const encryptedPassword = await encryptText(form.password);
 
       const result = await signIn("credentials", {
@@ -182,9 +220,9 @@ export function LoginPageClient(): React.JSX.Element {
                     placeholder={t("emailPlaceholder")}
                     required
                     className={cn(
-                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "h-12 w-full cursor-text rounded-2xl border px-4 transition outline-none",
                       "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
-                      "focus:ring-4 focus:ring-cyan-400/15",
+                      "focus:border-[var(--input-border)] focus:ring-4 focus:ring-cyan-400/15",
                     )}
                   />
                 </div>
@@ -193,24 +231,43 @@ export function LoginPageClient(): React.JSX.Element {
                   <label className="mb-2 block text-sm font-medium text-[var(--text-main)]">
                     {t("password")}
                   </label>
-                  <input
-                    type="password"
-                    autoComplete="current-password"
-                    value={form.password}
-                    onChange={(e) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        password: e.target.value,
-                      }))
-                    }
-                    placeholder={t("passwordPlaceholder")}
-                    required
+
+                  <div
                     className={cn(
-                      "h-12 w-full rounded-2xl border px-4 transition outline-none",
+                      "relative flex h-12 cursor-text items-center rounded-2xl border transition",
                       "border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-main)]",
-                      "focus:ring-4 focus:ring-cyan-400/15",
+                      "focus-within:border-[var(--input-border)] focus-within:ring-4 focus-within:ring-cyan-400/15",
                     )}
-                  />
+                  >
+                    <input
+                      type={isPasswordVisible ? "text" : "password"}
+                      autoComplete="current-password"
+                      value={form.password}
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          password: e.target.value,
+                        }))
+                      }
+                      placeholder={t("passwordPlaceholder")}
+                      required
+                      className="h-full w-full cursor-text rounded-2xl border-none bg-transparent px-4 pr-12 shadow-none ring-0 outline-none"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => setIsPasswordVisible((prev) => !prev)}
+                      aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+                      title={isPasswordVisible ? "Hide password" : "Show password"}
+                      className={cn(
+                        "absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-all duration-200",
+                        form.password.length > 0 ? "opacity-100" : "pointer-events-none opacity-0",
+                        "text-[var(--text-muted)] hover:text-[var(--text-main)]",
+                      )}
+                    >
+                      {isPasswordVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 {errorText ? (
