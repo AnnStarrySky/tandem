@@ -6,4 +6,5 @@ export type TaskPost = {
   earnedPoints: number;
   correctAnswers: number;
   wrongAnswers: number;
+  taskType: string;
 };
