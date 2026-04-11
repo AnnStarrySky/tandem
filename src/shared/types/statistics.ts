@@ -1,8 +1,6 @@
-import { PracticeDifficulty } from "@/entities/practice";
-
 export type TaskStat = {
   lessonName: string;
-  difficulty: PracticeDifficulty;
+  difficulty: string;
   earnedPoints: number;
   correctAnswers: number;
   wrongAnswers: number;

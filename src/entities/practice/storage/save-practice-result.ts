@@ -11,8 +11,7 @@ import type {
   SavePracticeResultPayload,
   SavePracticeResultResponse,
 } from "..";
-
-import { TaskStatPost } from "@/shared/types/statistics";
+import type { TaskStatPost } from "@shared/types";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";

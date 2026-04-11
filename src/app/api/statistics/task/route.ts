@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/shared/config/auth";
-import { TaskStatGetReturn, TaskStatPost } from "@/shared/types/statistics";
+
+import type { TaskStatGetReturn, TaskStatPost } from "@shared/types/";
 
 const BACKEND_URL = process.env.BACKEND_URL;
 
