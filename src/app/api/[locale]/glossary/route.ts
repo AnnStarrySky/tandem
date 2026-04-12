@@ -9,7 +9,7 @@ type Props = {
 export async function GET(_request: NextRequest, { params }: Props): Promise<Response> {
   const { locale } = (await params) ?? "en";
 
-  if (process.env.AUTH_USE_MOCK === "true") {
+  if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
     const messages = await getMessages({ locale });
     return NextResponse.json(messages.Glossary.topics);
   }

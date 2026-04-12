@@ -29,6 +29,7 @@ export type SavePracticeResultPayload = {
   locale: string;
   result: PracticeCompleteResult;
   earnedPoints: number;
+  taskType: string;
 };
 
 export type SavePracticeResultResponse = {

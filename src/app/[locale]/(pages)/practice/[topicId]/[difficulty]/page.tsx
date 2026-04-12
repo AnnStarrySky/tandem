@@ -96,6 +96,7 @@ export default function PracticeDifficultyPage({ params }: Props) {
     const difficultyValue: PracticeDifficulty = resolvedDifficulty;
     const earnedPoints =
       result.total > 0 ? Math.round((result.score / result.total) * task.points) : 0;
+    const taskType = task.type;
 
     try {
       await savePracticeResult({
@@ -104,6 +105,7 @@ export default function PracticeDifficultyPage({ params }: Props) {
         locale,
         result,
         earnedPoints,
+        taskType,
       });
     } catch (error) {
       console.error("Failed to save practice result", error);
