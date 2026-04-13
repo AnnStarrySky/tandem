@@ -28,34 +28,40 @@ export const Header = ({ className }: HeaderProps) => {
       <Link
         href={`/${locale}/dashboard`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="home" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("home")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">{translation("home")}</span>
       </Link>
       <Link
         href={`/${locale}/glossary`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="glossary" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("glossary")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("glossary")}
+        </span>
       </Link>
       <Link
         href={`/${locale}/levels`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="levels" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("levels")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("levels")}
+        </span>
       </Link>
       <Link
         href={`/${locale}/settings`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="settings" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("settings")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("settings")}
+        </span>
       </Link>
     </nav>
   );

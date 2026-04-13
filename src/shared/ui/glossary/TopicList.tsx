@@ -16,7 +16,7 @@ export const TopicList = ({ topics, onSelect, className }: Props) => {
           key={topic.id}
           className={cn(
             "cursor-pointer rounded-lg border border-[var(--card-border)] bg-[var(--input-bg)] p-4 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]",
-            "hover:border-[var(--text-main)] hover:shadow-none",
+            "transition-all duration-300 ease-in-out hover:border-[var(--text-main)] hover:shadow-none",
           )}
           onClick={() => onSelect(topic)}
         >

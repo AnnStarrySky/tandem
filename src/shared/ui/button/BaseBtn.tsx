@@ -23,7 +23,7 @@ export const BaseBtn: React.FC<PropsWithChildren<BaseBtnProps>> = ({
 
   const variantStyles = {
     primary:
-      "px-4 py-2 bg-gradient-to-r from-[#13b2f6] to-[#84f59b] text-white shadow-lg w-full max-w-[400px] text-[16px] font-semibold",
+      "px-4 py-2 bg-gradient-to-r from-[#13b2f6] to-[#84f59b] text-white shadow-lg w-full max-w-[400px] text-[16px] font-semibold hover:opacity-90",
     secondary:
       "flex items-center justify-start px-4 py-2 border-transparent border-[2px] bg-[var(--input-bg)] text-[var(--text-main)] hover:bg-[#fefefe] dark:hover:bg-white/10",
     outline:

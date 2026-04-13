@@ -49,8 +49,8 @@ export const LessonBoard = ({ className }: { className?: string }) => {
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-md border border-[var(--card-border)] bg-[var(--input-bg)] p-0",
-            page === 1 && "cursor-not-allowed opacity-30",
+            "flex h-8 w-8 items-center justify-center rounded-md border border-[var(--card-border)] bg-[var(--input-bg)] p-0 transition-all duration-300",
+            page === 1 ? "cursor-not-allowed opacity-30" : "hover:border-[var(--sidebar-text)]",
           )}
         >
           <Icon name="leftArrow" size={12} color="#6a7285" />
@@ -65,7 +65,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
               "flex h-8 w-8 items-center justify-center rounded-md p-0 text-sm transition-all",
               p === page
                 ? "border-transparent bg-gradient-to-r from-[#13b2f6] to-[#84f59b] text-white"
-                : "border border-[var(--card-border)] bg-[var(--input-bg)] text-[var(--text-muted)]",
+                : "border border-[var(--card-border)] bg-[var(--input-bg)] text-[var(--text-muted)] hover:border-[var(--sidebar-text)]",
             )}
           >
             {p}
@@ -77,8 +77,10 @@ export const LessonBoard = ({ className }: { className?: string }) => {
           onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           disabled={page === totalPages}
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-md border border-[var(--card-border)] bg-[var(--input-bg)] p-0",
-            page === totalPages && "cursor-not-allowed opacity-30",
+            "flex h-8 w-8 items-center justify-center rounded-md border border-[var(--card-border)] bg-[var(--input-bg)] p-0 transition-all duration-300",
+            page === totalPages
+              ? "cursor-not-allowed opacity-30"
+              : "hover:border-[var(--sidebar-text)]",
           )}
         >
           <Icon name="rightArrow" size={12} color="#6a7285" />
