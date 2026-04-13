@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+
 import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
-import { cn } from "@/shared/lib";
-import { Icon, IconLogoMain } from "@/shared/ui";
-import { UserName } from "@/shared/ui";
-import { LevelImage } from "@/shared/ui";
+
 import { useSession } from "next-auth/react";
+import { useTranslations, useLocale } from "next-intl";
+
+import { cn } from "@/shared/lib";
+import { Icon, IconLogoMain, UserName, LevelImage } from "@/shared/ui";
 
 type HeaderProps = {
   className?: string;

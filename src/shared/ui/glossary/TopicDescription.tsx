@@ -1,8 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
+
 import { Typography } from "antd";
+
 import { cn } from "../../lib";
+
 import { Topic } from "./Topic";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
