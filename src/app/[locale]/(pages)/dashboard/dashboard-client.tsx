@@ -31,7 +31,7 @@ export default function Dashboard() {
 
           <BaseBtn
             variant="primary"
-            className="my-auto max-w-[240px] py-3 uppercase"
+            className="my-auto max-w-[350px] py-3 uppercase"
             onClick={() => router.push("/practice")}
           >
             {t("startTraining")}

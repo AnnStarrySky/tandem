@@ -5,3 +5,4 @@ export * from "./icon";
 export * from "./mainImage";
 export * from "./paragraph";
 export * from "./user";
+export * from "./loading";

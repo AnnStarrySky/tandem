@@ -28,7 +28,9 @@ export const LessonCard = ({
     <div
       className={cn(
         "relative flex min-h-[100px] flex-col gap-3 overflow-hidden rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] p-6 shadow-sm",
-        practiceTopicId ? "cursor-pointer transition-all duration-300 hover:shadow-none" : "",
+        practiceTopicId
+          ? "cursor-pointer transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
+          : "",
         className,
       )}
     >

@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 
+import Link from "next/link";
+
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 import { cn } from "@/shared/lib";
-import { UserName } from "@/shared/ui";
-import { Icon, IconLogoMain } from "@/shared/ui/icon";
-import { LevelImage } from "@/shared/ui/mainImage";
-import { Link } from "@i18n";
+import { Icon, IconLogoMain, UserName, LevelImage } from "@/shared/ui";
 
 type HeaderProps = {
   className?: string;
@@ -18,7 +17,9 @@ type HeaderProps = {
 export const Header = ({ className }: HeaderProps) => {
   const { data: session } = useSession();
   const userName = session?.user?.name || "CodeCat User";
+
   const translation = useTranslations("Header");
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
 
   const close = () => setIsOpen(false);
@@ -26,54 +27,49 @@ export const Header = ({ className }: HeaderProps) => {
   const navLinks = (
     <nav className="flex w-full flex-col items-center justify-start gap-2">
       <Link
-        href="/dashboard"
+        href={`/${locale}/dashboard`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-2 border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="home" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("home")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">{translation("home")}</span>
       </Link>
-
       <Link
-        href="/glossary"
+        href={`/${locale}/glossary`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-2 border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="glossary" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("glossary")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("glossary")}
+        </span>
       </Link>
-
       <Link
-        href="/practice"
+        href={`/${locale}/levels`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-2 border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
-      >
-        <Icon name="practice" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("practice")}</span>
-      </Link>
-
-      <Link
-        href="/levels"
-        onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-2 border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="levels" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("levels")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("levels")}
+        </span>
       </Link>
-
       <Link
-        href="/settings"
+        href={`/${locale}/settings`}
         onClick={close}
-        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-2 border-[#f4f3f8] bg-[#fefefe] px-4 py-1 shadow-lg transition-all duration-300 hover:shadow-none"
+        className="app-sidebar-link flex w-full cursor-pointer items-center rounded-lg border-[2px] border-[var(--card-border)] bg-[var(--input-bg)] px-4 py-1 shadow-lg transition-all duration-300 hover:border-[var(--sidebar-text)] hover:shadow-none"
       >
         <Icon name="settings" size={18} color="#6a7285" className="app-sidebar-icon mr-2" />
-        <span className="app-sidebar-text mr-2 text-[#6a7285]">{translation("settings")}</span>
+        <span className="app-sidebar-text mr-2 text-[var(--text-main)]">
+          {translation("settings")}
+        </span>
       </Link>
     </nav>
   );
 
   return (
     <>
+      {/* Desktop: вертикальный сайдбар */}
       <header
         className={cn(
           "hidden min-h-screen w-[300px] flex-col items-start gap-2 rounded-tl-lg rounded-bl-lg bg-[#fefefe] p-3 sm:p-4 md:flex md:p-5",
@@ -84,16 +80,16 @@ export const Header = ({ className }: HeaderProps) => {
         <div className="app-sidebar-logo">
           <IconLogoMain />
         </div>
-
         <UserName
           userName={userName}
-          className="w-full rounded-lg border-2 border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
+          className="w-full rounded-lg border-[2px] border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
         />
-
         {navLinks}
       </header>
 
+      {/* Mobile */}
       <div className="relative md:hidden">
+        {/* Затемнение фона */}
         <div
           onClick={close}
           className={cn(
@@ -102,15 +98,14 @@ export const Header = ({ className }: HeaderProps) => {
           )}
         />
 
+        {/* Горизонтальная полоса */}
         <header
           className="relative z-50 flex items-center justify-between rounded-t-lg p-3"
           style={{ background: "var(--sidebar-bg)" }}
         >
           <IconLogoMain />
-
           <button
-            type="button"
-            onClick={() => setIsOpen((value) => !value)}
+            onClick={() => setIsOpen((v) => !v)}
             className="flex h-8 w-8 flex-col items-center justify-center gap-[5px] p-1"
           >
             <span
@@ -134,6 +129,7 @@ export const Header = ({ className }: HeaderProps) => {
           </button>
         </header>
 
+        {/* Выезжающая панель */}
         <div
           className={cn(
             "absolute right-0 left-0 z-50 overflow-hidden rounded-b-lg transition-all duration-500 ease-in-out",
@@ -144,11 +140,9 @@ export const Header = ({ className }: HeaderProps) => {
           <div className="flex flex-col items-center gap-4 p-6 pb-8">
             <UserName
               userName={userName}
-              className="w-full rounded-lg border-2 border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
+              className="w-full rounded-lg border-[2px] border-[#f4f3f8] bg-[var(--input-bg)] px-4 py-1 text-center tracking-wider text-[var(--text-main)] shadow-lg"
             />
-
             {navLinks}
-
             <div className="mt-2">
               <LevelImage typeCat="newbie" alt="newbie" />
             </div>
