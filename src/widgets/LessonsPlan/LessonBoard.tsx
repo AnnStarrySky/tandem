@@ -7,10 +7,9 @@ import { useTranslations, useLocale } from "next-intl";
 import { getPracticeTopicIdByLessonNumber } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
+import { ServerError } from "@/shared/ui/errors";
 import { Icon } from "@/shared/ui/icon";
 import Loading from "@/shared/ui/loading";
-
-import { ServerError } from "@/shared/ui/errors";
 
 import { LessonCard } from "./LessonCard";
 
