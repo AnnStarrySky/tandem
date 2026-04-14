@@ -1,0 +1,24 @@
+import { NextRequest, NextResponse } from "next/server";
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function GET(_request: NextRequest, { params }: Props): Promise<Response> {
+  const { locale } = (await params) ?? "en";
+
+  if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
+    //TODO: mock logic for lessons if needed
+  }
+
+  const BACKEND_URL = process.env.BACKEND_URL;
+  const url = new URL(`/api/${locale}/lessons/`, BACKEND_URL);
+
+  const response = await fetch(url);
+
+  if (response.ok) {
+    return NextResponse.json(await response.json());
+  } else {
+    return NextResponse.json({ success: false }, { status: response.status });
+  }
+}
