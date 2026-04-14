@@ -93,6 +93,32 @@ async function savePracticeResultToBackend(
   earnedPoints: number,
   taskType: string,
 ): Promise<SavePracticeResultResponse> {
+  const now = new Date().toISOString();
+
+  const total = result.correctAnswers + result.wrongAnswers;
+  const isSuccess = total > 0 && result.correctAnswers / total >= 0.7;
+  if (!isSuccess) {
+    return { success: false, savedAt: now };
+  }
+
+  const statsRes = await fetch("/api/statistics/task");
+  const stats = await statsRes.json();
+  const alreadyPassed =
+    Array.isArray(stats) &&
+    stats.some((t) => {
+      const t_total = t.correctAnswers + t.wrongAnswers;
+      return (
+        t.lessonName === topicId &&
+        t.difficulty === difficulty &&
+        t_total > 0 &&
+        t.correctAnswers / t_total >= 0.7
+      );
+    });
+
+  if (alreadyPassed) {
+    return { success: true, savedAt: now };
+  }
+
   const taskPost: TaskStatPost = {
     lessonName: topicId,
     difficulty,
@@ -104,20 +130,12 @@ async function savePracticeResultToBackend(
 
   const apiResult = await fetch(`/api/statistics/task`, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(taskPost),
   });
 
-  if (apiResult.ok) {
-    return {
-      success: true,
-      savedAt: new Date().toISOString(),
-    };
-  }
   return {
-    success: false,
-    savedAt: new Date().toISOString(),
+    success: apiResult.ok,
+    savedAt: now,
   };
 }

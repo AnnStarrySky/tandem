@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { cn } from "@/shared/lib";
 
 import { CompletedTasks } from "./CompletedTasks";
@@ -9,6 +13,24 @@ type Props = {
 };
 
 export const ResultBar = ({ className }: Props) => {
+  const [completedCount, setCompletedCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/statistics/task");
+      const result = await response.json();
+
+      if (response.ok && Array.isArray(result)) {
+        const count = result.filter((t: { correctAnswers: number; wrongAnswers: number }) => {
+          const total = t.correctAnswers + t.wrongAnswers;
+          return total > 0 && t.correctAnswers / total >= 0.7;
+        }).length;
+        setCompletedCount(count);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div
       className={cn(
@@ -18,7 +40,7 @@ export const ResultBar = ({ className }: Props) => {
     >
       <TotalScore score={0} />
       <RatingScore rating={1} />
-      <CompletedTasks tasks={0} />
+      <CompletedTasks tasks={completedCount} />
     </div>
   );
 };

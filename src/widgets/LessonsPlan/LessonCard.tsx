@@ -40,7 +40,9 @@ export const LessonCard = ({
 
       <p className="text-[16px] leading-tight text-[var(--text-main)]">{title}</p>
 
-      {completed ? <div className="absolute top-0 right-0 h-full w-4 bg-[#84f59b]" /> : null}
+      {completed ? (
+        <div className="absolute top-0 right-0 h-full w-4 bg-gradient-to-b from-[#13b2f6] to-[#84f59b]" />
+      ) : null}
     </div>
   );
 
