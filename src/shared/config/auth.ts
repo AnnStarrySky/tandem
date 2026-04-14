@@ -56,6 +56,26 @@ function mapBackendLoginResponseToAuthResponse(
   };
 }
 
+function buildOAuthSessionUser(params: {
+  provider: Extract<ProviderName, "github" | "google">;
+  email: string;
+  name?: string | null;
+  id?: string | null;
+}): BackendAuthResponse {
+  const normalizedEmail = params.email.trim().toLowerCase();
+  const fallbackName = normalizedEmail.split("@")[0] || "CodeCat User";
+
+  return {
+    user: {
+      id: params.id || `${params.provider}-${normalizedEmail}`,
+      email: normalizedEmail,
+      name: params.name?.trim() || fallbackName,
+    },
+    accessToken: `${params.provider}-oauth-access-token`,
+    refreshToken: `${params.provider}-oauth-refresh-token`,
+  };
+}
+
 const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
     name: "Email & Password",
@@ -148,6 +168,11 @@ if (AUTH_ENV.githubEnabled) {
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      authorization: {
+        params: {
+          scope: "read:user user:email",
+        },
+      },
     }),
   );
 }
@@ -191,8 +216,9 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account && (account.provider === "github" || account.provider === "google")) {
+        const provider = account.provider as Extract<ProviderName, "github" | "google">;
+
         if (AUTH_ENV.useMock) {
-          const provider = account.provider as Extract<ProviderName, "github" | "google">;
           const email =
             provider === "github" ? "github-user@codecat.dev" : "google-user@codecat.dev";
           const name = provider === "github" ? "GitHub User" : "Google User";
@@ -221,7 +247,26 @@ export const authOptions: NextAuthOptions = {
           return token;
         }
 
-        throw new Error("Backend OAuth is not connected yet");
+        const normalizedEmail =
+          user?.email?.trim().toLowerCase() || token.email?.trim().toLowerCase() || "";
+
+        if (!normalizedEmail) {
+          throw new Error(`OAuth provider "${provider}" did not return email`);
+        }
+
+        const data = buildOAuthSessionUser({
+          provider,
+          email: normalizedEmail,
+          name: user?.name ?? token.name,
+          id: user?.id ?? token.sub,
+        });
+
+        token.user = data.user;
+        token.accessToken = data.accessToken;
+        token.refreshToken = data.refreshToken;
+        token.provider = provider;
+
+        return token;
       }
 
       return token;
