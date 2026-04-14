@@ -52,6 +52,9 @@ html[data-theme="light"] {
 
   --sidebar-bg: #f4f3f8;
   --sidebar-text: #6a7285;
+
+  --loader-border: #0d1e3c;
+  --loader-inner: #2a4076;
 }
 
 html[data-theme="dark"] {
@@ -78,6 +81,9 @@ html[data-theme="dark"] {
 
   --sidebar-bg: #050b16;
   --sidebar-text: rgba(255, 255, 255, 0.85);
+
+  --loader-border: #f8fafc;
+  --loader-inner: #93aed8;
 }
 
 html,
@@ -136,4 +142,9 @@ input:-webkit-autofill:focus {
 .app-dashboard-lesson .ant-typography,
 .app-dashboard-result .ant-typography {
   color: var(--text-main) !important;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }

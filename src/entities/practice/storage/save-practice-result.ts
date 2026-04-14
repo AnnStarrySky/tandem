@@ -5,26 +5,36 @@ import {
 } from "./get-practice-progress";
 
 import type {
+  PracticeCompleteResult,
+  PracticeDifficulty,
   PracticeProgressResponse,
   SavePracticeResultPayload,
   SavePracticeResultResponse,
 } from "..";
+import type { TaskStatPost } from "@shared/types";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";
 }
+
+const NEXT_PUBLIC_USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 export async function savePracticeResult({
   topicId,
   difficulty,
   result,
   earnedPoints,
+  taskType,
 }: SavePracticeResultPayload): Promise<SavePracticeResultResponse> {
   if (!isBrowser()) {
     return {
       success: false,
       savedAt: new Date().toISOString(),
     };
+  }
+
+  if (!NEXT_PUBLIC_USE_MOCK) {
+    return savePracticeResultToBackend(topicId, difficulty, result, earnedPoints, taskType);
   }
 
   const progressData = await getPracticeProgress();
@@ -73,5 +83,41 @@ export async function savePracticeResult({
   return {
     success: true,
     savedAt: now,
+  };
+}
+
+async function savePracticeResultToBackend(
+  topicId: string,
+  difficulty: PracticeDifficulty,
+  result: PracticeCompleteResult,
+  earnedPoints: number,
+  taskType: string,
+): Promise<SavePracticeResultResponse> {
+  const taskPost: TaskStatPost = {
+    lessonName: topicId,
+    difficulty,
+    earnedPoints,
+    correctAnswers: result.correctAnswers,
+    wrongAnswers: result.wrongAnswers,
+    taskType,
+  };
+
+  const apiResult = await fetch(`/api/statistics/task`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(taskPost),
+  });
+
+  if (apiResult.ok) {
+    return {
+      success: true,
+      savedAt: new Date().toISOString(),
+    };
+  }
+  return {
+    success: false,
+    savedAt: new Date().toISOString(),
   };
 }
