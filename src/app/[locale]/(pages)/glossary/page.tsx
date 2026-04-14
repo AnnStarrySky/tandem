@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { Typography } from "antd";
 import { useTranslations, useLocale } from "next-intl";
 
-import { ServerError } from "@/shared/ui/errors";
+import { ServerError } from "@/widgets/errors";
 import { TopicList, TopicDescription, Topic } from "@/shared/ui/glossary";
 import { BaseBtn } from "@shared/ui/button";
 
-import Loading from "../../../../shared/ui/loading";
+import Loading from "../../loading";
 
 import type { ServerErrorInfo } from "@shared/types/";
 

@@ -10,7 +10,7 @@ import { BaseBtn } from "@/shared/ui/button";
 import { Icon } from "@/shared/ui/icon";
 import Loading from "@/shared/ui/loading";
 
-import { ServerError } from "../../shared/ui/errors";
+import { ServerError } from "@/shared/ui/errors";
 
 import { LessonCard } from "./LessonCard";
 
