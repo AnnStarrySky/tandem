@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getMessages } from "next-intl/server";
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -10,12 +8,11 @@ export async function GET(_request: NextRequest, { params }: Props): Promise<Res
   const { locale } = (await params) ?? "en";
 
   if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-    const messages = await getMessages({ locale });
-    return NextResponse.json(messages.Glossary.topics);
+    //TODO: mock logic for lessons if needed
   }
 
   const BACKEND_URL = process.env.BACKEND_URL;
-  const url = new URL(`/api/${locale}/glossary/topics`, BACKEND_URL);
+  const url = new URL(`/api/${locale}/lessons/`, BACKEND_URL);
 
   const response = await fetch(url);
 
