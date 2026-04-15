@@ -5,12 +5,10 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
-import { getTaskStats, getUserScore } from "@/entities/practice";
-import { getLevelByScore } from "@/entities/practice";
+import { getTaskStats, getUserScore, getLevelByScore, CatType } from "@/entities/practice";
 import { useRouter } from "@i18n";
 import { BaseBtn } from "@shared/ui/button";
 import { LevelImage } from "@shared/ui/mainImage";
-import { LessonWrapper } from "@shared/ui/paragraph";
 import { LessonBoard } from "@widgets/LessonsPlan";
 import { ProgressBar } from "@widgets/progress";
 import { ResultBar } from "@widgets/result";
@@ -21,7 +19,7 @@ export default function Dashboard() {
   const t = useTranslations("Dashboard");
   const router = useRouter();
   const [progress, setProgress] = useState(0);
-  const [level, setLevel] = useState({ level: 1, cat: "newbie" as const });
+  const [level, setLevel] = useState<{ level: number; cat: CatType }>({ level: 1, cat: "newbie" });
 
   useEffect(() => {
     getTaskStats()

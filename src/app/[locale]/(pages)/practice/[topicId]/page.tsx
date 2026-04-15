@@ -25,7 +25,6 @@ export default function PracticeTopicPage({ params }: Props) {
   const [topic, setTopic] = useState<PracticeTopic | null>(null);
   const [loading, setLoading] = useState(true);
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
-  const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
 
   const page = Number(searchParams.get("page") ?? "1");
 
@@ -44,10 +43,7 @@ export default function PracticeTopicPage({ params }: Props) {
         setTopic(data);
 
         const stats = await getPracticeStats();
-        if (mounted) {
-          setCompletedTasks(stats.completedTasks);
-          setCompletedTopics(stats.completedTopics);
-        }
+        if (mounted) setCompletedTasks(stats.completedTasks);
       } finally {
         if (mounted) {
           setLoading(false);
