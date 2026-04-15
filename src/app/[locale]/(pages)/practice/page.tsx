@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
 
-import { getPracticeData, type PracticeTopic } from "@/entities/practice";
+import { getPracticeData, getPracticeStats, type PracticeTopic } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
 import { Icon } from "@/shared/ui/icon";
@@ -24,6 +24,7 @@ export default function PracticePage() {
   const [topics, setTopics] = useState<PracticeTopic[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let mounted = true;
@@ -39,6 +40,9 @@ export default function PracticePage() {
 
         setTopics(data.topics);
         setError(null);
+
+        const stats = await getPracticeStats();
+        if (mounted) setCompletedTopics(stats.completedTopics);
       } catch (err) {
         if (!mounted) return;
 
@@ -105,7 +109,12 @@ export default function PracticePage() {
         <>
           <section className="grid auto-rows-[1fr] gap-6 md:grid-cols-2 xl:grid-cols-3">
             {currentTopics.map((topic) => (
-              <PracticeTopicCard key={topic.id} topic={topic} page={page} />
+              <PracticeTopicCard
+                key={topic.id}
+                topic={topic}
+                page={page}
+                completed={completedTopics?.has(topic.id)}
+              />
             ))}
           </section>
 

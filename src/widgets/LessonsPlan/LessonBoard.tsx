@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useTranslations, useLocale } from "next-intl";
 
-import { getPracticeTopicIdByLessonNumber } from "@/entities/practice";
+import { getPracticeTopicIdByLessonNumber, getPracticeStats } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
 import { ServerError } from "@/shared/ui/errors";
@@ -25,6 +25,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
   const [topics, setTopics] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<ServerErrorInfo | null>(null);
+  const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     async function fetchData() {
@@ -40,6 +41,10 @@ export const LessonBoard = ({ className }: { className?: string }) => {
       } else {
         setError({ codeNumber: response.status, errorMessage: response.statusText });
       }
+
+      const stats = await getPracticeStats();
+      setCompletedTopics(stats.completedTopics);
+
       setLoading(false);
     }
     fetchData();
@@ -65,7 +70,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
             key={topic.id}
             lessonNumber={topic.id}
             title={topic.title}
-            completed={false}
+            completed={completedTopics?.has(getPracticeTopicIdByLessonNumber(topic.id) ?? "")}
             practiceTopicId={getPracticeTopicIdByLessonNumber(topic.id)}
           />
         ))}

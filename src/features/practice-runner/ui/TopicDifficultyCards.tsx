@@ -3,12 +3,15 @@
 import { useTranslations } from "next-intl";
 
 import type { PracticeDifficulty, PracticeTopic } from "@/entities/practice";
+import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
+import { Icon } from "@/shared/ui/icon";
 import { useRouter } from "@i18n";
 
 type Props = {
   topic: PracticeTopic;
   page?: number;
+  completedTasks?: Set<string>;
 };
 
 const DIFFICULTY_POINTS: Record<PracticeDifficulty, number> = {
@@ -17,7 +20,7 @@ const DIFFICULTY_POINTS: Record<PracticeDifficulty, number> = {
   hard: 30,
 };
 
-export function TopicDifficultyCards({ topic, page }: Props) {
+export function TopicDifficultyCards({ topic, page, completedTasks }: Props) {
   const t = useTranslations("Practice");
   const router = useRouter();
 
@@ -57,7 +60,10 @@ export function TopicDifficultyCards({ topic, page }: Props) {
       {difficulties.map((difficultyItem) => (
         <article
           key={difficultyItem.id}
-          className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-white/5"
+          className={cn(
+            "flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-white/5",
+            completedTasks?.has(`${topic.id}:${difficultyItem.id}`) && "opacity-50",
+          )}
         >
           <div className="flex flex-1 flex-col">
             <div className="mb-3 flex items-start justify-between gap-3">
@@ -66,7 +72,11 @@ export function TopicDifficultyCards({ topic, page }: Props) {
               </h2>
 
               <div className="shrink-0 rounded-full bg-linear-to-r from-[#13b2f6] to-[#84f59b] px-3 py-1 text-xs font-semibold text-white shadow-md">
-                +{difficultyItem.points}
+                {completedTasks?.has(`${topic.id}:${difficultyItem.id}`) ? (
+                  <Icon name="check" size={12} color="white" />
+                ) : (
+                  <>+{difficultyItem.points}</>
+                )}
               </div>
             </div>
 
