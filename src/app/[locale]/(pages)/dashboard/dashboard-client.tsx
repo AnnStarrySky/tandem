@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
-import { getTaskStats } from "@/entities/practice";
+import { getTaskStats, getUserScore } from "@/entities/practice";
+import { getLevelByScore } from "@/entities/practice";
 import { useRouter } from "@i18n";
 import { BaseBtn } from "@shared/ui/button";
 import { LevelImage } from "@shared/ui/mainImage";
@@ -20,12 +21,17 @@ export default function Dashboard() {
   const t = useTranslations("Dashboard");
   const router = useRouter();
   const [progress, setProgress] = useState(0);
+  const [level, setLevel] = useState({ level: 1, cat: "newbie" as const });
 
   useEffect(() => {
     getTaskStats()
       .then(({ completedTasks }) => {
         setProgress(Math.round((completedTasks / TOTAL_TASKS) * 100));
       })
+      .catch(() => {});
+
+    getUserScore()
+      .then(({ score }) => setLevel(getLevelByScore(score)))
       .catch(() => {});
   }, []);
 
@@ -49,7 +55,7 @@ export default function Dashboard() {
         </div>
 
         <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
-          <LevelImage typeCat="newbie" alt="newbie" levelNumber={1} />
+          <LevelImage typeCat={level.cat} alt={level.cat} levelNumber={level.level} />
         </div>
       </div>
 

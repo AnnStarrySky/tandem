@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getTaskStats } from "@/entities/practice";
+import { getTaskStats, getUserScore } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 
 import { CompletedTasks } from "./CompletedTasks";
@@ -15,10 +15,19 @@ type Props = {
 
 export const ResultBar = ({ className }: Props) => {
   const [completedTasks, setCompletedTasks] = useState(0);
+  const [score, setScore] = useState(0);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     getTaskStats()
       .then((stats) => setCompletedTasks(stats.completedTasks))
+      .catch(() => {});
+
+    getUserScore()
+      .then(({ score: s, userRating }) => {
+        setScore(s);
+        setRating(userRating);
+      })
       .catch(() => {});
   }, []);
 
@@ -29,8 +38,8 @@ export const ResultBar = ({ className }: Props) => {
         className,
       )}
     >
-      <TotalScore score={0} />
-      <RatingScore rating={1} />
+      <TotalScore score={score} />
+      <RatingScore rating={rating} />
       <CompletedTasks tasks={completedTasks} />
     </div>
   );

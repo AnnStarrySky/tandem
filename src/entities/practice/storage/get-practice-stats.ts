@@ -25,9 +25,9 @@ export async function getPracticeStats(): Promise<PracticeStatsResult> {
   }
 
   const completedTopics = new Set<string>();
-  const topicIds = new Set(stats.map((t) => t.lessonName));
 
-  for (const topicId of topicIds) {
+  for (const key of completedTasks) {
+    const topicId = key.split(":")[0];
     if (DIFFICULTIES.every((d) => completedTasks.has(`${topicId}:${d}`))) {
       completedTopics.add(topicId);
     }
