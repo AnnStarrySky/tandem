@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import { getTaskStats } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 
 import { CompletedTasks } from "./CompletedTasks";
@@ -9,6 +14,14 @@ type Props = {
 };
 
 export const ResultBar = ({ className }: Props) => {
+  const [completedTasks, setCompletedTasks] = useState(0);
+
+  useEffect(() => {
+    getTaskStats()
+      .then((stats) => setCompletedTasks(stats.completedTasks))
+      .catch(() => {});
+  }, []);
+
   return (
     <div
       className={cn(
@@ -18,7 +31,7 @@ export const ResultBar = ({ className }: Props) => {
     >
       <TotalScore score={0} />
       <RatingScore rating={1} />
-      <CompletedTasks tasks={0} />
+      <CompletedTasks tasks={completedTasks} />
     </div>
   );
 };

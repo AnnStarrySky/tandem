@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
 
-import { getPracticeTopic, type PracticeTopic } from "@entities/practice";
+import { getPracticeTopic, getPracticeStats, type PracticeTopic } from "@entities/practice";
 import { TopicDifficultyCards } from "@features/practice-runner";
 
 type Props = {
@@ -24,6 +24,8 @@ export default function PracticeTopicPage({ params }: Props) {
 
   const [topic, setTopic] = useState<PracticeTopic | null>(null);
   const [loading, setLoading] = useState(true);
+  const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
+  const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
 
   const page = Number(searchParams.get("page") ?? "1");
 
@@ -40,6 +42,12 @@ export default function PracticeTopicPage({ params }: Props) {
         if (!mounted) return;
 
         setTopic(data);
+
+        const stats = await getPracticeStats();
+        if (mounted) {
+          setCompletedTasks(stats.completedTasks);
+          setCompletedTopics(stats.completedTopics);
+        }
       } finally {
         if (mounted) {
           setLoading(false);
@@ -76,7 +84,7 @@ export default function PracticeTopicPage({ params }: Props) {
         </p>
       </section>
 
-      <TopicDifficultyCards topic={topic} page={page} />
+      <TopicDifficultyCards topic={topic} page={page} completedTasks={completedTasks} />
     </div>
   );
 }
