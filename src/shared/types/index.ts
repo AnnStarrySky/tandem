@@ -3,3 +3,4 @@ export * from "./profile";
 export * from "./settings";
 export * from "./errors";
 export * from "./statistics";
+export * from "./lessons";
