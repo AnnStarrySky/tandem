@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useTranslations, useLocale } from "next-intl";
 
-import { getPracticeTopicIdByLessonNumber, getPracticeStats } from "@/entities/practice";
+import { getPracticeStats } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
 import { ServerError } from "@/shared/ui/errors";
