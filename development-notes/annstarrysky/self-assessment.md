@@ -12,7 +12,7 @@ During the process, I actively learned new technologies (React, Next.js, Ant Des
 |---------------------|-------------------------------------------------------------------------------------------------------------|--------|----|
 | **My Components**   | Complex Component — Dashboard: user statistics display (progress, XP, rating, topics)                      | +25    | [#101](https://github.com/AnnStarrySky/tandem/pull/101), [#94](https://github.com/AnnStarrySky/tandem/pull/94) |
 | **My Components**   | Complex Component — Glossary: short reference of all training lessons                                      | +25    | [#54](https://github.com/AnnStarrySky/tandem/pull/54) |
-| **UI & Interaction** | Advanced Animations — animations in level table                                                               | +10    | [#86](https://github.com/AnnStarrySky/tandem/pull/86) |
+| **UI & Interaction** | Advanced Animations — animations in Level Table                                                               | +10    | [#86](https://github.com/AnnStarrySky/tandem/pull/86) |
 | **UI & Interaction** | i18n — language switching, locale-aware navigation, translation integration in components                  | +10    | [#41](https://github.com/AnnStarrySky/tandem/pull/41) |
 | **UI & Interaction** | Responsive — layout adaptation for mobile devices (from 320px)                                           | +5     | [#66](https://github.com/AnnStarrySky/tandem/pull/66) |
 | **UI & Interaction** | Code Editor — integration of Monaco Editor into Glossary                                            | +15    |  |
@@ -20,4 +20,4 @@ During the process, I actively learned new technologies (React, Next.js, Ant Des
 | **Frameworks**      | React — usage of React library                                                                              | +10    |  |
 | **Frameworks**      | Meta-Framework — SSR/SSG/ISR using Next.js                                                                 | +10    |  |
 
-**Total: 110 points**
+**Total: 115 points**
