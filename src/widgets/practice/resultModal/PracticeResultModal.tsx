@@ -18,6 +18,7 @@ type Props = {
   maxPoints: number;
   onRetry: () => void;
   onNextLevel?: () => void;
+  onBackToPractice?: () => void;
   onClose?: () => void;
 };
 
@@ -38,6 +39,7 @@ export function PracticeResultModal({
   maxPoints,
   onRetry,
   onNextLevel,
+  onBackToPractice,
   onClose,
 }: Props) {
   const t = useTranslations("Practice");
@@ -88,6 +90,9 @@ export function PracticeResultModal({
       window.clearTimeout(timer);
     };
   }, [open, onClose]);
+
+  const showNextLevel = Boolean(onNextLevel);
+  const showBackToPractice = !showNextLevel && Boolean(onBackToPractice);
 
   return (
     <AnimatePresence>
@@ -194,9 +199,19 @@ export function PracticeResultModal({
                     {t("tryAgain")}
                   </BaseBtn>
 
-                  {onNextLevel ? (
+                  {showNextLevel ? (
                     <BaseBtn onClick={onNextLevel} className="max-w-none flex-1" fullWidth>
                       {t("nextLevel")}
+                    </BaseBtn>
+                  ) : null}
+
+                  {showBackToPractice ? (
+                    <BaseBtn
+                      onClick={onBackToPractice}
+                      className="max-w-none flex-1 bg-gradient-to-r from-[#13b2f6] to-[#84f59b] text-white"
+                      fullWidth
+                    >
+                      {t("backToPractice")}
                     </BaseBtn>
                   ) : null}
                 </div>
