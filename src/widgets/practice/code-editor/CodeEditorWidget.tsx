@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 
 import dynamic from "next/dynamic";
-import { usePathname, useRouter } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 
@@ -13,6 +12,7 @@ import type {
   PracticeCompleteResult,
 } from "@/entities/practice";
 import { BaseBtn } from "@/shared/ui/button";
+import { usePathname, useRouter } from "@i18n";
 
 import {
   calculateEarnedPoints,
@@ -134,6 +134,10 @@ export function CodeEditorWidget({ task, onComplete }: Props) {
     }
   }
 
+  function handleBackToPractice() {
+    router.push("/practice");
+  }
+
   function handleEditorWillMount(monaco: typeof import("monaco-editor")) {
     monaco.editor.defineTheme("codecat-arcade", {
       base: "vs-dark",
@@ -246,10 +250,10 @@ export function CodeEditorWidget({ task, onComplete }: Props) {
           isSubmitted ? (
             <div
               className={[
-                "rounded-2xl p-4 text-sm shadow-[0_8px_18px_rgba(0,0,0,0.10)]",
+                "rounded-2xl p-4 text-sm font-semibold shadow-[0_12px_28px_rgba(0,0,0,0.16)]",
                 isCurrentCorrect
-                  ? "border border-[#84f59b]/45 bg-[rgba(132,245,155,0.18)] text-[#ecfff1]"
-                  : "border border-[#ff6b81]/45 bg-[rgba(255,107,129,0.18)] text-[#ffe9ee]",
+                  ? "practice-status-correct practice-answer-glow-correct"
+                  : "practice-status-wrong practice-answer-shake",
               ].join(" ")}
             >
               {isCurrentCorrect ? t("solutionAccepted") : t("solutionMismatchHelp")}
@@ -297,6 +301,7 @@ export function CodeEditorWidget({ task, onComplete }: Props) {
         maxPoints={task.points}
         onRetry={handleRetry}
         onNextLevel={nextHref ? handleNextLevel : undefined}
+        onBackToPractice={!nextHref ? handleBackToPractice : undefined}
         onClose={handleRetry}
       />
     </>
