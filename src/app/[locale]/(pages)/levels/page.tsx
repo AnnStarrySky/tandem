@@ -56,7 +56,6 @@ export default function LevelsPage() {
         <Typography.Text style={{ color: "#6a7285" }}>{t("subtitle")}</Typography.Text>
       </div>
 
-      {/* Картинки котов */}
       <div className="flex flex-col items-center gap-6 overflow-hidden sm:flex-row sm:flex-wrap sm:justify-center">
         {LEVELS.map(({ level, cat, translateY }, i) => (
           <div
@@ -78,7 +77,6 @@ export default function LevelsPage() {
         ))}
       </div>
 
-      {/* Типы задач */}
       <div className="rounded-lg border border-[var(--card-border)] bg-[var(--input-bg)] p-5 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]">
         <Typography.Title level={4} style={{ margin: "0 0 12px", color: "var(--text-main)" }}>
           {t("taskTypes")}
@@ -99,7 +97,6 @@ export default function LevelsPage() {
         </div>
       </div>
 
-      {/* Карточки порогов */}
       <div className="flex flex-col gap-2">
         <Typography.Title level={4} style={{ margin: "0 0 8px", color: "var(--text-main)" }}>
           {t("levels")}

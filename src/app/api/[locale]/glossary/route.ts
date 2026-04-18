@@ -15,7 +15,7 @@ export async function GET(_request: NextRequest, { params }: Props): Promise<Res
   }
 
   const BACKEND_URL = process.env.BACKEND_URL;
-  const url = new URL(`/api/glossary/topics/${locale}`, BACKEND_URL);
+  const url = new URL(`/api/${locale}/glossary/topics`, BACKEND_URL);
 
   const response = await fetch(url);
 

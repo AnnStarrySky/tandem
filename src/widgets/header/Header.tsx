@@ -79,7 +79,6 @@ export const Header = ({ className }: HeaderProps) => {
 
   return (
     <>
-      {/* Desktop: вертикальный сайдбар */}
       <header
         className={cn(
           "hidden min-h-screen w-[300px] flex-col items-start gap-2 rounded-tl-lg rounded-bl-lg bg-[#fefefe] p-3 sm:p-4 md:flex md:p-5",
@@ -97,9 +96,7 @@ export const Header = ({ className }: HeaderProps) => {
         {navLinks}
       </header>
 
-      {/* Mobile */}
       <div className="relative md:hidden">
-        {/* Затемнение фона */}
         <div
           onClick={close}
           className={cn(
@@ -108,7 +105,6 @@ export const Header = ({ className }: HeaderProps) => {
           )}
         />
 
-        {/* Горизонтальная полоса */}
         <header
           className="relative z-50 flex items-center justify-between rounded-t-lg p-3"
           style={{ background: "var(--sidebar-bg)" }}
@@ -139,7 +135,6 @@ export const Header = ({ className }: HeaderProps) => {
           </button>
         </header>
 
-        {/* Выезжающая панель */}
         <div
           className={cn(
             "absolute right-0 left-0 z-50 overflow-hidden rounded-b-lg transition-all duration-500 ease-in-out",
