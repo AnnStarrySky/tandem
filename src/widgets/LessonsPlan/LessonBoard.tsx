@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useTranslations, useLocale } from "next-intl";
 
-import { getPracticeStats } from "@/entities/practice";
+import { getPracticeTopicIdByLessonNumber, getPracticeStats } from "@/entities/practice";
 import { cn } from "@/shared/lib";
 import { BaseBtn } from "@/shared/ui/button";
 import { ServerError } from "@/shared/ui/errors";
@@ -67,11 +67,11 @@ export const LessonBoard = ({ className }: { className?: string }) => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {currentTopics.map((lesson: Lesson) => (
           <LessonCard
-            key={lesson.id}
-            lessonNumber={lesson.lessonNumber}
-            title={lesson.title}
-            completed={completedTopics?.has(lesson.name)}
-            practiceTopicId={lesson.name}
+            key={topic.id}
+            lessonNumber={topic.id}
+            title={topic.title}
+            completed={completedTopics?.has(getPracticeTopicIdByLessonNumber(topic.id) ?? "")}
+            practiceTopicId={getPracticeTopicIdByLessonNumber(topic.id)}
           />
         ))}
       </div>

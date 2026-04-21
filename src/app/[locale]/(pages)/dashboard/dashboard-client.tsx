@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
@@ -33,6 +32,28 @@ export default function Dashboard() {
       .catch(() => {});
   }, []);
 
+  const [data, setData] = useState({
+    progress: 0,
+    completedTasks: 0,
+    score: 0,
+    rating: 0,
+    level: { level: 1, cat: "newbie" as CatType },
+  });
+
+  useEffect(() => {
+    Promise.all([getTaskStats(), getUserScore()])
+      .then(([{ completedTasks }, { score, userRating }]) => {
+        setData({
+          completedTasks,
+          score,
+          rating: userRating,
+          progress: Math.round((completedTasks / TOTAL_TASKS) * 100),
+          level: getLevelByScore(score),
+        });
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <section className="app-dashboard-page flex flex-col gap-8 text-(--text-main)">
       <div className="flex w-full flex-col justify-between gap-8 lg:flex-row">
@@ -41,7 +62,7 @@ export default function Dashboard() {
             {t("dashboardTitle")}
           </Typography.Title>
 
-          <ProgressBar progress={progress} />
+          <ProgressBar progress={data.progress} />
 
           <BaseBtn
             variant="primary"
@@ -52,14 +73,16 @@ export default function Dashboard() {
           </BaseBtn>
         </div>
 
-        <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
-          <LevelImage typeCat={level.cat} alt={level.cat} levelNumber={level.level} />
+        <div className="hidden md:flex lg:w-auto">
+          <LevelImage
+            typeCat={data.level.cat}
+            alt={data.level.cat}
+            levelNumber={data.level.level}
+          />
         </div>
       </div>
 
-      <div className="app-dashboard-result">
-        <ResultBar />
-      </div>
+      <ResultBar score={data.score} rating={data.rating} completedTasks={data.completedTasks} />
 
       <LessonBoard />
     </section>

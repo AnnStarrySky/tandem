@@ -19,7 +19,7 @@ export async function getPracticeStats(): Promise<PracticeStatsResult> {
 
   for (const task of stats) {
     const total = task.correctAnswers + task.wrongAnswers;
-    if (total > 0 && task.correctAnswers / total > 0.7) {
+    if (total > 0 && task.correctAnswers / total >= 0.7) {
       completedTasks.add(`${task.lessonName}:${task.difficulty}`);
     }
   }

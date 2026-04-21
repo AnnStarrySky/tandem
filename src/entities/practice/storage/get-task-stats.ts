@@ -15,7 +15,7 @@ export async function getTaskStats(): Promise<CompletedTasksResult> {
 
   const completedTasks = stats.filter((task) => {
     const total = task.correctAnswers + task.wrongAnswers;
-    return total > 0 && task.correctAnswers / total > 0.7;
+    return total > 0 && task.correctAnswers / total >= 0.7;
   }).length;
 
   return { completedTasks };
