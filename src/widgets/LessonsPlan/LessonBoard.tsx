@@ -13,7 +13,7 @@ import Loading from "@/shared/ui/loading";
 
 import { LessonCard } from "./LessonCard";
 
-import type { ServerErrorInfo } from "@shared/types/";
+import type { Lesson, ServerErrorInfo } from "@shared/types/";
 
 const PAGE_SIZE = 9;
 
@@ -22,14 +22,14 @@ export const LessonBoard = ({ className }: { className?: string }) => {
   const locale = useLocale();
 
   const [page, setPage] = useState(1);
-  const [topics, setTopics] = useState([]);
+  const [lessons, setLessons] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<ServerErrorInfo | null>(null);
   const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/${locale}/glossary`, {
+      const response = await fetch(`/api/${locale}/lessons`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -37,7 +37,7 @@ export const LessonBoard = ({ className }: { className?: string }) => {
       });
 
       if (response.ok) {
-        setTopics(await response.json());
+        setLessons(await response.json());
       } else {
         setError({ codeNumber: response.status, errorMessage: response.statusText });
       }
@@ -56,16 +56,16 @@ export const LessonBoard = ({ className }: { className?: string }) => {
     return <ServerError serverErrorInfo={error} />;
   }
 
-  const totalPages = Math.max(1, Math.ceil(topics.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(lessons.length / PAGE_SIZE));
   const start = (page - 1) * PAGE_SIZE;
-  const currentTopics = topics.slice(start, start + PAGE_SIZE);
+  const currentTopics = lessons.slice(start, start + PAGE_SIZE);
 
   return (
     <div className={cn("flex flex-col gap-6", className)}>
       <h3 className="text-xl font-medium text-[var(--text-main)]">{translate("studyplan")}</h3>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-        {currentTopics.map((topic: any) => (
+        {currentTopics.map((lesson: Lesson) => (
           <LessonCard
             key={topic.id}
             lessonNumber={topic.id}

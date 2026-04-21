@@ -2,8 +2,6 @@
 
 import { useMemo, useState } from "react";
 
-import { usePathname, useRouter } from "next/navigation";
-
 import { useTranslations } from "next-intl";
 
 import type {
@@ -12,8 +10,14 @@ import type {
   PracticeCompleteResult,
 } from "@/entities/practice";
 import { BaseBtn } from "@/shared/ui/button";
+import { usePathname, useRouter } from "@i18n";
 
-import { calculateEarnedPoints, getNextDifficultyHref, getProgressPercent } from "../lib";
+import {
+  calculateEarnedPoints,
+  getNextDifficultyHref,
+  getProgressPercent,
+  shuffleArray,
+} from "../lib";
 import { PracticeResultModal } from "../resultModal";
 import { PracticeTaskLayout } from "../task-layout";
 
@@ -32,17 +36,27 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
   const [lockedQuestions, setLockedQuestions] = useState<Record<string, boolean>>({});
   const [showHelp, setShowHelp] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [retrySeed, setRetrySeed] = useState(0);
 
-  const total = task.questions.length;
-  const currentQuestion = task.questions[currentQuestionIndex];
+  const shuffledQuestions = useMemo(() => {
+    void retrySeed;
+
+    return task.questions.map((question) => ({
+      ...question,
+      options: shuffleArray([...question.options]),
+    }));
+  }, [task.questions, retrySeed]);
+
+  const total = shuffledQuestions.length;
+  const currentQuestion = shuffledQuestions[currentQuestionIndex];
   const selectedAnswer = answers[currentQuestion.id];
   const isLocked = Boolean(lockedQuestions[currentQuestion.id]);
 
   const score = useMemo(() => {
-    return task.questions.reduce((acc, question) => {
+    return shuffledQuestions.reduce((acc, question) => {
       return answers[question.id] === question.correctAnswer ? acc + 1 : acc;
     }, 0);
-  }, [answers, task.questions]);
+  }, [answers, shuffledQuestions]);
 
   const correctAnswers = score;
   const wrongAnswers = total - correctAnswers;
@@ -96,12 +110,17 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
     setLockedQuestions({});
     setShowHelp(false);
     setFinished(false);
+    setRetrySeed((prev) => prev + 1);
   }
 
   function handleNextLevel() {
     if (nextHref) {
       router.push(nextHref);
     }
+  }
+
+  function handleBackToPractice() {
+    router.push("/practice");
   }
 
   function renderAnswerButton(question: CodeCompletionQuestion, option: string) {
@@ -118,15 +137,10 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
         className={[
           "w-full rounded-[18px] border px-4 py-3 text-left transition-all duration-200",
           "text-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]",
-          selected
-            ? "border-[#8ff7ad] bg-[rgba(143,247,173,0.18)] shadow-[0_0_0_1px_rgba(143,247,173,0.25),0_10px_22px_rgba(143,247,173,0.12)]"
-            : "border-white/10 bg-[rgba(255,255,255,0.08)]",
-          correct
-            ? "border-[#8ff7ad] bg-[rgba(143,247,173,0.24)] shadow-[0_0_0_1px_rgba(143,247,173,0.28),0_12px_26px_rgba(143,247,173,0.14)]"
-            : "",
-          wrong
-            ? "border-[#ff6b81] bg-[rgba(255,107,129,0.22)] shadow-[0_0_0_1px_rgba(255,107,129,0.30),0_12px_26px_rgba(255,107,129,0.12)]"
-            : "",
+          "border-white/10 bg-[rgba(255,255,255,0.08)]",
+          selected && !isLocked ? "practice-answer-selected" : "",
+          correct ? "practice-answer-correct practice-answer-glow-correct" : "",
+          wrong ? "practice-answer-wrong practice-answer-shake practice-answer-glow-wrong" : "",
           !isLocked ? "hover:-translate-y-0.5 hover:border-white/30" : "",
           isLocked ? "cursor-default" : "cursor-pointer",
         ].join(" ")}
@@ -134,18 +148,17 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
         <div className="flex items-center gap-4">
           <div
             className={[
-              "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold",
-              selected
-                ? "border-[#8ff7ad] bg-[rgba(143,247,173,0.18)] text-white"
-                : "border-white/20 text-white/80",
-              correct ? "border-[#8ff7ad] bg-[rgba(143,247,173,0.24)] text-white" : "",
-              wrong ? "border-[#ff6b81] bg-[rgba(255,107,129,0.20)] text-white" : "",
+              "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-bold",
+              "border-white/20 text-white/80",
+              selected && !isLocked ? "bg-cyan-400/20 text-white" : "",
+              correct ? "practice-answer-badge-correct" : "",
+              wrong ? "practice-answer-badge-wrong" : "",
             ].join(" ")}
           >
-            {question.options.indexOf(option) + 1}
+            {correct ? "✓" : wrong ? "✕" : question.options.indexOf(option) + 1}
           </div>
 
-          <span className="text-[15px] font-medium">{option}</span>
+          <span className="text-[15px] font-semibold">{option}</span>
         </div>
       </button>
     );
@@ -199,10 +212,10 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
           isLocked ? (
             <div
               className={[
-                "rounded-2xl p-4 text-sm shadow-[0_8px_18px_rgba(0,0,0,0.10)]",
+                "rounded-2xl p-4 text-sm font-semibold shadow-[0_12px_28px_rgba(0,0,0,0.16)]",
                 selectedAnswer === currentQuestion.correctAnswer
-                  ? "border border-[#84f59b]/45 bg-[rgba(132,245,155,0.18)] text-[#ecfff1]"
-                  : "border border-[#ff6b81]/45 bg-[rgba(255,107,129,0.18)] text-[#ffe9ee]",
+                  ? "practice-status-correct practice-answer-glow-correct"
+                  : "practice-status-wrong practice-answer-shake",
               ].join(" ")}
             >
               {selectedAnswer === currentQuestion.correctAnswer
@@ -243,6 +256,7 @@ export function CodeCompletionWidget({ task, onComplete }: Props) {
         maxPoints={task.points}
         onRetry={handleRetry}
         onNextLevel={nextHref ? handleNextLevel : undefined}
+        onBackToPractice={!nextHref ? handleBackToPractice : undefined}
         onClose={handleRetry}
       />
     </>
