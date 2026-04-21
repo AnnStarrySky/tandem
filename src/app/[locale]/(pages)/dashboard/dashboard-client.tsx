@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 
@@ -18,19 +17,27 @@ const TOTAL_TASKS = 90;
 export default function Dashboard() {
   const t = useTranslations("Dashboard");
   const router = useRouter();
-  const [progress, setProgress] = useState(0);
-  const [level, setLevel] = useState<{ level: number; cat: CatType }>({ level: 1, cat: "newbie" });
+
+  const [data, setData] = useState({
+    progress: 0,
+    completedTasks: 0,
+    score: 0,
+    rating: 0,
+    level: { level: 1, cat: "newbie" as CatType },
+  });
 
   useEffect(() => {
-    getTaskStats()
-      .then(({ completedTasks }) => {
-        setProgress(Math.round((completedTasks / TOTAL_TASKS) * 100));
+    Promise.all([getTaskStats(), getUserScore()])
+      .then(([{ completedTasks }, { score, userRating }]) => {
+        setData({
+          completedTasks,
+          score,
+          rating: userRating,
+          progress: Math.round((completedTasks / TOTAL_TASKS) * 100),
+          level: getLevelByScore(score),
+        });
       })
-      .catch(() => {});
-
-    getUserScore()
-      .then(({ score }) => setLevel(getLevelByScore(score)))
-      .catch(() => {});
+      .catch(console.error);
   }, []);
 
   return (
@@ -41,7 +48,7 @@ export default function Dashboard() {
             {t("dashboardTitle")}
           </Typography.Title>
 
-          <ProgressBar progress={progress} />
+          <ProgressBar progress={data.progress} />
 
           <BaseBtn
             variant="primary"
@@ -52,14 +59,16 @@ export default function Dashboard() {
           </BaseBtn>
         </div>
 
-        <div className="hidden w-full justify-center md:flex lg:w-auto lg:justify-start">
-          <LevelImage typeCat={level.cat} alt={level.cat} levelNumber={level.level} />
+        <div className="hidden md:flex lg:w-auto">
+          <LevelImage
+            typeCat={data.level.cat}
+            alt={data.level.cat}
+            levelNumber={data.level.level}
+          />
         </div>
       </div>
 
-      <div className="app-dashboard-result">
-        <ResultBar />
-      </div>
+      <ResultBar score={data.score} rating={data.rating} completedTasks={data.completedTasks} />
 
       <LessonBoard />
     </section>

@@ -15,10 +15,9 @@ const LEVELS: Level[] = [
 ];
 
 export function getLevelByScore(score: number): Level {
-  for (let i = LEVELS.length - 1; i >= 0; i--) {
-    if (score >= LEVELS[i].minScore) {
-      return LEVELS[i];
-    }
-  }
-  return LEVELS[0];
+  return (
+    LEVELS.slice()
+      .reverse()
+      .find((l) => score >= l.minScore) || LEVELS[0]
+  );
 }
