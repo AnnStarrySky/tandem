@@ -67,11 +67,11 @@ export const LessonBoard = ({ className }: { className?: string }) => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {currentTopics.map((lesson: Lesson) => (
           <LessonCard
-            key={topic.id}
-            lessonNumber={topic.id}
-            title={topic.title}
-            completed={completedTopics?.has(getPracticeTopicIdByLessonNumber(topic.id) ?? "")}
-            practiceTopicId={getPracticeTopicIdByLessonNumber(topic.id)}
+            key={lesson.id}
+            lessonNumber={lesson.id}
+            title={lesson.title}
+            completed={completedTopics?.has(getPracticeTopicIdByLessonNumber(lesson.id) ?? "")}
+            practiceTopicId={getPracticeTopicIdByLessonNumber(lesson.id)}
           />
         ))}
       </div>
