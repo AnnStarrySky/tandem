@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { useLocaleSwitch } from "@shared/lib/hooks";
 import { BaseBtn } from "@shared/ui/button";
 
 import { usePreferencesForm } from "../model";
@@ -38,6 +39,8 @@ function RenderToggleButton({
 
 export function SettingsPreferencesForm() {
   const t = useTranslations("Settings");
+  const { locale } = useLocaleSwitch();
+
   const {
     mounted,
     settings,
@@ -71,14 +74,14 @@ export function SettingsPreferencesForm() {
           <div className="flex flex-wrap gap-3">
             <RenderToggleButton
               label="EN"
-              active={settings.language === "en"}
+              active={locale === "en"}
               onClick={() => handleLanguageChange("en")}
               soundIgnore
             />
 
             <RenderToggleButton
               label="RU"
-              active={settings.language === "ru"}
+              active={locale === "ru"}
               onClick={() => handleLanguageChange("ru")}
               soundIgnore
             />

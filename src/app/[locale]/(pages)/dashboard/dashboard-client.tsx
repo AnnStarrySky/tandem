@@ -17,6 +17,20 @@ const TOTAL_TASKS = 90;
 export default function Dashboard() {
   const t = useTranslations("Dashboard");
   const router = useRouter();
+  const [progress, setProgress] = useState(0);
+  const [level, setLevel] = useState<{ level: number; cat: CatType }>({ level: 1, cat: "newbie" });
+
+  useEffect(() => {
+    getTaskStats()
+      .then(({ completedTasks }) => {
+        setProgress(Math.round((completedTasks / TOTAL_TASKS) * 100));
+      })
+      .catch(() => {});
+
+    getUserScore()
+      .then(({ score }) => setLevel(getLevelByScore(score)))
+      .catch(() => {});
+  }, []);
 
   const [data, setData] = useState({
     progress: 0,
