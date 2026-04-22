@@ -21,6 +21,8 @@ It offers levels from easy to advanced, a glossary of terms, gamified practice, 
 
 ## DEMO-video
 
+- https://youtu.be/yf5TQrXvOPQ?si=puk44Rpz1MJ3tRi3
+
 ---
 
 ## What we are proud of
