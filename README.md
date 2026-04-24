@@ -86,10 +86,11 @@ Create a `.env` file in your project root with the following variables:
 
 ### Authentication Configuration
 
-| Variable          | Description                           | Example                     |
-| ----------------- | ------------------------------------- | --------------------------- |
-| `NEXTAUTH_URL`    | Base URL of your application          | `http://localhost:3000`     |
-| `NEXTAUTH_SECRET` | Secret key for NextAuth.js encryption | `AnySuperSecretString12345` |
+| Variable                        | Description                           | Example                     |
+| ------------------------------- | ------------------------------------- | --------------------------- |
+| `NEXTAUTH_URL`                  | Base URL of your application          | `http://localhost:3000`     |
+| `NEXTAUTH_SECRET`               | Secret key for NextAuth.js encryption | `AnySuperSecretString12345` |
+| `NEXT_PUBLIC_ENCRYPTION_SECRET` | Secret key for encryption service     | `AnySuperSecretString54321` |
 
 ### Backend Configuration
 
@@ -99,9 +100,10 @@ Create a `.env` file in your project root with the following variables:
 
 ### Development Options
 
-| Variable        | Description                         | Default |
-| --------------- | ----------------------------------- | ------- |
-| `AUTH_USE_MOCK` | Use mock authentication for testing | `false` |
+| Variable               | Description                         | Default |
+| ---------------------- | ----------------------------------- | ------- |
+| `AUTH_USE_MOCK`        | Use mock authentication for testing | `false` |
+| `NEXT_PUBLIC_USE_MOCK` | Use mock data in components         | `false` |
 
 ## Optional Environment Variables
 
